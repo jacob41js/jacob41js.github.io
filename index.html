@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reading Notes</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --text-color: #333;
+            --link-color: #3498db;
+            --background-color: #f5f6fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 1rem;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+        }
+
+        nav a:hover {
+            background-color: var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .reading-list {
+            margin: 2rem 0;
+        }
+
+        .reading-list h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .book-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .book-list li {
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .book-list a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        .book-list a:hover {
+            text-decoration: underline;
+        }
+
+        .book-metadata {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#top">Home</a></li>
+            <li><a href="philosophy.html">Philosophy</a></li>
+            <li><a href="fiction.html">Fiction</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="science.html">Science</a></li>
+            <li><a href="siberia.html">Siberia</a></li>
+            <li><a href="general.html">General Non-Fiction</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>My Reading Notes</h1>
+        
+        <div class="reading-list">
+            <h2>Philosophy</h2>
+            <ul class="book-list">
+                <li>
+                    <a href="books/book-note-template">The Republic - Plato</a>
+                    <div class="book-metadata">Read: January 2024</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="reading-list">
+            <h2>Fiction</h2>
+            <ul class="book-list">
+                <li>
+                    <a href="books/brothers-karamazov.html">The Brothers Karamazov - Fyodor Dostoevsky</a>
+                    <div class="book-metadata">Read: December 2023</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="reading-list">
+            <h2>History</h2>
+            <ul class="book-list">
+                <li>
+                    <a href="books/thomas-jefferson">Thomas Jefferson - The Art of Power</a>
+                    <div class="book-metadata">Read: January 2024</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="reading-list">
+            <h2>Science</h2>
+            <ul class="book-list">
+                <li>
+                    <a href="books/Helgoland">Helgoland</a>
+                    <div class="book-metadata">Read: January 2024</div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="reading-list">
+            <h2>Siberia</h2>
+            <ul class="book-list">
+                <li>
+                    <a href="books/TravelsSiberiaShaman.html">Travels in Siberia: A History of the People's Shaman's Coat</a>
+                    <div class="book-metadata">Read: January 2024</div>
+                    <a href="books/thegreatsoulofsiberia.html">The Great Soul of Siberia</a>
+                    <div class="book-metadata">Read: January 2024</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="reading-list">
+            <h2>General Non-Fiction</h2>
+            <ul class="book-list">
+                <li>
+                    <a href="books/the90s">The 90s</a>
+                    <div class="book-metadata">Read: January 2024</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
