@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Reading Notes</title>
+    <title>My Journey through Siberia</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -21,7 +21,134 @@
             background-color: var(--background-color);
             color: var(--text-color);
         }
+/* Dropdown Menu Styles */
+.dropdown {
+            position: relative;
+            display: inline-block;
+            margin: 1rem;
+        }
 
+        .dropbtn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+        }
+
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--background-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: var(--secondary-color);
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            margin: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar {
+            width: 50%;
+            padding: 0.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        #searchResults {
+            margin: 1rem auto;
+            max-width: 800px;
+            padding: 1rem;
+        }
+
+        .result-item {
+            background-color: white;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+/* Enhanced Search Styles */
+        .search-container {
+            margin: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-bar {
+            width: 50%;
+            padding: 0.8rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
+        }
+
+        #searchResults {
+            margin: 1rem auto;
+            max-width: 800px;
+            padding: 1rem;
+        }
+
+        .result-item {
+            background-color: white;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .result-item:hover {
+            transform: translateX(5px);
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .no-results {
+            text-align: center;
+            color: var(--secondary-color);
+            padding: 1rem;
+            font-style: italic;
+        }
         nav {
             background-color: var(--primary-color);
             padding: 1rem;
@@ -102,9 +229,23 @@
             <li><a href="general.html">General Non-Fiction</a></li>
         </ul>
     </nav>
+    <div class="dropdown">
+        <button class="dropbtn">Categories ▼</button>
+        <div class="dropdown-content">
+            <a href="#top">Home</a>
+            <a href="philosophy.html">Philosophy</a>
+            <a href="fiction.html">Fiction</a>
+            <a href="history.html">History</a>
+            <a href="science.html">Science</a>
+            <a href="siberia.html">Siberia</a>
+            <a href="general.html">General Non-Fiction</a>
+            <a href="reflections.html">Reflections</a>
+            <a href="years.html">Book Years</a>
+        </div>
+    </div>
 
     <div class="container">
-        <h1>My Reading Notes</h1>
+        <h1>My Journey through Siberia</h1>
         
         <div class="reading-list">
             <h2>Siberia</h2>
@@ -114,6 +255,8 @@
                     <div class="book-metadata">Read: January 2025</div>
                     <a href="siberia/thegreatsoulofsiberia.html">The Great Soul of Siberia</a>
                     <div class="book-metadata">Read: January 2025</div>
+                    <a href="siberia/thereindeerpeople.html">The Reindeer People</a>
+                    <div class="book-metadata">Read: February 2025</div>
                 </li>
             </ul>
         </div>
