@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reading Notes</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --text-color: #333;
+            --link-color: #3498db;
+            --background-color: #f5f6fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin: 1rem;
+        }
+
+        .dropbtn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+        }
+
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--background-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: var(--secondary-color);
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            margin: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar {
+            width: 50%;
+            padding: 0.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        #searchResults {
+            margin: 1rem auto;
+            max-width: 800px;
+            padding: 1rem;
+        }
+
+        .result-item {
+            background-color: white;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+/* Enhanced Search Styles */
+        .search-container {
+            margin: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-bar {
+            width: 50%;
+            padding: 0.8rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
+        }
+
+        #searchResults {
+            margin: 1rem auto;
+            max-width: 800px;
+            padding: 1rem;
+        }
+
+        .result-item {
+            background-color: white;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .result-item:hover {
+            transform: translateX(5px);
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .no-results {
+            text-align: center;
+            color: var(--secondary-color);
+            padding: 1rem;
+            font-style: italic;
+        }
+
+        /* [Rest of your previous styles remain the same] */
+        /* Keep your existing styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .reading-list {
+            margin: 2rem 0;
+        }
+
+        .reading-list h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .book-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .book-list li {
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .book-list a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        .book-list a:hover {
+            text-decoration: underline;
+        }
+
+        .book-metadata {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="dropdown">
+        <button class="dropbtn">Categories ▼</button>
+        <div class="dropdown-content">
+            <a href="#top">Home</a>
+            <a href="philosophy.html">Philosophy</a>
+            <a href="fiction.html">Fiction</a>
+            <a href="history.html">History</a>
+            <a href="science.html">Science</a>
+            <a href="siberia.html">Siberia</a>
+            <a href="general.html">General Non-Fiction</a>
+            <a href="reflections.html">Reflections</a>
+            <a href="years.html">Book Years</a>
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" class="search-bar" id="searchInput" placeholder="Search your reading notes...">
+    </div>
+    <div id="searchResults"></div>
+
+    <div class="container" id="searchableContent">
+        <h1>My Reading Notes</h1>
+        <div class="reading-list">
+            <h2>2024</h2>
+            <ul class="book-list">
+                <li><!--<a href="fiction/christmascarol.html">-->
+                    <!--<a href="fiction/christmascarol.html">--> <div class="book-metadata"> A Christmas Carol - Charles Dickens</div></a>
+                    <div class="book-metadata">Published: December 1843 - Pages: 122</div>
+                    <div class="book-metadata">Read: December 2024</div>
+                </li>
+                <li><!--<a href="fiction/twotowers.html">-->
+                    <!--<a href="fiction/twotowers.html">--> <div class="book-metadata"> The Two Towers - J.R.R. Tolkien</div></a>
+                    <div class="book-metadata">Published: November 1954 - Pages: 322</div>
+                    <div class="book-metadata">Read: December 2024</div>
+                </li>
+                <li><!--<a href="religio/livinginwonder.html">-->
+                    <!--<a href="religio/livinginwonder.html">--> <div class="book-metadata"> Living in Wonder - Rod Dreher</div></a>
+                    <div class="book-metadata">Published: October 2024 - Pages: Audio</div>
+                    <div class="book-metadata">Read: December 2024</div>
+                </li>
+                <li><!--<a href="drama/hamlet.html">-->
+                    <!--<a href="drama/hamlet.html">--> <div class="book-metadata"> Hamlet - Shakespeare</div></a>
+                    <div class="book-metadata">Published: 1600 - Pages: 387</div>
+                    <div class="book-metadata">Read: December 2024</div>
+                </li>
+                <li><!--<a href="fiction/fellowship.html">-->
+                    <!--<a href="fiction/fellowship.html">--> <div class="book-metadata"> The Fellowship of the Ring - J.R.R. Tolkien</div></a>
+                    <div class="book-metadata">Published: July 1954 - Pages: 398</div>
+                    <div class="book-metadata">Read: November 2024</div>
+                </li>
+                <li><!--<a href="philosophy/enneads.html">-->
+                    <!--<a href="philosophy/enneads.html">--> <div class="book-metadata"> The Enneads - Plotinus</div></a>
+                    <div class="book-metadata">Published: 270 AD - Pages: 549</div>
+                    <div class="book-metadata">Read: June - November 2024</div>
+                </li>
+                <li><!--<a href="fiction/awildsheepchase.html">-->
+                    <!--<a href="fiction/awildsheepchase.html">--> <div class="book-metadata"> A Wild Sheep Chase - Haruki Murakami</div></a>
+                    <div class="book-metadata">Published: 1982 - Pages: 353</div>
+                    <div class="book-metadata">Read: October 2024</div>
+                </li>
+                <li>
+                    <!--<a href="general/4000weeks.html">--> <div class="book-metadata"> Four Thousand Weeks - Oliver Burkeman</div></a>
+                    <div class="book-metadata">Published: 2021 - Pages: 271</div>
+                    <div class="book-metadata">Read: October 2024</div>
+                </li>
+                <li><!--<a href="general/tidyingup.html">-->
+                    <!--<a href="general/tidyingup.html">--> <div class="book-metadata"> The Life Changing Magic of Tidying Up - Marie Kondo</div></a>
+                    <div class="book-metadata">Published: 2014 - Pages: Audio</div>
+                    <div class="book-metadata">Read: October 2024</div>
+                </li>
+                <li><!--<a href="fiction/intermezzo.html">-->
+                    <!--<a href="fiction/intermezzo.html">--> <div class="book-metadata"> Intermezzo - Sally Rooney</div></a>
+                    <div class="book-metadata">Published: September 2024 - Pages: 454</div>
+                    <div class="book-metadata">Read: October 2024</div>
+                </li>
+                <li><!--<a href="general/whatitalkaboutrunning.html">-->
+                    <!--<a href="general/whatitalkaboutrunning.html">--> <div class="book-metadata"> What I Talk about When I Talk about Running - Haruki Murakami </div></a>
+                    <div class="book-metadata">Published: July 2008 - Pages: 180</div>
+                    <div class="book-metadata">Read: September 2024</div>
+                </li>
+                <li><!--<a href="fiction/lifeandfate.html">-->
+                    <!--<a href="fiction/lifeandfate.html">--> <div class="book-metadata"> Life and Fate - Vasily Grosman </div></a>
+                    <div class="book-metadata">Published: 1960 - Pages: 864</div>
+                    <div class="book-metadata">Read: September 2024</div>
+                </li>
+                <li><!--<a href="religion/greatdivorce.html">-->
+                    <!--<a href="religion/greatdivorce.html">--> <div class="book-metadata"> The Great Divorce - C.S. Lewis</div></a>
+                    <div class="book-metadata">Published: 1946 - Pages: 146</div>
+                    <div class="book-metadata">Read: September 2024</div>
+                </li>
+                <li><!--<a href="fiction/stellamaris.html">-->
+                    <!--<a href="fiction/stellamaris.html">--> <div class="book-metadata"> Stella Maris - Cormac McCarthy</div></a>
+                    <div class="book-metadata">Published: December 2022 - Pages: 190</div>
+                    <div class="book-metadata">Read: August - September 2024</div>
+                </li>
+                <li><!--<a href="fiction/whenwecease.html">-->
+                    <!--<a href="fiction/whenwecease.html">--> <div class="book-metadata"> When We Cease to Understand the World - Benjamin Labatut</div></a>
+                    <div class="book-metadata">Published: August 2022 - Pages: 193</div>
+                    <div class="book-metadata">Read: August - September 2024</div>
+                </li>
+                <li><!--<a href="fiction/thepassenger.html">-->
+                    <!--<a href="fiction/thepassenger.html">--> <div class="book-metadata"> The Passenger - Cormac McCarthy</div></a>
+                    <div class="book-metadata">Published: October 2022 - Pages: 385</div>
+                    <div class="book-metadata">Read: August 2024</div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+            const searchableContent = document.getElementById('searchableContent');
+
+            // Check if required elements exist
+            if (!searchInput || !searchResults || !searchableContent) {
+                console.error('Required elements not found:', {
+                    searchInput: !!searchInput,
+                    searchResults: !!searchResults,
+                    searchableContent: !!searchableContent
+                });
+                return;
+            }
+
+            // Create search index
+            const createSearchIndex = () => {
+                try {
+                    const searchableElements = searchableContent.querySelectorAll('a, .book-metadata');
+                    return Array.from(searchableElements).map(element => ({
+                        text: element.textContent.toLowerCase(),
+                        title: element.tagName === 'A' ? element.textContent : element.previousElementSibling.textContent,
+                        url: element.tagName === 'A' ? element.href : element.previousElementSibling.href,
+                        element: element
+                    }));
+                } catch (error) {
+                    console.error('Error creating search index:', error);
+                    return [];
+                }
+            };
+
+            // Highlight matching text
+            const highlightText = (text, searchTerm) => {
+                try {
+                    const regex = new RegExp(`(${searchTerm})`, 'gi');
+                    return text.replace(regex, '<span class="highlight">$1</span>');
+                } catch (error) {
+                    console.error('Error highlighting text:', error);
+                    return text;
+                }
+            };
+
+            // Perform search
+            const performSearch = (searchTerm) => {
+                try {
+                    const searchIndex = createSearchIndex();
+                    searchTerm = searchTerm.toLowerCase();
+
+                    // Filter and sort results
+                    const results = searchIndex
+                        .filter(item => item.text.includes(searchTerm))
+                        .map(item => ({
+                            ...item,
+                            score: item.text.split(searchTerm).length - 1
+                        }))
+                        .sort((a, b) => b.score - a.score);
+
+                    // Display results
+                    if (results.length > 0) {
+                        searchResults.innerHTML = results
+                            .map(result => `
+                                <div class="result-item">
+                                    <h3><a href="${result.url}">${highlightText(result.title, searchTerm)}</a></h3>
+                                    <p>${highlightText(result.text, searchTerm)}</p>
+                                </div>
+                            `)
+                            .join('');
+                    } else {
+                        searchResults.innerHTML = `
+                            <div class="no-results">
+                                No results found for "${searchTerm}"
+                            </div>
+                        `;
+                    }
+                } catch (error) {
+                    console.error('Error performing search:', error);
+                    searchResults.innerHTML = `
+                        <div class="no-results">
+                            An error occurred while searching. Please try again.
+                        </div>
+                    `;
+                }
+            };
+
+            // Add event listener for search input
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.trim();
+                console.log('Search term:', searchTerm);
+                console.log('Searchable content found:', !!searchableContent);
+                
+                if (searchTerm.length >= 2) {
+                    performSearch(searchTerm);
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.innerHTML = '';
+                    searchResults.style.display = 'none';
+                }
+            });
+
+            console.log('Search functionality initialized');
+        });
+    </script>
+    <script>
+        // Debugging helper
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.trim();
+            
+            // Add these console.log statements
+            console.log('Search term:', searchTerm);
+            console.log('Searchable content:', document.getElementById('searchableContent'));
+            console.log('Search index:', createSearchIndex());
+            
+            if (searchTerm.length >= 2) {
+                performSearch(searchTerm);
+                searchResults.style.display = 'block';
+            } else {
+                searchResults.innerHTML = '';
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
