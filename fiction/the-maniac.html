@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The MANIAC - Reading Notes</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --text-color: #333;
+            --link-color: #3498db;
+            --background-color: #f5f6fa;
+            --quote-background: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin: 1rem;
+        }
+
+        .dropbtn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+        }
+
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--background-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: var(--secondary-color);
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            margin: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar {
+            width: 50%;
+            padding: 0.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        #searchResults {
+            margin: 1rem auto;
+            max-width: 800px;
+            padding: 1rem;
+        }
+
+        .result-item {
+            background-color: white;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        /* Enhanced Search Styles */
+        .search-container {
+            margin: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-bar {
+            width: 50%;
+            padding: 0.8rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
+        }
+
+        #searchResults {
+            margin: 1rem auto;
+            max-width: 800px;
+            padding: 1rem;
+        }
+
+        .result-item {
+            background-color: white;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .result-item:hover {
+            transform: translateX(5px);
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .no-results {
+            text-align: center;
+            color: var(--secondary-color);
+            padding: 1rem;
+            font-style: italic;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .reading-list {
+            margin: 2rem 0;
+        }
+
+        .reading-list h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .book-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .book-list li {
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .book-list a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        .book-list a:hover {
+            text-decoration: underline;
+        }
+
+        .book-metadata {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+        /* Book Header Section */
+        .book-header {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .book-title {
+            color: var(--primary-color);
+            margin: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .book-metadata {
+            margin-top: 1rem;
+            color: var(--secondary-color);
+        }
+
+        /* Notes Section */
+        .notes-section {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Quotes */
+        blockquote {
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            background-color: var(--quote-background);
+            font-style: italic;
+        }
+
+        .quote-source {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+            margin-top: 0.5rem;
+            font-style: normal;
+        }
+
+        /* Lists */
+        ul, ol {
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        /* Chapter sections */
+        .chapter {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .chapter-title {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Tags and Links */
+        .tags {
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Related Books */
+        .related-books {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        /* Images */
+        .book-image {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            color: var(--secondary-color);
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="dropdown">
+        <button class="dropbtn">Categories ▼</button>
+        <div class="dropdown-content">
+            <a href="../index.html">Home</a>
+            <a href="../philosophy.html">Philosophy</a>
+            <a href="../fiction.html">Fiction</a>
+            <a href="../history.html">History</a>
+            <a href="../science.html">Science</a>
+            <a href="../siberia.html">Siberia</a>
+            <a href="../general.html">General Non-Fiction</a>
+            <a href="../reflections.html">Reflections</a>
+            <a href="../years.html">Book Years</a>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Book Information -->
+        <div class="book-header">
+            <h1 class="book-title">The MANIAC</h1>
+            <div class="book-metadata">
+                <p>Author: Benjamin Labatut</p>
+                <p>Date Read: February 2025</p>
+                <p>Pages: 368</p>
+                <div class="tags">
+                    <span class="tag">Fiction</span>
+                    <span class="tag">Science</span>
+                    <span class="tag">AI</span>
+                    <span class="tag">Mathematics</span>
+                    <span class="tag">History</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notable Quotes -->
+        <div class="notes-section">
+            <h2>Notable Quotes</h2>
+            <blockquote>
+                "For Ehrenfest, true understanding was a full-body experience, something that involved your entire being, not just your mind or reason."
+                <div class="quote-source">— pg.6</div>
+            </blockquote>
+            <blockquote>
+                "Ehrenfest mediated between the two major players---Einstein, who abhorred the weight that chance, indeterminacy, probability, and uncertainty were given in the new science of the quantum, and Bohr, who sought to enthrone a fundamentally different type of physics for the subatomic world."
+                <div class="quote-source">— pg.8</div>
+            </blockquote>
+            <blockquote>
+                "'Surely there is a special section in purgatory for professors of quantum mechanics!'"
+                <div class="quote-source">— pg.9</div>
+            </blockquote>
+            <blockquote>
+                "...she believed that the rediscovery of the irrational was the driving force behind all vanguard movements, movements that, even to a lay observer, were evidently suffused with a Faustian, boundless energy, a haste, a tragic fall in which everything was permitted."
+                <div class="quote-source">— pg.15</div>
+            </blockquote>
+            <blockquote>
+                "Though perhaps that was the key to all of this: possession, a sudden invasion from without, work that was not the product of thought or will but, as the Greeks knew well, of rapture and ardor. He needed to get out of the way, to let things pass through him, and be changed."
+                <div class="quote-source">— pg.21</div>
+            </blockquote>
+            <blockquote>
+                "That is mathematics, see? A feeling. You feel, even before the answer you have the feeling."
+                <div class="quote-source">— pg.69</div>
+            </blockquote>
+            <blockquote>
+                "But uncovering foundations is always dangerous, for who can tell what lies in wait among the fault lines in the logic of our universe, what creatures sleep and dream amid the tangle of roots from which human knowledge grows?."
+                <div class="quote-source">— pg.77</div>
+            </blockquote>
+            <blockquote>
+                "Mathematics is the closest we can come to the mind of Hashem. And so, it should be practiced with reverence, because it has true power, a power that can be easily used for evil, as it is born from a faculty that only we possess, and that the Lord, blessed be He, gave us instead of teeth, claws, or talons, but that is equally dangerous and lethal."
+                <div class="quote-source">— pg.88</div>
+            </blockquote>
+            <blockquote>
+                "...in some sense, paranoia is logic run amok..."
+                <div class="quote-source">— pg.100</div>
+            </blockquote>
+            <blockquote>
+                "...he was of the firm belief that there was a reason for everything. If you think that way, it's a small step to begin to see hidden machinations and agents operating to manipulate the most common, everyday occurrences."
+                <div class="quote-source">— pg.100</div>
+            </blockquote>
+            <blockquote>
+                "Because we don't know what comes after evil, do we? And sometimes the deadliest things, those that hold enough power to destroy us, can become, given time, the instruments of our salvation."
+                <div class="quote-source">— pg.148</div>
+            </blockquote>
+            <blockquote>
+                "This species of device is so radically new that many of its uses will become clear only after it's been put into operation."
+                <div class="quote-source">— pg.158</div>
+            </blockquote>
+            <blockquote>
+                "They sensed that something unspeakably wrong was occurring when they saw their bones appear as shadows through their living flesh."
+                <div class="quote-source">— pg.167</div>
+            </blockquote>
+            <blockquote>
+                "As it expanded, the fireball reached a temperature of three hundred million degrees, hotter than the core of the sun."
+                <div class="quote-source">— pg.168</div>
+            </blockquote>
+            <blockquote>
+                "...he observed his "children" was that if machines were ever to advance toward true intelligence, they would have to be fallible: they would need to be capable not only of error and of deviation from their original programming but also of random and even nonsensical behavior."
+                <div class="quote-source">— pg.191</div>
+            </blockquote>
+            <blockquote>
+                "I saw glorious mutations, the entire sprawling, intricate mechanisms that underlie the web of life---birth and death, predation and cooperation, morphogenesis and symbiosis---galvanize before me, driven forward by a rush of electrons, suddenly coming alive with a deafening Gaussian roar inside a minuscule digital universe."
+                <div class="quote-source">— pg.197</div>
+            </blockquote>
+            <blockquote>
+                "But Turing knew---from his study of Gödel and the halting problem---that all such devices would suffer from inescapable limitations, and that many problems would forever remain beyond their ability to solve. That weakness tortured the grandfather of computers: Turing longed for something different, a machine that could look beyond logic and behave in a manner more akin to humans, who possess not only intelligence but also intuition. So he dreamed up a computer capable of taking the machine equivalent of a wild guess: just like the Sibyl in her ecstatic drunkenness, his device would, at a certain point in its operations, make a nondeterministic leap."
+                <div class="quote-source">— pg.198</div>
+            </blockquote>
+            <blockquote>
+                "His contributions had been so profound that they seemed less like the accomplishments of a single man and more like the aftermath of a divine tantrum, the creative outpouring of some minor god toying with the world."
+                <div class="quote-source">— pg.205</div>
+            </blockquote>
+            <blockquote>
+                "Jancsi thought that if our species was to survive the twentieth century, we needed to fill the void left by the departure of the gods, and the one and only candidate that could achieve this strange, esoteric transformation was technology; our ever-expanding technical knowledge was the only thing that separated us from our forefathers, since in morals, philosophy, and general thought, we were no better (indeed, we were much, much worse) than the Greeks, the Vedic people, or the small nomadic tribes that still clung to nature as the sole granter of grace and the true measure of existence."
+                <div class="quote-source">— pg.222</div>
+            </blockquote>
+            <blockquote>
+                "'When we talk of mathematics,' he wrote, 'we may be discussing a secondary language built on the primordial one used by the central nervous system.'"
+                <div class="quote-source">— pg.239</div>
+            </blockquote>
+            <blockquote>
+                "However, it seems that the ever-accelerating progress of technology gives the appearance of approaching some essential singularity, a tipping point in the history of the race beyond which human affairs as we know them cannot continue."
+                <div class="quote-source">— pg.250</div>
+            </blockquote>
+            <blockquote>
+                "Progress will become incomprehensibly rapid and complicated. Technological power as such is always an ambivalent achievement, and science is neutral all through, providing only means of control applicable to any purpose..."
+                <div class="quote-source">— pg.250</div>
+            </blockquote>
+            <blockquote>
+                "Why were we burdened by consciousness, when we could have remained blissfully ignorant like all other life-forms on this planet, living and dying with such an Edenic lack of awareness that pain and pleasure were only ever felt in the present, and did not, like our pains and glories, stretch out from one day to the next, linking us all together in an endless chain of suffering?"
+                <div class="quote-source">— pg.290</div>
+            </blockquote>
+            <blockquote>
+                "It did not take a genius to realize that scientific breakthroughs were transforming every aspect of our lives, while leaving the most fundamental questions unanswered. Soon we would reach a breaking point. Our monkey brains had taken us as far as they could. Something radically new was needed."
+                <div class="quote-source">— pg.290</div>
+            </blockquote>
+            <blockquote>
+                "Completely flabbergasted, he began rocking back and forth in his chair, looking like an emaciated Playmobil toy, with his loose-fitting suit and bowl haircut."
+                <div class="quote-source">— pg.309</div>
+            </blockquote>
+            <blockquote>
+                "as the inner functioning of an artificial neural network is almost completely opaque to us, for we cannot keep track of or tally the countless effects that arise from the almost innumerable tweaks that the algorithm makes to its inner parameters while slowly building toward its desired outcome."
+                <div class="quote-source">— pg.324</div>
+            </blockquote>
+            <blockquote>
+                "'With the debut of AI, I've realized that I cannot be at the top, even if I make a spectacular comeback and return to being the number one player through frantic efforts. Even if I become the best that the world has ever known, there is an entity that cannot be defeated.'"
+                <div class="quote-source">— pg.350</div>
+            </blockquote>
+        </div>
+
+        <!-- Personal Reflections -->
+        <div class="notes-section">
+            <h2>Personal Reflections</h2>
+            <p>When I was young my father told me something that has stuck with me more than any single piece of advice or wisdom I've been given. He said, "Just remember that no matter how good you get at something, there's always someone better than you." This realization shaped the way I looked at the world from that point on (I was maybe 9 or 10 at the time), because it humbled me to an extent I don't think he imagined it would. To this day I'm incapable of imagining myself the best at anything when I walk into a room, my conscious mind immediately beginning to scan the people around me so it can conjure up hypotheticals about the things they are better at than me. I suppose I have a bit of an inferiority complex. All of which is to say that reading Benjamín Labatut's novel The MANIAC was for me a kind of elaborate thought experiment on what it would be like for others if in fact you were the best in the world at something.</p>
+
+            <p>John von Neumann, the Hungarian polymath genius who came to the United States in the '30s ahead of Nazi persecution, was this person, probably the smartest person in the world, possibly ever, with an estimated IQ of 190. He did more to shape the 20th and 21st century than maybe any other person, altering the trajectory of so many scientific fields it's almost laughable. Apparently he would easily solve problems in minutes that others spent years on, and this led to him becoming, in the end, a kind of oracle kept under the highest security the US government could muster as they tried to sop up every ounce of knowledge he produced before his untimely death from cancer.</p>
+
+            <p>Imagine, this man was arguably smarter than Einstein, Dirac, Heisenberg, Turing, Planck - all the luminaries of early 20th century physics and mathematics. And we have him to thank for the birth of AI, which has become another obsession of mine. What he was after was a mechanism by which digital life could replicate itself, and he had a computer built - the MANIAC - to try to do just this. Like Labatut's previous novel, When We Cease to Understand the World, this one is based on real events and people, but takes liberties, I imagine, with the details and inner psychology of the characters. And like that previous novel, this one edged up to this mysterious question of how do we account for these earthquakes in human understanding, because the people who make them seem to claim that it's not linear reasoning that leads them to these insights. Rather, he and they seem to imply that there is something sub rational about great leaps in knowledge, something almost mystical. In this book von Neumann acknowledges that and seeks to pattern AI after that ability, somehow, knowing it's not going to be step by step logic that allows us to create beings smarter than ourselves.</p>
+
+            <p>The reverberations of this insight ripple across time, sparking an artificial intelligence movement that lurks beneath the surface of computing for decades until chess computers and eventually the DeepMind creation, AlphaGo, the AI that was the first machine to defeat the greatest Go player in the world. For the last third of the book Labatut gives us the story of the AlphaGo creators and the Go player it took down, relating the history of Go, its complexity vis a vis other games, and how players of Go consider it more of an art than a science. This is not only important because it illustrates how far AI has come since von Neumann dreamed it up, it underscores the crucial thing that made it such a formidable Go player - i.e. the fact that what made AlphaGo good was that it had the ability to play in the sense that a child plays. The programmers gave it the ability to roam around possibilities freely and make mistakes and learn from that feedback. And, according to Labatut, that was exactly what von Neumann prophesied would be the key to it all.</p>
+
+            <p>Getting back to my initial reflection, this book has me caught up on the "there's always someone better than you" train for two reasons. First, the obvious, it's astounding to me how virtuosic some people are. Knowing that these people exist and have existed really puts you in your place existentially speaking. And I just wonder what the people in his life felt like being around him. Did they feel stupid? Did they feel like they didn't deserve to be in his presence? His wife clearly didn't, but that would my first reaction. I think what makes it even more incomprehensible is that these savants don't seemed to have had to "work" for it in a sense, it seems like it's innate and something they can't really explain. So it makes them all the more out of reach - you have to accept that no matter how hard you work, you'll never achieve that level of brilliance.</p>
+
+            <p>That ties into the second way I'm feeing this. In the not so distant future I think we're all going to have to come to terms with not being the smartest beings on the planet. Very soon our AIs will likely outstrip us in mental abilities, and not only will we have to make sure they don't kill us all, we're also going to have to literally redefine what it means to be human. Each and every person will need to figure out what they want out of life and how they belong. Like Tyler Cowen's book Average Is Over argues, it seems like in a world of AI we're all going to have to get very good at something, and actively work towards that everyday lest we become non-contributing members of society. What does that do to our sense of meaning and belonging that has evolved over millennia? How do you just overwrite that? Perhaps this reflection belongs in a separate piece about the book Superintelligence, but the parallels between feeling inferior to giants like von Neumann and eventually, possibly, to even smarter machines seemed to obvious to ignore.</p>
+
+            <p>Finally, Labatut at the end of the part about Von Neumann indicates he has a religious conversion, or maybe reawakening. I don't know how true it is, but basically he says that at the bottom rationality breaks down (Gödel's incompleteness theorem is key here) and even his mind could not plumb any deeper. He accepts something like Pascal's wager in his dying days and returns to Catholicism (although born Jewish he converted to marry his first wife). Grothendieck sees something mystical beneath it all too. As did Plato, Plotinus, so many thinkers of ancient and medieval times, Buddha, Lao Tzu, Einstein... What's the point? So many of the greatest minds who have ever lived come up against this impenetrable wall and find a limit to human capabilities and knowledge. And yet, everything in front of that wall is solvable and it works. Why? Why does any of it work, why are we able to solve it? Why don't we live on Trisolaris instead of Earth? Maybe AI will have an answer, but I sincerely doubt it. At the bottom of everything all there seems to be for us, even machines, to do is take a giant leap of faith, something that transgresses and transcends the strictures and limits of logic. Is this "gap" the God-shaped hole inside of all of us? This is not to say I'm advocating a "god of the gaps" hypothesis. Rather, what this novel keeps coming back to is how huge leaps in understanding don't come from a necessarily irrational and inexplicable place that we humans only seem to have a smidgen of access to, and what exactly could that be? I suppose you could posit that the foundations of the universe are irrational only up to a certain scale, at which point everything falls into a logical order by chance, and that humans evolved to understand this order by virtue of being a product of it. You're still left with a pretty gaping hole, though. Why should any of it make sense at any scale? I don't have any good answers, except to say that my thinking on this has become quite circular, as if my mind is circling the drain of Gödel's theorem, and my sincere hope is that there is something on the other side of it besides a series of blind, inane, black tubes leading nowhere.</p>
+
+            <p>Quick hits</p>
+
+            <p>How incredible was the Manhattan Project? Johnny was there and so were every other major physicist of the early twentieth century -- what is today's version of the Manhattan Project? Is it an AI lab somewhere? Is this happening in China or without the input of Western scientists?</p>
+
+            <p>If you ever want an interesting story, read up on the legend of how the game Go was created. It's an ancient Chinese myth that rivals any myth I've read anywhere.</p>
+        </div>
+
+        <!-- Related Books -->
+        <div class="notes-section">
+            <h2>Related Books</h2>
+            <ul>
+                <li>When We Cease to Understand the World - Benjamin Labatut</li>
+                <li>Average Is Over - Tyler Cowen</li>
+                <li>Superintelligence - Nick Bostrom</li>
+                <li>The Three-Body Problem (Trisolaris reference) - Liu Cixin</li>
+                <li>The Making of The Atomic Bomb - Richard Rhodes</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
