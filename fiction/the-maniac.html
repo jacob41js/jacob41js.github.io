@@ -8,10 +8,12 @@
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #34495e;
+            --accent-color: #3498db;
             --text-color: #333;
             --link-color: #3498db;
             --background-color: #f5f6fa;
             --quote-background: #f8f9fa;
+            --card-background: white;
         }
 
         body {
@@ -23,91 +25,70 @@
             color: var(--text-color);
         }
 
-        /* Dropdown Menu Styles */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            margin: 1rem;
-        }
-
-        .dropbtn {
+        /* Navigation Header */
+        .nav-header {
             background-color: var(--primary-color);
             color: white;
-            padding: 1rem;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 4px;
-        }
-
-        .dropdown-content a {
-            color: var(--text-color);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: var(--background-color);
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown:hover .dropbtn {
-            background-color: var(--secondary-color);
-        }
-
-        /* Search Bar Styles */
-        .search-container {
-            margin: 1rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .search-bar {
-            width: 50%;
-            padding: 0.5rem;
-            border: 2px solid var(--primary-color);
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        #searchResults {
-            margin: 1rem auto;
-            max-width: 800px;
-            padding: 1rem;
-        }
-
-        .result-item {
-            background-color: white;
-            margin: 0.5rem 0;
-            padding: 1rem;
-            border-radius: 4px;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        /* Enhanced Search Styles */
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .site-title a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Navigation Toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Search Bar */
         .search-container {
-            margin: 1rem;
+            margin: 2rem auto;
+            max-width: 800px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 10px;
         }
 
         .search-bar {
-            width: 50%;
+            width: 70%;
             padding: 0.8rem;
             border: 2px solid var(--primary-color);
             border-radius: 4px;
@@ -120,83 +101,69 @@
             box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
         }
 
-        #searchResults {
-            margin: 1rem auto;
-            max-width: 800px;
-            padding: 1rem;
-        }
-
-        .result-item {
-            background-color: white;
-            margin: 0.5rem 0;
-            padding: 1rem;
-            border-radius: 4px;
+        /* Table of Contents */
+        .toc {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease;
+            position: sticky;
+            top: 5rem;
+            max-height: calc(100vh - 7rem);
+            overflow-y: auto;
         }
 
-        .result-item:hover {
-            transform: translateX(5px);
-        }
-
-        .highlight {
-            background-color: #fff3cd;
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-
-        .no-results {
-            text-align: center;
-            color: var(--secondary-color);
-            padding: 1rem;
-            font-style: italic;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .reading-list {
-            margin: 2rem 0;
-        }
-
-        .reading-list h2 {
+        .toc h3 {
+            margin-top: 0;
             color: var(--primary-color);
             border-bottom: 2px solid var(--primary-color);
             padding-bottom: 0.5rem;
         }
 
-        .book-list {
+        .toc ul {
             list-style-type: none;
-            padding: 0;
+            padding-left: 0;
         }
 
-        .book-list li {
-            margin: 1rem 0;
-            padding: 0.5rem;
-            background-color: white;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .toc li {
+            margin: 0.5rem 0;
         }
 
-        .book-list a {
+        .toc a {
             color: var(--link-color);
             text-decoration: none;
+            display: block;
+            padding: 0.3rem 0;
+            transition: transform 0.2s ease;
         }
 
-        .book-list a:hover {
-            text-decoration: underline;
+        .toc a:hover {
+            transform: translateX(5px);
+            color: var(--primary-color);
         }
 
-        .book-metadata {
-            font-size: 0.9rem;
-            color: var(--secondary-color);
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
         }
+
+        .content {
+            grid-column: 2;
+        }
+
+        .sidebar {
+            grid-column: 1;
+        }
+
         /* Book Header Section */
         .book-header {
-            background-color: white;
+            background-color: var(--card-background);
             padding: 2rem;
             border-radius: 8px;
             margin-bottom: 2rem;
@@ -215,13 +182,32 @@
             color: var(--secondary-color);
         }
 
-        /* Notes Section */
+        /* Rating System */
+        .rating {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .stars {
+            color: gold;
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Notes Sections */
         .notes-section {
-            background-color: white;
+            background-color: var(--card-background);
             padding: 2rem;
             border-radius: 8px;
             margin-bottom: 2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .notes-section h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
         }
 
         /* Quotes */
@@ -240,29 +226,7 @@
             font-style: normal;
         }
 
-        /* Lists */
-        ul, ol {
-            padding-left: 2rem;
-            margin: 1rem 0;
-        }
-
-        li {
-            margin: 0.5rem 0;
-        }
-
-        /* Chapter sections */
-        .chapter {
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .chapter-title {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        /* Tags and Links */
+        /* Tags */
         .tags {
             margin: 1rem 0;
         }
@@ -274,55 +238,159 @@
             border-radius: 4px;
             font-size: 0.9rem;
             margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
             display: inline-block;
+            transition: background-color 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: var(--primary-color);
         }
 
         /* Related Books */
         .related-books {
             margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
         }
 
-        /* Images */
-        .book-image {
-            max-width: 100%;
-            height: auto;
-            margin: 1rem 0;
+        .related-book {
+            padding: 1rem;
+            margin-bottom: 1rem;
             border-radius: 4px;
+            background-color: var(--quote-background);
+            transition: transform 0.2s ease;
         }
 
-        .image-caption {
-            text-align: center;
-            font-style: italic;
-            color: var(--secondary-color);
-            margin-top: 0.5rem;
+        .related-book:hover {
+            transform: translateX(5px);
+        }
+
+        .related-book a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Reading Progress */
+        .reading-progress {
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 100%; /* Set to percentage of completion */
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .content, .sidebar {
+                grid-column: 1;
+            }
+
+            .toc {
+                position: static;
+                margin-bottom: 2rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="dropdown">
-        <button class="dropbtn">Categories ▼</button>
-        <div class="dropdown-content">
-            <a href="../index.html">Home</a>
-            <a href="../philosophy.html">Philosophy</a>
-            <a href="../fiction.html">Fiction</a>
-            <a href="../history.html">History</a>
-            <a href="../science.html">Science</a>
-            <a href="../siberia.html">Siberia</a>
-            <a href="../general.html">General Non-Fiction</a>
-            <a href="../reflections.html">Reflections</a>
-            <a href="../years.html">Book Years</a>
+     <!-- Navigation Header -->
+     <header class="nav-header">
+        <div class="nav-container">
+            <h1 class="site-title"><a href="../index.html">Reading Notes</a></h1>
+            <button class="nav-toggle">☰</button>
+            <nav class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../philosophy.html">Philosophy</a>
+                <a href="../fiction.html">Fiction</a>
+                <a href="../history.html">History</a>
+                <a href="../science.html">Science</a>
+                <a href="../siberia.html">Siberia</a>
+                <a href="../general.html">General Non-Fiction</a>
+                <a href="../reflections.html">Reflections</a>
+                <a href="../years.html">Book Years</a>
+            </nav>
         </div>
+    </header>
+     <!-- Search Bar -->
+     <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search by title, author, tag, or content...">
     </div>
+
     <div class="container">
-        <!-- Book Information -->
-        <div class="book-header">
-            <h1 class="book-title">The MANIAC</h1>
-            <div class="book-metadata">
+        <!-- Sidebar with TOC -->
+        <aside class="sidebar">
+            <div class="toc">
+                <h3>On This Page</h3>
+                <ul>
+                    <li><a href="#book-info">Book Information</a></li>
+                    <li><a href="#quotes">Notable Quotes</a></li>
+                    <li><a href="#reflections">Personal Reflections</a></li>
+                    <li><a href="#related">Related Books</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    <main class="content">
+            <!-- Book Information -->
+            <div id="book-info" class="book-header">
+                <h1 class="book-title">The MANIAC</h1>
+                <div class="book-metadata">
                 <p>Author: Benjamin Labatut</p>
                 <p>Date Read: February 2025</p>
                 <p>Pages: 368</p>
+
+                <!-- Rating -->
+                <div class="rating">
+                    <div class="stars">★★★★☆</div>
+                    <span>5/5</span>
+                </div>
+
+                <!-- Reading Status -->
+                <div class="reading-progress">
+                    <p>Reading Status: Complete</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+
                 <div class="tags">
                     <span class="tag">Fiction</span>
                     <span class="tag">Science</span>
@@ -334,7 +402,7 @@
         </div>
 
         <!-- Notable Quotes -->
-        <div class="notes-section">
+         <div id="quotes" class="notes-section">
             <h2>Notable Quotes</h2>
             <blockquote>
                 "For Ehrenfest, true understanding was a full-body experience, something that involved your entire being, not just your mind or reason."
@@ -446,8 +514,8 @@
             </blockquote>
         </div>
 
-        <!-- Personal Reflections -->
-        <div class="notes-section">
+         <!-- Personal Reflections -->
+         <div id="reflections" class="notes-section">
             <h2>Personal Reflections</h2>
             <p>When I was young my father told me something that has stuck with me more than any single piece of advice or wisdom I've been given. He said, "Just remember that no matter how good you get at something, there's always someone better than you." This realization shaped the way I looked at the world from that point on (I was maybe 9 or 10 at the time), because it humbled me to an extent I don't think he imagined it would. To this day I'm incapable of imagining myself the best at anything when I walk into a room, my conscious mind immediately beginning to scan the people around me so it can conjure up hypotheticals about the things they are better at than me. I suppose I have a bit of an inferiority complex. All of which is to say that reading Benjamín Labatut's novel The MANIAC was for me a kind of elaborate thought experiment on what it would be like for others if in fact you were the best in the world at something.</p>
 
@@ -471,16 +539,54 @@
         </div>
 
         <!-- Related Books -->
-        <div class="notes-section">
+        <div id="related" class="notes-section">
             <h2>Related Books</h2>
-            <ul>
-                <li>When We Cease to Understand the World - Benjamin Labatut</li>
-                <li>Average Is Over - Tyler Cowen</li>
-                <li>Superintelligence - Nick Bostrom</li>
-                <li>The Three-Body Problem (Trisolaris reference) - Liu Cixin</li>
-                <li>The Making of The Atomic Bomb - Richard Rhodes</li>
-            </ul>
-        </div>
+            <!--<div class="related-book">
+                <a href="[link-to-book-page.html]">[Related Book Title]</a> - [Author Name]
+            </div>-->
+            <div class="related-book">
+                When We Cease to Understand The World</a> - Benjamin Labatut
+            </div>
+            <div class="related-book">
+                Average Is Over</a> - Tyler Cowen
+            </div>
+            <div class="related-book">
+                Superintelligence</a> - Nick Bostrom
+            </div>
+            <div class="related-book">
+                The Three Body Problem</a> - Liu Cixin
+            </div>
+            <div class="related-book">
+                The Making of The Atomic Bomb</a> - Richard Rhodes
+            </div>
+        </main>
     </div>
+    <script>
+        // Toggle mobile navigation
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple search functionality (can be enhanced)
+        document.querySelector('.search-bar').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                alert('Search functionality would go here!');
+                // Implement actual search logic
+            }
+        });
+    </script>
 </body>
 </html>

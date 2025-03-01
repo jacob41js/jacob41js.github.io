@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Euthyphro - Reading Notes</title>
+    <title>Apology - Reading Notes</title>
     <style>
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #34495e;
+            --accent-color: #3498db;
             --text-color: #333;
             --link-color: #3498db;
             --background-color: #f5f6fa;
             --quote-background: #f8f9fa;
+            --card-background: white;
         }
 
         body {
@@ -23,91 +25,70 @@
             color: var(--text-color);
         }
 
-        /* Dropdown Menu Styles */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            margin: 1rem;
-        }
-
-        .dropbtn {
+        /* Navigation Header */
+        .nav-header {
             background-color: var(--primary-color);
             color: white;
-            padding: 1rem;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 4px;
-        }
-
-        .dropdown-content a {
-            color: var(--text-color);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: var(--background-color);
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown:hover .dropbtn {
-            background-color: var(--secondary-color);
-        }
-
-        /* Search Bar Styles */
-        .search-container {
-            margin: 1rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .search-bar {
-            width: 50%;
-            padding: 0.5rem;
-            border: 2px solid var(--primary-color);
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        #searchResults {
-            margin: 1rem auto;
-            max-width: 800px;
-            padding: 1rem;
-        }
-
-        .result-item {
-            background-color: white;
-            margin: 0.5rem 0;
-            padding: 1rem;
-            border-radius: 4px;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-/* Enhanced Search Styles */
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .site-title a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Navigation Toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Search Bar */
         .search-container {
-            margin: 1rem;
+            margin: 2rem auto;
+            max-width: 800px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 10px;
         }
 
         .search-bar {
-            width: 50%;
+            width: 70%;
             padding: 0.8rem;
             border: 2px solid var(--primary-color);
             border-radius: 4px;
@@ -120,85 +101,69 @@
             box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
         }
 
-        #searchResults {
-            margin: 1rem auto;
-            max-width: 800px;
-            padding: 1rem;
-        }
-
-        .result-item {
-            background-color: white;
-            margin: 0.5rem 0;
-            padding: 1rem;
-            border-radius: 4px;
+        /* Table of Contents */
+        .toc {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease;
+            position: sticky;
+            top: 5rem;
+            max-height: calc(100vh - 7rem);
+            overflow-y: auto;
         }
 
-        .result-item:hover {
-            transform: translateX(5px);
-        }
-
-        .highlight {
-            background-color: #fff3cd;
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-
-        .no-results {
-            text-align: center;
-            color: var(--secondary-color);
-            padding: 1rem;
-            font-style: italic;
-        }
-
-        /* [Rest of your previous styles remain the same] */
-        /* Keep your existing styles */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .reading-list {
-            margin: 2rem 0;
-        }
-
-        .reading-list h2 {
+        .toc h3 {
+            margin-top: 0;
             color: var(--primary-color);
             border-bottom: 2px solid var(--primary-color);
             padding-bottom: 0.5rem;
         }
 
-        .book-list {
+        .toc ul {
             list-style-type: none;
-            padding: 0;
+            padding-left: 0;
         }
 
-        .book-list li {
-            margin: 1rem 0;
-            padding: 0.5rem;
-            background-color: white;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .toc li {
+            margin: 0.5rem 0;
         }
 
-        .book-list a {
+        .toc a {
             color: var(--link-color);
             text-decoration: none;
+            display: block;
+            padding: 0.3rem 0;
+            transition: transform 0.2s ease;
         }
 
-        .book-list a:hover {
-            text-decoration: underline;
+        .toc a:hover {
+            transform: translateX(5px);
+            color: var(--primary-color);
         }
 
-        .book-metadata {
-            font-size: 0.9rem;
-            color: var(--secondary-color);
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
         }
+
+        .content {
+            grid-column: 2;
+        }
+
+        .sidebar {
+            grid-column: 1;
+        }
+
         /* Book Header Section */
         .book-header {
-            background-color: white;
+            background-color: var(--card-background);
             padding: 2rem;
             border-radius: 8px;
             margin-bottom: 2rem;
@@ -217,13 +182,32 @@
             color: var(--secondary-color);
         }
 
-        /* Notes Section */
+        /* Rating System */
+        .rating {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .stars {
+            color: gold;
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Notes Sections */
         .notes-section {
-            background-color: white;
+            background-color: var(--card-background);
             padding: 2rem;
             border-radius: 8px;
             margin-bottom: 2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .notes-section h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
         }
 
         /* Quotes */
@@ -242,29 +226,7 @@
             font-style: normal;
         }
 
-        /* Lists */
-        ul, ol {
-            padding-left: 2rem;
-            margin: 1rem 0;
-        }
-
-        li {
-            margin: 0.5rem 0;
-        }
-
-        /* Chapter sections */
-        .chapter {
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .chapter-title {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        /* Tags and Links */
+        /* Tags */
         .tags {
             margin: 1rem 0;
         }
@@ -276,55 +238,159 @@
             border-radius: 4px;
             font-size: 0.9rem;
             margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
             display: inline-block;
+            transition: background-color 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: var(--primary-color);
         }
 
         /* Related Books */
         .related-books {
             margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
         }
 
-        /* Images */
-        .book-image {
-            max-width: 100%;
-            height: auto;
-            margin: 1rem 0;
+        .related-book {
+            padding: 1rem;
+            margin-bottom: 1rem;
             border-radius: 4px;
+            background-color: var(--quote-background);
+            transition: transform 0.2s ease;
         }
 
-        .image-caption {
-            text-align: center;
-            font-style: italic;
-            color: var(--secondary-color);
-            margin-top: 0.5rem;
+        .related-book:hover {
+            transform: translateX(5px);
+        }
+
+        .related-book a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Reading Progress */
+        .reading-progress {
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 100%; /* Set to percentage of completion */
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .content, .sidebar {
+                grid-column: 1;
+            }
+
+            .toc {
+                position: static;
+                margin-bottom: 2rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="dropdown">
-        <button class="dropbtn">Categories ▼</button>
-        <div class="dropdown-content">
-            <a href="../index.html">Home</a>
-            <a href="../philosophy.html">Philosophy</a>
-            <a href="../fiction.html">Fiction</a>
-            <a href="../history.html">History</a>
-            <a href="../science.html">Science</a>
-            <a href="../siberia.html">Siberia</a>
-            <a href="../general.html">General Non-Fiction</a>
-            <a href="../reflections.html">Reflections</a>
-            <a href="../years.html">Book Years</a>
+     <!-- Navigation Header -->
+     <header class="nav-header">
+        <div class="nav-container">
+            <h1 class="site-title"><a href="../index.html">Reading Notes</a></h1>
+            <button class="nav-toggle">☰</button>
+            <nav class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../philosophy.html">Philosophy</a>
+                <a href="../fiction.html">Fiction</a>
+                <a href="../history.html">History</a>
+                <a href="../science.html">Science</a>
+                <a href="../siberia.html">Siberia</a>
+                <a href="../general.html">General Non-Fiction</a>
+                <a href="../reflections.html">Reflections</a>
+                <a href="../years.html">Book Years</a>
+            </nav>
         </div>
+    </header>
+     <!-- Search Bar -->
+     <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search by title, author, tag, or content...">
     </div>
+
     <div class="container">
-        <!-- Book Information -->
-        <div class="book-header">
-            <h1 class="book-title">Apology</h1>
-            <div class="book-metadata">
+        <!-- Sidebar with TOC -->
+        <aside class="sidebar">
+            <div class="toc">
+                <h3>On This Page</h3>
+                <ul>
+                    <li><a href="#book-info">Book Information</a></li>
+                    <li><a href="#quotes">Notable Quotes</a></li>
+                    <li><a href="#reflections">Personal Reflections</a></li>
+                    <li><a href="#related">Related Books</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    <main class="content">
+            <!-- Book Information -->
+            <div id="book-info" class="book-header">
+                <h1 class="book-title">Apology</h1>
+                <div class="book-metadata">
                 <p>Author: Plato</p>
-                <p>Date Read: February 2025</p>
-                <p>Category: Philosophy</p>
+                <p>Date Read: February 2025 (and several other times)</p>
+                <p>Pages: 20?</p>
+
+                <!-- Rating -->
+                <div class="rating">
+                    <div class="stars">★★★★★</div>
+                    <span>5/5</span>
+                </div>
+
+                <!-- Reading Status -->
+                <div class="reading-progress">
+                    <p>Reading Status: Complete</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+
                 <div class="tags">
                     <span class="tag">Ethics</span>
                     <span class="tag">Truth</span>
@@ -336,35 +402,8 @@
             </div>
         </div>
 
-        <!-- Overall Summary -->
-        <div class="notes-section">
-            <h2>Book Summary</h2>
-            <p>Socrates gives his defense against the charges of corrupting the youth and believing in false gods to the jury of Athens, and in the process sets the table for all of Western philosophy. (5/5)</p>
-        </div>
-
-        <!-- Key Ideas -->
-        <div class="notes-section">
-            <h2>Key Ideas</h2>
-            <ul>
-                <li>Human Wisdom</li>
-                    <ul>
-                        <li>What are humans capable of knowing, and why should we strive to know anything?</li>
-                    </ul>
-               
-                <li>The nature of the divine</li>
-                    <ul>
-                        <li>Does God (do the gods) speak to us? How? And what do they want</li>
-                    </ul>
-
-                <li>Philosophy</li>
-                    <ul>
-                        <li>What even is philosophy? Why should we do it? How should we do it?</li>
-                    </ul>
-            </ul>
-        </div>
-
         <!-- Notable Quotes -->
-        <div class="notes-section">
+         <div id="quotes" class="notes-section">
             <h2>Notable Quotes</h2>
             <blockquote>
                 “That is probable, gentlemen, is that in fact the god is wise and that his oracular response meant that human wisdom is worth little or nothing, and that when he says this man, Socrates, he is using my name as an example, as if he said: ‘This man among you, ‘mortals, is wisest who, like Socrates, understands that his wisdom is worthless.”
@@ -400,48 +439,63 @@
             </blockquote>
         </div>
 
-        <!-- Chapter Notes -->
-        <!-- <div class="notes-section">
-            <h2>Chapter Notes</h2>
-            
-            <div class="chapter">
-                <h3 class="chapter-title">Chapter 1: Chapter Title</h3>
-                <p>Your notes about this chapter go here.</p>
-                <ul>
-                    <li>Important point from the chapter</li>
-                    <li>Another key point</li>
-                </ul>
-            </div>
-
-            <div class="chapter">
-                <h3 class="chapter-title">Chapter 2: Chapter Title</h3>
-                <p>Your notes about this chapter go here.</p>
-            </div>
-        </div>
-
-        <!-- Personal Reflections -->
-        <div class="notes-section">
+         <!-- Personal Reflections -->
+         <div id="reflections" class="notes-section">
             <h2>Personal Reflections</h2>
             <p>Let’s stipulate that at this point there’s not much that has not been said about this dialogue. This functions, in a sense, as the foundation of Western philosophy in a lot of ways, and in some respects it’s almost Biblical in its influence over the centuries. Everyone knows Socrates and the circumstances surrounding his trial and execution, everyone understands that he stood up for truth and gave perhaps the first recorded full-throated defense of philosophy as such, thereby laying the groundwork for everything that came after. Aristotle clearly follows his lead in arguing for the contemplative life as the best life. Countless Christian philosophers follow him down the argumentative rabbit hole against polytheism. It would take over a millennia but the Enlightenment saw a resuscitation of his faith in democracy. His daemon is some kind of a proto-conscience literarily speaking. He’s setting the stage for a lot in not very much time. </p>
-            Something that intrigued me on this reading, though, is the pretty obvious contrast in what Socrates says and how he says it when he speaks about rhetoric. There’s certainly the implication in the first portion of the dialogue that Socrates does not think that the sophists and their preferred weapon, rhetoric, are worth very much and that he does not want to be lumped in with them and what they stand for. One of his accusers says not to be taken in by Socrates because he is an accomplished speaker, and Socrates moves to dismiss this out of hand. But as you read through his oration it’s clear that Socrates is, in fact, and accomplished speaker, especially since this is ostensibly an extemporaneous speech. Is he a rhetorician by his day’s standards? I don’t know, having not read very many orations from then, but frankly I don’t think the general public could find much space between the display Socrates puts on and what we read in Thucydides’ History of the Peloponnesian War or Herodotus’ Histories. He is self-deprecating throughout his prologue, insisting this is his first time before the court and begging forgiveness for his manner of speech, and yet his apology is a tour de force in rhetorical tactics and argumentation. And so if that’s the case, what is Plato doing here? One idea I had is that perhaps he is trying to draw a parallel between the content of rhetoric practiced during his time – i.e. sophists taking fees in order to teach students how to make the weaker argument the stronger, thereby propagating relativism – and the form of rhetoric itself. What does that mean? Plato may be telling us that, yes, rhetoric can convince people of things that aren’t true, BUT only in scenarios in which the tool of rhetoric is being used within established bounds of substance. If it’s used for the purposes of things that threaten to undercut the foundations of a society, or simply to undermine elite authority, then rhetoric is not recognized as a valid form of speech, and in that sense it is relativistic in and of itself. In other words, rhetoric is only powerful when the powerful accept that what is being said is valid. Socrates is subliminally doing to this entire jury what he has done to many Athenian citizens individually during his conversations with them, namely, he is showing them that the thing they most believed in was false. They never cared about rhetoric as an art at all, they only cared that it was making things they already thought beautiful more appealing. </p>
-            Another possibility is that Socrates was not speaking to the jury at all, but only to those who already believed him innocent and a genuine boon to Athens. Maybe Socrates was simply trying to make a lasting message in the most impactful way he could think of, hoping that one of his disciples would pass that along to the next generation. He could be doing both things, surely. </p>
-            Something else that jumped out at me was the piece where he describes talking to the poets about wisdom and realizing that none of them really know what they are talking about when they write their poems. Instead the poetry that comes from their heads is somehow divinely inspired, and once the words are down the spark is extinguished and they are left essentially vacant of any indication as to what it was all about. Two things jumped out to me here. First, you can follow this line of thinking and wonder if this is part of the reason Plato does not place much stock in poetry as an educational tool, and maybe even thinks it’s a bad thing on balance. Plato was surely more given to logic and abstraction than perhaps Socrates was, who never wrote anything down, and that being the case it’s hard to imagine him stomaching literature that has no foundation in human reason. The second thing that struck me about this passage is that, in a sense, Socrates isn’t all that different in that he is spurred on by some kind of divine being that tells him when he shouldn’t do something. Socrates never gives a real account of what this is or why he should believe it, it’s just there, the baseline assumption from which he builds his whole edifice of questioning. Not to say we should, therefore, dismiss this and his whole project out of hand, but I think it is an interesting similarity, and perhaps they are not as far apart as Socrates (or maybe just Plato) think. </p>
-            All this eventually leads to his famous proclamation that the oracle considers him the wisest man because he does not claim to be wise. But the actual formulation of this statement in the text is interesting because Socrates goes so far as to say that human wisdom is worthless (23.b). That raises an interesting question in my mind, for if it is worthless, what hope do we ever have of achieving wisdom (none), and what’s the point of striving after something that can never be attained, even partially? Maybe it’s just that in the gods’ eyes human wisdom is worthless, so that we leave something to strive for in terms of human wisdom. Is Socrates just telling every basically to know their role? I actually don’t know if I have a satisfying reply to this. Clearly he still believes that the search for truth is noble and the highest good a person can devote themselves to. This is even divinely inspired in him, as he is urged on by his daemon to pursue just that. We are clearly able to reason and engage in dialectic, and so maybe Socrates’ philosophy is more a negative philosophy in that he doesn’t think that we can ever come to truth with a capital T (perhaps that’s something that only lives in the world of the forms, which we don’t really have access to) but that we can continue to inquire into what it might be and should do that, for while there our human minds may never be able to rest in the final answers, we can certainly rule out a lot of wrong ones along the way. In some ways this reminds me of the Book of Job, just slightly, because in both cases when we are really measuring up what human knowledge amounts to relative to the divine mind, all we can be is extremely humble. </p>
-            And through this lens, perhaps, we can also see that philosophy to Socrates isn’t something merely rational, but is something that is possible and proceeds because of a divine spark within us. We do philosophy not just because it is beneficial to us personally but because it is pleasing to the gods, and this implication is a throwback to the dialogue he had with Euthyphro prior to entering the court house. Plato (Socrates) is in dialogue with himself here, in essence, providing a possible answer to a question left unanswered by his recent interlocutor. Piety is doing what is pleasing to the gods, and what is pleasing to the gods is for us to live in accordance with the reason that they bestowed upon us. It’s perhaps hyperbolic but there are parallels between the things Socrates says in this apology and what Jesus said and did in his final days. “[F]or if you kill me you will not easily find another like me.” (30.d) Jesus was just the kind of gadfly that Socrates is to the Pharisees and scribes of Galilee and Jerusalem. Both practiced poverty but were also full of life that brought friends and followers constantly into their orbits. And then Socrates says this, which gives a pretty accurate forecast of what was to happen to Jesus several hundred years later, “A man who really fights for justice must lead a private, not a public, life if he is to survive for even a short time.” (32.a) Both men, also, are quite obviously of the opinion that the wellbeing of our souls is what is of the utmost import, and that should we care for that we cannot be harmed in life or death, regardless of what punishments or tortures men send our way. All of which is to not equate these two, but for a believing Christian you have to find it interesting that this man who had no conception of the one true God would be approaching the example of Jesus by listening to his conscience. Is this an Axial Age coincidence, was it the vibes of this era that were getting to everyone, or is there really something true lying beneath it? </p>
-            Stoic philosophy traces its roots back to the teachings of Socrates, and you see some of that in this dialogue very clearly. “You are wrong, sire, if you think that a man who is any good at all should take into account the risk of life or death; he should look to this only in his actions, whether what he does is right or wrong, whether he is acting like a good or a bad man.” (28.b) Or try this, “To fear death, gentlemen, is no other than to think oneself wise when one is not, to think one knows what one does not know.” (29.a) There are others. (“Be sure that if you kill the sort of man I say I am, you will not harm me more than yourselves.” (30.c); “Yet I have often seen them do this sort of thing when standing trial, men who are thought to be somebody, doing amazing things as if they thought it a terrible thing to die, and as if they were to be immortal if you did not execute them.” (35.a)) </p>
-            Socrates throws some real heaters in this speech, most of which I haven’t touched on here, but which you can see thinkers responding to for the last 2400 years. The cliché is that all of philosophy is a footnote to Plato, and quite frankly, you see what that master has done in these few short pages and it’s hard to argue. We should all probably take away this one key point, though. Socrates practiced a form of philosophy that was entirely dependent on others. He needed to converse with people to get anywhere in his investigations, he couldn’t just talk to his inner daemon. This is a point made often, but it’s easily lost sight of especially with the advancement of technology. Everyone (including myself) needs to make a better effort of engaging with other real people when they are asking questions about the nature of things. Why? Perhaps it goes back to knowing our place in the cosmos. As Aristotle, who comes from the line of Socrates, points out decades later, man is a social creature, and to deny this, to deny the nature divinely built into us, is to set out from the very beginning on the wrong foot. </p>            
+            <p>Something that intrigued me on this reading, though, is the pretty obvious contrast in what Socrates says and how he says it when he speaks about rhetoric. There’s certainly the implication in the first portion of the dialogue that Socrates does not think that the sophists and their preferred weapon, rhetoric, are worth very much and that he does not want to be lumped in with them and what they stand for. One of his accusers says not to be taken in by Socrates because he is an accomplished speaker, and Socrates moves to dismiss this out of hand. But as you read through his oration it’s clear that Socrates is, in fact, and accomplished speaker, especially since this is ostensibly an extemporaneous speech. Is he a rhetorician by his day’s standards? I don’t know, having not read very many orations from then, but frankly I don’t think the general public could find much space between the display Socrates puts on and what we read in Thucydides’ History of the Peloponnesian War or Herodotus’ Histories. He is self-deprecating throughout his prologue, insisting this is his first time before the court and begging forgiveness for his manner of speech, and yet his apology is a tour de force in rhetorical tactics and argumentation. And so if that’s the case, what is Plato doing here? One idea I had is that perhaps he is trying to draw a parallel between the content of rhetoric practiced during his time – i.e. sophists taking fees in order to teach students how to make the weaker argument the stronger, thereby propagating relativism – and the form of rhetoric itself. What does that mean? Plato may be telling us that, yes, rhetoric can convince people of things that aren’t true, BUT only in scenarios in which the tool of rhetoric is being used within established bounds of substance. If it’s used for the purposes of things that threaten to undercut the foundations of a society, or simply to undermine elite authority, then rhetoric is not recognized as a valid form of speech, and in that sense it is relativistic in and of itself. In other words, rhetoric is only powerful when the powerful accept that what is being said is valid. Socrates is subliminally doing to this entire jury what he has done to many Athenian citizens individually during his conversations with them, namely, he is showing them that the thing they most believed in was false. They never cared about rhetoric as an art at all, they only cared that it was making things they already thought beautiful more appealing. </p>
+            <p>Another possibility is that Socrates was not speaking to the jury at all, but only to those who already believed him innocent and a genuine boon to Athens. Maybe Socrates was simply trying to make a lasting message in the most impactful way he could think of, hoping that one of his disciples would pass that along to the next generation. He could be doing both things, surely. </p>
+            <p>Something else that jumped out at me was the piece where he describes talking to the poets about wisdom and realizing that none of them really know what they are talking about when they write their poems. Instead the poetry that comes from their heads is somehow divinely inspired, and once the words are down the spark is extinguished and they are left essentially vacant of any indication as to what it was all about. Two things jumped out to me here. First, you can follow this line of thinking and wonder if this is part of the reason Plato does not place much stock in poetry as an educational tool, and maybe even thinks it’s a bad thing on balance. Plato was surely more given to logic and abstraction than perhaps Socrates was, who never wrote anything down, and that being the case it’s hard to imagine him stomaching literature that has no foundation in human reason. The second thing that struck me about this passage is that, in a sense, Socrates isn’t all that different in that he is spurred on by some kind of divine being that tells him when he shouldn’t do something. Socrates never gives a real account of what this is or why he should believe it, it’s just there, the baseline assumption from which he builds his whole edifice of questioning. Not to say we should, therefore, dismiss this and his whole project out of hand, but I think it is an interesting similarity, and perhaps they are not as far apart as Socrates (or maybe just Plato) think. </p>
+            <p>All this eventually leads to his famous proclamation that the oracle considers him the wisest man because he does not claim to be wise. But the actual formulation of this statement in the text is interesting because Socrates goes so far as to say that human wisdom is worthless (23.b). That raises an interesting question in my mind, for if it is worthless, what hope do we ever have of achieving wisdom (none), and what’s the point of striving after something that can never be attained, even partially? Maybe it’s just that in the gods’ eyes human wisdom is worthless, so that we leave something to strive for in terms of human wisdom. Is Socrates just telling every basically to know their role? I actually don’t know if I have a satisfying reply to this. Clearly he still believes that the search for truth is noble and the highest good a person can devote themselves to. This is even divinely inspired in him, as he is urged on by his daemon to pursue just that. We are clearly able to reason and engage in dialectic, and so maybe Socrates’ philosophy is more a negative philosophy in that he doesn’t think that we can ever come to truth with a capital T (perhaps that’s something that only lives in the world of the forms, which we don’t really have access to) but that we can continue to inquire into what it might be and should do that, for while there our human minds may never be able to rest in the final answers, we can certainly rule out a lot of wrong ones along the way. In some ways this reminds me of the Book of Job, just slightly, because in both cases when we are really measuring up what human knowledge amounts to relative to the divine mind, all we can be is extremely humble. </p>
+            <p>And through this lens, perhaps, we can also see that philosophy to Socrates isn’t something merely rational, but is something that is possible and proceeds because of a divine spark within us. We do philosophy not just because it is beneficial to us personally but because it is pleasing to the gods, and this implication is a throwback to the dialogue he had with Euthyphro prior to entering the court house. Plato (Socrates) is in dialogue with himself here, in essence, providing a possible answer to a question left unanswered by his recent interlocutor. Piety is doing what is pleasing to the gods, and what is pleasing to the gods is for us to live in accordance with the reason that they bestowed upon us. It’s perhaps hyperbolic but there are parallels between the things Socrates says in this apology and what Jesus said and did in his final days. “[F]or if you kill me you will not easily find another like me.” (30.d) Jesus was just the kind of gadfly that Socrates is to the Pharisees and scribes of Galilee and Jerusalem. Both practiced poverty but were also full of life that brought friends and followers constantly into their orbits. And then Socrates says this, which gives a pretty accurate forecast of what was to happen to Jesus several hundred years later, “A man who really fights for justice must lead a private, not a public, life if he is to survive for even a short time.” (32.a) Both men, also, are quite obviously of the opinion that the wellbeing of our souls is what is of the utmost import, and that should we care for that we cannot be harmed in life or death, regardless of what punishments or tortures men send our way. All of which is to not equate these two, but for a believing Christian you have to find it interesting that this man who had no conception of the one true God would be approaching the example of Jesus by listening to his conscience. Is this an Axial Age coincidence, was it the vibes of this era that were getting to everyone, or is there really something true lying beneath it? </p>
+            <p>Stoic philosophy traces its roots back to the teachings of Socrates, and you see some of that in this dialogue very clearly. “You are wrong, sire, if you think that a man who is any good at all should take into account the risk of life or death; he should look to this only in his actions, whether what he does is right or wrong, whether he is acting like a good or a bad man.” (28.b) Or try this, “To fear death, gentlemen, is no other than to think oneself wise when one is not, to think one knows what one does not know.” (29.a) There are others. (“Be sure that if you kill the sort of man I say I am, you will not harm me more than yourselves.” (30.c); “Yet I have often seen them do this sort of thing when standing trial, men who are thought to be somebody, doing amazing things as if they thought it a terrible thing to die, and as if they were to be immortal if you did not execute them.” (35.a)) </p>
+            <p>Socrates throws some real heaters in this speech, most of which I haven’t touched on here, but which you can see thinkers responding to for the last 2400 years. The cliché is that all of philosophy is a footnote to Plato, and quite frankly, you see what that master has done in these few short pages and it’s hard to argue. We should all probably take away this one key point, though. Socrates practiced a form of philosophy that was entirely dependent on others. He needed to converse with people to get anywhere in his investigations, he couldn’t just talk to his inner daemon. This is a point made often, but it’s easily lost sight of especially with the advancement of technology. Everyone (including myself) needs to make a better effort of engaging with other real people when they are asking questions about the nature of things. Why? Perhaps it goes back to knowing our place in the cosmos. As Aristotle, who comes from the line of Socrates, points out decades later, man is a social creature, and to deny this, to deny the nature divinely built into us, is to set out from the very beginning on the wrong foot. </p>            
             </p>
         </div>
 
         <!-- Related Books -->
-        <div class="notes-section">
+        <div id="related" class="notes-section">
             <h2>Related Books</h2>
-            <ul>
-                <li>Euthyphro, Crito, Phaedo, Reupublic - Plato</li>
-                <li>The Book of Job</li>
-                <li>Walden - Henry David Thoreau</li>
-            </ul>
-        </div>
+            <!--<div class="related-book">
+                <a href="[link-to-book-page.html]">[Related Book Title]</a> - [Author Name]
+            </div>-->
+            <div class="related-book">
+                <a href="euthyphro.html">Euthyphro</a>, Crito, Republic, Phaedo - Plato
+            </div>
+            <div class="related-book">
+                The Book of Job
+            </div>
+            <div class="related-book">
+                Walden </a> - Henry David Throeau
+            </div>
+        </main>
     </div>
+    <script>
+        // Toggle mobile navigation
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple search functionality (can be enhanced)
+        document.querySelector('.search-bar').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                alert('Search functionality would go here!');
+                // Implement actual search logic
+            }
+        });
+    </script>
 </body>
 </html>

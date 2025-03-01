@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Reading Notes</title>
+    <title>Reading Notes - Index</title>
     <style>
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #34495e;
+            --accent-color: #3498db;
             --text-color: #333;
             --link-color: #3498db;
             --background-color: #f5f6fa;
+            --quote-background: #f8f9fa;
+            --card-background: white;
         }
 
         body {
@@ -22,91 +25,70 @@
             color: var(--text-color);
         }
 
-        /* Dropdown Menu Styles */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            margin: 1rem;
-        }
-
-        .dropbtn {
+        /* Navigation Header */
+        .nav-header {
             background-color: var(--primary-color);
             color: white;
-            padding: 1rem;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 4px;
-        }
-
-        .dropdown-content a {
-            color: var(--text-color);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: var(--background-color);
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown:hover .dropbtn {
-            background-color: var(--secondary-color);
-        }
-
-        /* Search Bar Styles */
-        .search-container {
-            margin: 1rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .search-bar {
-            width: 50%;
-            padding: 0.5rem;
-            border: 2px solid var(--primary-color);
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        #searchResults {
-            margin: 1rem auto;
-            max-width: 800px;
-            padding: 1rem;
-        }
-
-        .result-item {
-            background-color: white;
-            margin: 0.5rem 0;
-            padding: 1rem;
-            border-radius: 4px;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-/* Enhanced Search Styles */
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .site-title a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Navigation Toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Search Bar */
         .search-container {
-            margin: 1rem;
+            margin: 2rem auto;
+            max-width: 800px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 10px;
         }
 
         .search-bar {
-            width: 50%;
+            width: 70%;
             padding: 0.8rem;
             border: 2px solid var(--primary-color);
             border-radius: 4px;
@@ -119,346 +101,723 @@
             box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
         }
 
-        #searchResults {
-            margin: 1rem auto;
-            max-width: 800px;
-            padding: 1rem;
+        /* Sidebar */
+        .sidebar {
+            grid-column: 1;
         }
 
-        .result-item {
-            background-color: white;
-            margin: 0.5rem 0;
-            padding: 1rem;
-            border-radius: 4px;
+        /* Filter Section */
+        .filters {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease;
+            position: sticky;
+            top: 5rem;
         }
 
-        .result-item:hover {
-            transform: translateX(5px);
-        }
-
-        .highlight {
-            background-color: #fff3cd;
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-
-        .no-results {
-            text-align: center;
-            color: var(--secondary-color);
-            padding: 1rem;
-            font-style: italic;
-        }
-
-        /* [Rest of your previous styles remain the same] */
-        /* Keep your existing styles */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .reading-list {
-            margin: 2rem 0;
-        }
-
-        .reading-list h2 {
+        .filters h3 {
+            margin-top: 0;
             color: var(--primary-color);
             border-bottom: 2px solid var(--primary-color);
             padding-bottom: 0.5rem;
         }
 
-        .book-list {
-            list-style-type: none;
-            padding: 0;
+        .filter-group {
+            margin-bottom: 1rem;
         }
 
-        .book-list li {
-            margin: 1rem 0;
-            padding: 0.5rem;
-            background-color: white;
-            border-radius: 4px;
+        .filter-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-option label {
+            margin-left: 0.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+        }
+
+        .content {
+            grid-column: 2;
+        }
+
+        /* Page Header */
+        .page-header {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .book-list a {
-            color: var(--link-color);
-            text-decoration: none;
+        .page-title {
+            color: var(--primary-color);
+            margin: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
         }
 
-        .book-list a:hover {
-            text-decoration: underline;
-        }
-
-        .book-metadata {
-            font-size: 0.9rem;
+        .page-description {
+            margin-top: 1rem;
             color: var(--secondary-color);
+        }
+
+        /* Book Cards */
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .book-card {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .book-card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .book-card-title {
+            margin: 0;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .book-card-title a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .book-card-title a:hover {
+            color: var(--accent-color);
+        }
+
+        .book-card-author {
+            color: var(--secondary-color);
+            margin: 0.5rem 0;
+            font-style: italic;
+        }
+
+        .book-card-content {
+            padding: 1.5rem;
+        }
+
+        .book-card-metadata {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .book-card-date {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        .book-card-pages {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        /* Rating System */
+        .rating {
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .stars {
+            color: gold;
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Tags */
+        .tags {
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: inline-block;
+            transition: background-color 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Year Dividers */
+        .year-divider {
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            grid-column: 1 / -1;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+
+        .page-link {
+            padding: 0.5rem 1rem;
+            background-color: var(--card-background);
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .page-link:hover, .page-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .content, .sidebar {
+                grid-column: 1;
+            }
+
+            .filters {
+                position: static;
+                margin-bottom: 2rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .book-list {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="dropdown">
-        <button class="dropbtn">Categories ▼</button>
-        <div class="dropdown-content">
-            <a href="#top">Home</a>
-            <a href="philosophy.html">Philosophy</a>
-            <a href="fiction.html">Fiction</a>
-            <a href="history.html">History</a>
-            <a href="science.html">Science</a>
-            <a href="siberia.html">Siberia</a>
-            <a href="general.html">General Non-Fiction</a>
-            <a href="reflections.html">Reflections</a>
-            <a href="years.html">Book Years</a>
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <div class="nav-container">
+            <h1 class="site-title"><a href="index.html">Reading Notes</a></h1>
+            <button class="nav-toggle">☰</button>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="philosophy.html">Philosophy</a>
+                <a href="fiction.html">Fiction</a>
+                <a href="history.html">History</a>
+                <a href="science.html">Science</a>
+                <a href="siberia.html">Siberia</a>
+                <a href="general.html">General Non-Fiction</a>
+                <a href="reflections.html">Reflections</a>
+                <a href="years.html">Book Years</a>
+            </nav>
         </div>
-    </div>
+    </header>
 
     <!-- Search Bar -->
     <div class="search-container">
-        <input type="text" class="search-bar" id="searchInput" placeholder="Search your reading notes...">
-    </div>
-    <div id="searchResults"></div>
-
-    <div class="container" id="searchableContent">
-        <h1>My Reading Notes</h1>
-        <div class="reading-list">
-            <h2>Philosophy</h2>
-            <ul class="book-list">
-                <li>
-                    <a href="philosophy/euthyprho.html">Euthyphro - Plato</a>
-                    <div class="book-metadata">Published: 350 BC - Pages: 10</div>
-                    <div class="book-metadata">Read: February 2025 (and several other times)</div>
-                </li>
-                <li>
-                    <a href="philosophy/apology.html">Apology - Plato</a>
-                    <div class="book-metadata">Published: 350 BC - Pages: 20</div>
-                    <div class="book-metadata">Read: February 2025 (and several other times)</div>
-                </li>
-            </ul>
-        </div>
-
-        <div class="reading-list">
-            <h2>Fiction</h2>
-            <ul class="book-list">
-                <li>
-                    <a href="fiction/the-maniac.html">The MANIAC - Bejamin Labatut</a>
-                    <div class="book-metadata">Read: February 2025</div>
-                </li>
-            </ul>
-        </div>
-
-        <div class="reading-list">
-            <h2>History</h2>
-            <ul class="book-list">
-                <li>
-                    <a href="history/thomas-jefferson">Thomas Jefferson - The Art of Power</a>
-                    <div class="book-metadata">Read: January 2024</div>
-                </li>
-            </ul>
-        </div>
-
-        <div class="reading-list">
-            <h2>Science</h2>
-            <ul class="book-list">
-                <li>
-                    <a href="science/Helgoland">Helgoland</a>
-                    <div class="book-metadata">Read: January 2024</div>
-                </li>
-            </ul>
-        </div>
-        
-        <div class="reading-list">
-            <h2>Siberia</h2>
-            <ul class="book-list">
-                <li>
-                    <a href="siberia/TravelsSiberiaShaman.html">Travels in Siberia: A History of the People's Shaman's Coat</a>
-                    <div class="book-metadata">Read: January 2025</div>
-                    <a href="siberia/thegreatsoulofsiberia.html">The Great Soul of Siberia</a>
-                    <div class="book-metadata">Read: January 2025</div>
-                    <a href="siberia/thereindeerpeople.html">The Reindeer People</a>
-                    <div class="book-metadata">Read: February 2025</div>
-                </li>
-            </ul>
-        </div>
-
-        <div class="reading-list">
-            <h2>General Non-Fiction</h2>
-            <ul class="book-list">
-                <li>
-                    <a href="generalnonfic/the90s">The 90s</a>
-                    <div class="book-metadata">Read: January 2024</div>
-                </li>
-            </ul>
-        </div>
-
-        <div class="reading-list">
-            <h2>Relfections</h2>
-            <ul class="book-list">
-                <li>
-                    <a href="reflections/Siberia">What I've Learned about Siberia</a>
-                    <div class="book-metadata">Written: April 2025</div>
-                </li>
-            </ul>
-        </div>
+        <input type="text" class="search-bar" placeholder="Search by title, author, tag, or content...">
     </div>
 
-    
-    <script>
-        // Create an index of all pages and their content
-        const websiteContent = {
-            'philosophy/euthyphyo': {
-                title: 'Euthyphro - Plato',
-                content: `Full text of your Euthyphro notes would go here. This would include all the content from your notes page about the dialogue, Plato's arguments, your analysis, etc.`,
-                author: 'Plato',
-                category: 'Philosophy'
-            },
-            'siberia/TravelsSiberiaShaman': {
-                title: 'Travels in Siberia; Siberia: A History of the People; The Shamans Coat',
-                content: `2025 is the year of Siberia. In December I listened to an episode of Conversations with Tyler featuring Stephen Kotkin which rabbit holed into a long discussion about Siberia. Stephen’s take on the region left me with a bout of wanderlust, even though, realistically, I know this is a place I will never personally get to experience. Not merely faraway, Siberia is remote from the nearest faraway place, and in my ignorant mind a complete cipher, tucked into the tundra of the Artic and straddling the Eurasian steppe. Listening to him speak I was baffled at the fact that I had never before given more than a glancing thought to a swath of land that accounts for more than 10% of all terrain on earth, encompasses 12 time zones, and nearly reaches out and touches Alaska across the Bering Strait. Not only that, but I have my own, overly romanticized love affair with Russian literature, and, to a lesser degree, culture. But through all my readings of Dostoevsky, Tolstoy, Chekhov, Turgenev, and Solzhenitsyn, the idea of Siberia never conjured more than a hazy notion, a physical symbol of the shear massiveness of Russia and the many depths it held. Even if I wouldn’t be able to see it with my own eyes, what mysteries could I uncover by reading a slate of books devoted to this leviathan of earth?</p>
-                I fired up Abebooks and placed the largest order, quantity-wise, for books I’ve ever made. This reading list was partially given by talking with LLMs (Claude, ChatGPT) and partly by scrolling around the ‘Customers Also Bought’ section of Amazon. In the end the list looked like this:</p>
-                •	Travels in Siberia – Ian Frazier (Audiobook)</p>
-                •	Siberia: A History of the People – Janet M. Hartley</p>
-                •	The Shaman’s Coat – Anna Reid</p>
-                •	Landscapes of the Imagination: Siberia –</p> 
-                •	The Great Soul of Siberia – Sooyong Park</p>
-                •	The Reindeer People – Piers Vitebsky</p>
-                •	The House of the Dead – Daniel Beer</p> 
-                •	Stalin’s Meteorologist – Olivier Rolin</p> 
-                •	The Gulag Archipelago – Alexandr Solzhenitsyn</p> 
-                The rough plan of my reading journey is:</p> 
-                1.	Understand broadly the geography of Siberia, the peoples who live there, and the basic history of the region – Russian and native (first four books)</p>
-                2.	Understand more deeply about the ecology, geology, and climate of the region (fifth and sixth books)</p>
-                3.	Understand how Siberia was used as a place of exile throughout the course of Russian history (last three books)</p>
-                This plan will probably be supplemented along the way with additional books cited by the books I currently have, but at least it’s a starting place. I began with Frazier’s Travels in Siberia as an easy audiobook entrée into the subject and casually listened to it for it’s roughly 20 hour runtime over three or four weeks. Written in the early 2000s, it’s a bit dated now given how the political situation in Russia has changed in the last decade, but it gives a great introduction to Siberia. Generally the book follows Frazier’s visits to Russia (which has a distinct Russia smell, apparently) and Siberia over roughly 20 years, from making a quick jaunt from Alaska to Chukotka in a puddle jumper run by a guy who only flies that route, to his two cross-subcontinent road trips, one during the summer (whose end coincided with the 9/11 attacks) and one during the winter so that he could really experience the extremes of Siberia. Not knowing the geography or really anything about Siberia going into the book, I was essentially along for the ride with nothing sticking with me about the region itself aside from some broad generalizations – Lake Baikal is stunningly beautiful, Irkutsk is the Paris of Siberia, Chukotka is very close to Alaska and has extremely forbidding seas and weather, Russians aren’t particularly keen about showing foreigners the prisons and gulags that once dotted the Siberian landscape like a pockmarked smallpox case. Also, Russians are great mechanics in a pinch.</p> 
-                It was sometimes hard to disentangle Frazier’s feelings about life and what was happening in the narrative. Granted, this was a travel memoir, and his references to George Kennan’s travels across Siberia reveal that he had that in mind while undertaking this project. And maybe, as a fellow American who knows nothing beside my creature comforts, because it was easier to relate to him than to the factual Siberia, what rang most true to me in the book were the passages where he encountered the brutal reality of life in Siberia – how remote it was and how difficult it was to make your way across it (he had a satellite phone to check in with his family); how semi-lawless it could be, like when they had to disguise their van as part of the Russian equivalent of the Red Cross once they made past a certain point on the road; how they smelled like a rotten baby from all the dairy products they ate on a daily basis since that was really all that was available; and how poor the inhabitants were, evidenced by their glee at receiving a Beanie Baby or a souvenir New York snow globe from Frazier.</p> 
-                There was a good bit about the history of Russia under the rule of Genghis Khan. His reign of terror in old Muscovy, Frazier makes the case, left an indelible scar on the psyche of the Russian people that to this day affects their personalities and view of the world. He weaves in a good bit about the crows in Russia even being affected by this history, because there, as compared to the crows in America, the birds seem to be languidly awaiting the next slaughter when they’ll be able to feast, unchecked, yet again. Frazier might have a point about the Mongols, though. It’s easy to imagine the horrors they inflicted sticking in the cultural memory and acting as an unseen motivation behind their drive for empire once the Romanov line began and Russia began to see itself as the ‘new Rome’ for Christianity. Throughout the colonial period (if that’s an appropriate name to give to the era during which Siberia was settled by Russian’s) they required the payment of a yasak from the native Siberia tribes they had ‘conquered’. Yasak was the Mongolian word for the tribute Genghis imposed on the peoples he brought into his empire. In Siberia early on, this was often paid in the form of sable pelts, since in the 16th and 17th century this fur was once of the most precious commodities in the Russian empire, and more broadly into Europe.</p> 
-                At this point Hartley’s book does well explaining in some depth and detail the building of Siberia by the Russians into a true part of the empire, as opposed to the terra incognita beyond the Urals it had been until the 16th century. Though dry as the midwinter air in the Siberian tundra, I couldn’t help simply being thankful that a book like this can exist. Here’s what I mean. What becomes very clear in reading her book is not only the terrible vastness of Siberia, but also every person’s helplessness in the face of it until about 100 years ago. You end up asking the question again and again, just how do people make their way around such an enormous part of the globe without the benefit of modern technology like maps, automobiles, and communication technologies? I think I’m doing a poor job at explaining this phenomenon, but maybe I’ll just say this – while reading Hartley’s book I referred again and again to the inset maps she included in each chapter to help orient myself when the place-names all started running together, but the first Siberian settlers had nothing approaching this aide, and, by and large, it’s hard to imagine that, aside from the actual explorers who made the maps, any of the inhabitants had a true grasp of what else was out there beyond, perhaps a 50 mile radius from their little Siberian village. I’d bet if I set out from my house today without a map, phone, or automobile – let alone the benefit of grocery stores that I’d inevitably run into – I’d be about dead of starvation as quickly as possible. But because of this incredible time that we live in, Hartley can travel around Siberia conducting research knowing exactly where she is and where she’s headed next, and I can read a book about the history of a place that should otherwise be uninhabitable from the comfort of my own home, consulting with the internet on anything that needs clarification. I take this as an unadulterated boon of progress, but I suppose others may not think so. And one addendum to add here is that this applies to written history, as well. Western European history spoils us because there is so much written down from a relatively early period of time, but it seems that the history of the native peoples in Siberia is largely invisible, except for when more literate societies occasionally dip into its story, like the ancient Chinese and Mongols. </p>
-                Reid’s book is further proof of this last point. Ostensibly a book in search of any remaining shamans in modern Russia, it dwells more on the history of the native tribes of Siberia – the Khant, Tuva, Buryat, Chukchi, Nivkh, Sakha, and others – and the effect Russian history has had on them. However, enlightening as it is, it appears to be the case that prior to Ermak’s invasion of western Siberia in the 16th century, all we have is a pinprick of light against a cloudy night sky as we try to uncover the life of these peoples in the likely thousands of years prior they inhabited this place. I suppose the implication most people make is that until that epoch things in Siberia were largely always the same – herding reindeer, fishing, making homes, practicing an animistic religion, etc. But that can’t be entirely true. Surely the history of Siberian natives is as tangled and bloody and fascinating as that of any other people throughout history, filled with heroes and villains, cultural milestones and discoveries, the rising and falling of empires – we’ll just never know it. </p>
-                Reid’s prose has an artistry to it that neither Frazier nor Hartley had – although Frazier certainly had a style of his own – that floats you through the narrative like the spring thaw of the frozen rivers of the taiga. She also has a depth of knowledge that allows her to make comparisons across history and draw out arguments about the state of things in Siberian Russia today. There are reflections about the ebb of Buddhist belief after perestroika, how at first people came flooding back to the religion only to trickle away again when the allures of modernity and the dissolution of old traditions were fully realized. She smartly identifies the lack of white guilt in Russian Siberians with respect to their native neighbors as being rooted in the usually dreadful circumstances under which most of their parents and grandparents were brought to Siberia in the first place. She notes the rising cosmopolitan consciousness of Siberian shamans in the early 20th century as they began to become concerned with issues that are familiar today – environmental degradation, colonialism, industrialization, the general debasement of the human person with the goal of elevating the standard of living for humanity (or at least a subset of it).</p>
-                While Hartley’s depiction of the facts of living in a Siberian settlement as Russia’s empire grew across Asia was illuminating, Reid goes a far way towards showing us why that still matters. Siberia was part penal colony, part nationalistic hubris, part a genuine hope for people crushed beneath the rigid system of serfdom in European Russia, and that’s all still relevant today. And beyond that, it may be a place that is too big to be conquered. How, truly, does a tsar or any autocrat effectively rule such an enormous mass of land when communication channels are virtually prehistoric and the place is barely understood? Moving towards the 20th century an enormous portion of the population was comprised of exiles, women were grossly outnumbered by men, native populations were in decline, and sables had been hunted to near extinction. Perhaps it isn’t much different than colonial regimes the world over, but the people who ended up in Siberia very often had no incentive to make the place better – they had no agency, there was no point in trying. Power was reserved for a ruler thousands of miles away whether you were a peasant, a prisoner, or a native. And the local military governor was often unchecked in his ability to take whatever he wanted. </p>
-                I had previously wondered at Russia’s lack of colonial ambitions during the 17th through 19th century, but these books offered an antidote to that conception. Russia had Siberia, which resembled traditional colonialism in many ways. Extraordinary distances were travelled, native peoples were subdued and Christianized (in this case for the Orthodox Church) and made slaves, wars were fought, and folk heroes were made. Reid makes this case explicitly in places, but it bears a resemblance to the American West. Siberia was opened up before Russia had access to the Baltic Sea, which shows how weakened the empire was coming out of the rule of the Mongols in the 15th century. Despite what ultimately looks like a missed opportunity in many ways, the sheer richness of Siberia allowed Russia to absorb that mismanagement and grow into a formidable power. Siberia allowed Russia to control trade routes from China and Mongolia, along which a portion of the Silk Road traversed, and over which many luxury goods were carried that were highly coveted by European Russians and others across the Urals. The tea from this trading route also became a staple of Siberian diets. Frazier’s account of his time in Siberia detailed unending dinner’s that consisted of cup after cup of tea decanted from a samovar that was never turned off. The Siberians he met loved to converse and philosophize over tea. Perhaps this is where the Russian novel gets its bent toward the abstract, meaty topics of philosophy, not to mention their typical length. </p>
-                I think the main points or questions I’m left with after beginning my reading journey through Siberia are:</p>
-                1.	The political economy of the place – how it compares to other colonial regions of this time; what the particular effects of the tsarist regime were on the development of Siberia – especially vis a vis America where there was not such top down command; how the prisoner population altered the trajectory of its identity, especially as compared to another famous penal colony, Australia; and how dealings with native populations differed from in other places both then and even today.</p>
-                2.	It seems there is very little recorded about the native people prior to Russian contact. Surely there would be other accounts by, for example, the Chinese in the Amur region. But the people in the remotest portions of Siberia seem to only have oral tradition to pass on. This is probably similar to the case of American Indians, but it still is one of my biggest curiosities. </p>
-                3.	There’s kind of a big gap in literature on this topic, I’m assuming because of the Soviet Union’s regime for most of the 20th century. But most of the references in these books are from the 18th and 19th century by foreign expeditions.</p>
-                4.	Frazier is a kind of typical yuppie in his attitude, but you can’t deny his tenacity for his subject when you listen to the rigors of Russian language instruction he went through and the quite often very uncomfortable conditions he endured as he traversed Siberia. He’s like an overachieving friend who can at times annoy you but you stick with because he really is very interesting. Hartley comes off like a young professor who has all the facts but fears offending anybody in her writing, and her book shows it. And Reid has the stance of a disillusioned leftist who is whip smart but is predominantly nihilistic in her worldview. She has a devil-may-care panache that lures you in, but when you arrive at your destination you get the feeling that her main goal was to make you feel like a hypocrite. All of which is to say: style matters. Reid’s book will stay with me the longest, I think, if only because I have a bent towards a guilty conscience and the overall tone of her work spoke to that part of me. </p>
-                Frazier’s book was good, but it would probably benefit from a bit of a closer reading of a physical copy. (Also, did you know that in the year 2002 a sable stole at Saks Fifth Avenue could cost $80,000 and a full coat $250,000?!) Hartley’s book is a good reference for dates and facts but nothing more. And Reid’s book was my favorite of the three if only because she wields her pen like a shiv and is able to suddenly eviscerate you when you least expect it. </p>
-                `,
-                author: 'Ian Frazier; Janet M. Hartley; Anna Reid',
-                category: 'Siberia'
-            },
-            'siberia/thegreatsoulofsiberia.html': {
-                title: 'The Great Soul of Siberia: In Search of the Elusive Siberian Tiger',
-                content: `I have to hand it to Sooyong Park. I don’t know if anyone has ever Thoreau’d as hard as he does in this book about the Siberian (Ussuri) tiger. Sooyong spends his summers tracking these wonderful beasts across the Sikhote-Aline forests in the Amur Valley region of Siberia, then spends 7-8 months of winter hiding out in a series of two meter by two meter by 1.8 meter bunkers he strategically locates along likely tiger hunting paths, just waiting for them to come along so he can capture them on video in the most unobtrusive way possible. It’s like the premise of Chuck Klosterman’s novel The Visible Man, where he partakes in an extended thought experiment that asks whether anyone can know what another person is really like when they think they are completely alone. Except this is with tigers. 
-                To back up, the Ussuri tiger is the only species of tiger inhabiting Arctic climes. Because of the climate, they are larger than their cousin species in the more temperate and tropical regions of Asia. However, due to poaching and changing environmental conditions, there were only about 500 left in the world at the writing of this book. Sooyong has an eye for natural detail (which I’ll get to later) that is frankly astounding. In the first part of the book he explains the habits of these creatures, their anatomy, personalities, habitats, hunting methods, and history in a way that grounds his love and respect for them. You see immediately what stalking them for years like he has gets you in terms of depth of knowledge and a general sense of unity with the creature and its environs. He’s like a car mechanic that has a preternatural ability to diagnose your vehicle just by hearing the subtle shift in vibration when you start your engine. 
-                Tigers are solitary creatures, with grown males only interacting with other tigers during the mating season and for the occasional check-in with their mates and the cubs he sired. Females raise cubs on their own, teaching them the ways of the forest until they’re about three years old, at which point they will go off to form their own families. Adult males view for territory with other males, which provides them not only ample hunting ground but a selection of females with whom to breed. With territories as large as hundreds of square miles for males, and somewhere under a hundred square miles for adult females, tigers spend much of their time patrolling their borders, so to speak, marking their kingdoms by  spraying, urinating, or scratching as high up on tree trunks as they can. From this group of apex predator one male reigns above all – the Great King of the forest. This is the largest male who claims the most territory for himself, and can only be displaced by being killed by another male or by natural death. Native villagers revere the Great King as a kind of incarnation of the god of the forest, or Amba. In this book, we follow the current Great Kin, Khajain, one of his mates, Bloody Mary, and their cubs, White Sky, White Moon, and White Snow, over the course of two years. 
-                As much a meditation on the tiger as it is on stillness and nature, Sooyong brings us intimate details of tiger behavior while also showing us how he “reads” the forest while he is setting up and implementing these stake outs. He understands the travels of various kinds of birds, why they flock where they do, some deliberately following tigers because they know carrion is coming soon. He explains the markings on trees and the disappearance of bark along the base of their trunks, a sign that the acorn harvest of that year was poor and deer and other animals have resorted to eating that to stay alive. He even sees human beings as part of this interconnected ecosystem, detailing how the native Udege have hunted and fished in the forests of the tigers for centuries before Ukrainians were moved into the area during Russian settlement of Siberia in the 1800s.
-                Tigers are incredible creatures. There is an exquisite depiction of Bloody Mary fishing by sticking her forepaw in the water and allowing the hair fluttering in the water act as a lure for the fish before she expertly clawed it with her free paw. They are cunning enough to carefully track human, study their patterns, their demeanors, be able to detect what a poacher acts like versus what a native person who revers the tiger acts like. They pick out the scent of gun metal and stymie the traps of poachers, and their senses are so acute that they discover hidden microphones the size of a fingernail that Sooyong places around their hideouts. At one dramatic point in the book Bloody Mary and two of her cubs nearly discover one of his hideouts along the coast and spent the night trying to tear it to shreds. The only possible response he can give is to stay completely still, choosing possibly freezing in the dangerous cold of the Siberian night over being surely mauled by the tiger if discovered. Mother tigers like Bloody Mary teach their cubs what seems like a “tiger culture”, a big part of which is stealth, but also involves survival tactics like making sure one tiger in the family group is not eating and keeping watch while the others feast. That role is rotated so every tiger gets their share. Somehow tigers also have passed down a hard-won knowledge of the danger of railroads, which also proved a major threat to their population when the Trans-Siberian railway was first constructed. 
-                Sooyong’s internal story is similarly compelling. As he lies in his bunker one night, getting sick of listening to the crashing of the waves, he thinks to himself such a normal thought – what would he do when he finally emerges from this bunker? “I should be good to my parents while they’re still around. I should look up a friend I haven’t seen in years.” We all have these kinds of thoughts, and I wondered what the chances are that he actually followed through with those resolutions. This thought especially crossed my mind because I recently had a conversation with Marlee about what makes life meaningful, and we both agreed that it’s the relationships you have with people over the course of your time on earth. But reading this book, Sooyong gives you such an intimate portrait of nature, and this particular forest, that it made me consider whether it is possible that your relationship with a place can also make life worth living. You can only hear so many times that people want to be a part of something bigger than themselves, and the prescription for that is more often than not organized religion. Maybe it’s possible, too, though, for a person to find that fulfillment in nature, in being part of an ecosystem where they view themselves as so integral to the world that it’s impossible for them to separate their sense of self from their conception of the world at large. I don’t know if Sooyong would say he achieved that, but some of the natives that live in that region might think that. Well, maybe they wouldn’t think that, maybe they would just inhabit that sensibility without much self-reflection. Regardless, when talking about Ussuri tigers or Siberian native people, I think you must consider how each of these creatures isn’t necessarily choosing to live in this harsh climate, it’s more that their existence in this place feeds back on itself. I don’t know if that makes sense. Surely humans can’t be solitary creatures like tigers, but I think there is space for us to say that some kind of rootedness is also essential to a person’s self-image. 
-                And to draw this circle completely, maybe tigers can’t be as solitary as that simple statement implies. Another striking thing about this book is all the moments of tiger familial bonds you suddenly get access to via Sooyong’s coffin dugout – cubs playing together in the snow, White Sky and White Snow hunting on the beach under the moonlit sky taking turns feasting on their prey and nuzzling each other throughout, Khajain coming back from his journeys across the forest to bring food and visit his cubs and Bloody Mary. By the end of the book Bloody Mary has been tragically killed by a poacher trap, White Sky (her male cub) has died, and White Snow has two cubs by her father Khajain, who are killed – the female by the male because they were starving, and later the male when he is hit by a vehicle while he is trying to cross a road with his mangled leg that he suffered in the struggle in which he killed and ate his sister. The tigers are struggling to survive and conditions are deteriorating all around them. Sooyong makes us feel this as if they were human characters in a novel, and when he writes about White Snow lingering around the body of her dead son, nudging him fruitlessly to try to get him to keep going, and how she came back in the following nights even though he was gone, just to be near his scent, your heart breaks. White Moon fares better toward the end, and as far as we know her cubs – dubbed Hansel and Gretel - survive. Sooyong leaves us with a scene of tiger familial bliss, the tiger cubs playing and trying to engage their mother, who in the safety of their environment gives into her inner urge to have fun. “She was vigilant and prudent outside, but as innocent as a puppy inside. The cubs were at ease, and their mother was affectionate. They were a real family who shared mutual trust and dependence. People think of tigers as terrifying, fearless creatures, but they probably spend most of their lives in the peaceful, affectionate state I saw them in now.”
-                Some quick hitting facts:
-                At the turn of the 20th century, big game hunting of Siberian tigers was legal, kind of like the safaris Hemingway and his contemporaries partook in. This led to a dramatic crash in the population, which has not yet recovered. That was accelerated by the collapse of the Soviet Union which allowed private poachers to run rampant to try and supply the demand for exotic animal byproducts coming out of Japan, China, and Korea. 
-                Did you know it takes ginseng nearly 100 years to fully mature? 
-                There’s an excellent anecdote about a Siberian lynx taking down a Manchurian red deer (half the size of a horse) all on its own. Apparently the lynx are the fiercest of the cat species extant in Siberia.`,
-                author: 'Sooyong Park',
-                category: 'Siberia'
-            },
-            // Add entries for all your other book notes pages
-        };
+    <div class="container">
+        <!-- Sidebar with Filters -->
+        <aside class="sidebar">
+            <div class="filters">
+                <h3>Filter Books</h3>
+                
+                <div class="filter-group">
+                    <div class="filter-title">Rating</div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="five-stars" name="rating" value="5">
+                            <label for="five-stars">★★★★★ (5 stars)</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="four-stars" name="rating" value="4">
+                            <label for="four-stars">★★★★☆ (4 stars)</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="three-stars" name="rating" value="3">
+                            <label for="three-stars">★★★☆☆ (3 stars)</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="two-stars" name="rating" value="2">
+                            <label for="two-stars">★★☆☆☆ (2 stars)</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="one-star" name="rating" value="1">
+                            <label for="one-star">★☆☆☆☆ (1 star)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-title">Categories</div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="philosophy" name="category" value="philosophy">
+                            <label for="philosophy">Philosophy</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="fiction" name="category" value="fiction">
+                            <label for="fiction">Fiction</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="history" name="category" value="history">
+                            <label for="history">History</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="science" name="category" value="science">
+                            <label for="science">Science</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="siberia" name="category" value="siberia">
+                            <label for="siberia">Siberia</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="general" name="category" value="general">
+                            <label for="general">General Non-Fiction</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-title">Reading Status</div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="complete" name="status" value="complete">
+                            <label for="complete">Complete</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="in-progress" name="status" value="in-progress">
+                            <label for="in-progress">In Progress</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="to-read" name="status" value="to-read">
+                            <label for="to-read">To Read</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-title">Years</div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="year-2025" name="year" value="2025">
+                            <label for="year-2025">2025</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="year-2024" name="year" value="2024">
+                            <label for="year-2024">2024</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="year-2023" name="year" value="2023">
+                            <label for="year-2023">2023</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="year-2022" name="year" value="2022">
+                            <label for="year-2022">2022</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="apply-filters" style="background-color: var(--primary-color); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; width: 100%;">Apply Filters</button>
+            </div>
+        </aside>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
-            const searchResults = document.getElementById('searchResults');
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">My Reading Notes</h1>
+                <div class="page-description">
+                    <p>Welcome to my reading notes collection. This is where I document my thoughts, favorite quotes, and reflections on the books I've read. Browse chronologically or use the filters to find specific types of books.</p>
+                </div>
+            </div>
 
-            function performSearch(searchTerm) {
-                searchTerm = searchTerm.toLowerCase();
-                const results = [];
-
-                // Search through the full website content
-                for (const [path, pageData] of Object.entries(websiteContent)) {
-                    const searchableText = `${pageData.title} ${pageData.author} ${pageData.content} ${pageData.category}`.toLowerCase();
-                    
-                    if (searchableText.includes(searchTerm)) {
-                        // Find the context around the search term
-                        const contextIndex = searchableText.indexOf(searchTerm);
-                        const startIndex = Math.max(0, contextIndex - 50);
-                        const endIndex = Math.min(searchableText.length, contextIndex + searchTerm.length + 50);
-                        let context = searchableText.substring(startIndex, endIndex);
-                        
-                        // Add ellipsis if we're not at the start/end
-                        if (startIndex > 0) context = '...' + context;
-                        if (endIndex < searchableText.length) context += '...';
-
-                        results.push({
-                            title: pageData.title,
-                            author: pageData.author,
-                            category: pageData.category,
-                            url: path,
-                            context: context,
-                            score: (searchableText.match(new RegExp(searchTerm, 'g')) || []).length
-                        });
-                    }
-                }
-
-                // Sort results by relevance score
-                results.sort((a, b) => b.score - a.score);
-
-                // Display results
-                if (results.length > 0) {
-                    searchResults.innerHTML = results.map(result => `
-                        <div class="result-item">
-                            <h3><a href="${result.url}">${result.title}</a></h3>
-                            <div class="result-metadata">
-                                <span>Author: ${result.author}</span> | 
-                                <span>Category: ${result.category}</span>
+            <!-- Book List -->
+            <div class="book-list">
+                <!-- Year Divider -->
+                <h2 class="year-divider">2025</h2>
+                
+                <!-- Book Card Example 1 -->
+                <div class="book-card">
+                    <div class="book-card-header">
+                        <h3 class="book-card-title"><a href="siberia/winterpasture.html">Winter Pasture: One Woman's Journey with China's Kazakh Herders</a></h3>
+                        <p class="book-card-author">Li Juan</p>
+                    </div>
+                    <div class="book-card-content">
+                        <div class="book-card-metadata">
+                            <div class="book-card-date">February 2025</div>
+                            <div class="book-card-pages">302 pages</div>
+                            <div class="rating">
+                                <div class="stars">★★★☆☆</div>
+                                <span>3/5</span>
                             </div>
-                            <p>${highlightText(result.context, searchTerm)}</p>
                         </div>
-                    `).join('');
-                } else {
-                    searchResults.innerHTML = `
-                        <div class="no-results">
-                            No results found for "${searchTerm}"
+                        <div class="tags">
+                            <span class="tag">Memoir</span>
+                            <span class="tag">Nature</span>
+                            <span class="tag">Siberia</span>
                         </div>
-                    `;
-                }
-            }
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-card-header">
+                        <h3 class="book-card-title"><a href="fiction/the-maniac.html">The MANIAC</a></h3>
+                        <p class="book-card-author">Benjamin Labatut</p>
+                    </div>
+                    <div class="book-card-content">
+                        <div class="book-card-metadata">
+                            <div class="book-card-date">February 2025</div>
+                            <div class="book-card-pages">386 pages</div>
+                            <div class="rating">
+                                <div class="stars">★★★★★</div>
+                                <span>5/5</span>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Fiction</span>
+                            <span class="tag">Science</span>
+                            <span class="tag">AI</span>
+                            <span class="tag">Mathematics</span>
+                            <span class="tag">History</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Book Card Example 2 -->
+                <div class="book-card">
+                    <div class="book-card-header">
+                        <h3 class="book-card-title"><a href="siberia/thereindeerpeople.html">The Reindeer People: Living with Animals and Spirits in Siberia</a></h3>
+                        <p class="book-card-author">Piers Vitebsky</p>
+                    </div>
+                    <div class="book-card-content">
+                        <div class="book-card-metadata">
+                            <div class="book-card-date">February 2025</div>
+                            <div class="book-card-pages">395 pages</div>
+                            <div class="rating">
+                                <div class="stars">★★★★☆</div>
+                                <span>4/5</span>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Siberia</span>
+                            <span class="tag">Anthropology</span>
+                            <span class="tag">Nature</span>
+                            <span class="tag">Spirituality</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-card-header">
+                        <h3 class="book-card-title"><a href="siberia/TravelsSiberiaShaman.html">Travels in Siberia/Siberia: A People's History/The Shaman's Coat</a></h3>
+                        <p class="book-card-author">Ian Frazier/Janet M. Hartley/Anna Reid</p>
+                    </div>
+                    <div class="book-card-content">
+                        <div class="book-card-metadata">
+                            <div class="book-card-date">January 2025</div>
+                            <div class="book-card-pages">395 pages</div>
+                            <div class="rating">
+                                <div class="stars">★★★★☆</div>
+                                <span>4/5</span>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Siberia</span>
+                            <span class="tag">Anthropology</span>
+                            <span class="tag">Nature</span>
+                            <span class="tag">Spirituality</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Book Card Example 3 -->
+                <div class="book-card">
+                    <div class="book-card-header">
+                        <h3 class="book-card-title"><a href="siberia/thegreatsoulofsiberia.html">The Brothers Karamazov</a></h3>
+                        <p class="book-card-author">Sooyong Park</p>
+                    </div>
+                    <div class="book-card-content">
+                        <div class="book-card-metadata">
+                            <div class="book-card-date">January 2025</div>
+                            <div class="book-card-pages">253 pages</div>
+                            <div class="rating">
+                                <div class="stars">★★★★★</div>
+                                <span>5/5</span>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Siberia</span>
+                            <span class="tag">Nature</span>
+                            <span class="tag">Science</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Year Divider -->
+                <h2 class="year-divider">2024</h2>
+                
+                <!-- Book Card Example 4 -->
+                <div class="book-card">
+                    <div class="book-card-header">
+                        <h3 class="book-card-title"><a href="books/dune.html">Dune</a></h3>
+                        <p class="book-card-author">Frank Herbert</p>
+                    </div>
+                    <div class="book-card-content">
+                        <div class="book-card-metadata">
+                            <div class="book-card-date">December 2024</div>
+                            <div class="book-card-pages">617 pages</div>
+                            <div class="rating">
+                                <div class="stars">★★★★★</div>
+                                <span>5/5</span>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Fiction</span>
+                            <span class="tag">Science Fiction</span>
+                            <span class="tag">Space Opera</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Book Card Example 5 -->
+                <div class="book-card">
+                    <div class="book-card-header">
+                        <h3 class="book-card-title"><a href="books/siberian-expedition.html">The Great Siberian Expedition</a></h3>
+                        <p class="book-card-author">Alexandra Volkov</p>
+                    </div>
+                    <div class="book-card-content">
+                        <div class="book-card-metadata">
+                            <div class="book-card-date">November 2024</div>
+                            <div class="book-card-pages">342 pages</div>
+                            <div class="rating">
+                                <div class="stars">★★★★☆</div>
+                                <span>4/5</span>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Siberia</span>
+                            <span class="tag">Exploration</span>
+                            <span class="tag">History</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Book Card Example 6 -->
+                <div class="book-card">
+                    <div class="book-card-header">
+                        <h3 class="book-card-title"><a href="books/a-brief-history-of-time.html">A Brief History of Time</a></h3>
+                        <p class="book-card-author">Stephen Hawking</p>
+                    </div>
+                    <div class="book-card-content">
+                        <div class="book-card-metadata">
+                            <div class="book-card-date">October 2024</div>
+                            <div class="book-card-pages">212 pages</div>
+                            <div class="rating">
+                                <div class="stars">★★★★☆</div>
+                                <span>4/5</span>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Science</span>
+                            <span class="tag">Physics</span>
+                            <span class="tag">Cosmology</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link">Next →</a>
+            </div>
+        </main>
+    </div>
 
-            function highlightText(text, searchTerm) {
-                const regex = new RegExp(`(${searchTerm})`, 'gi');
-                return text.replace(regex, '<span class="highlight">$1</span>');
-            }
-
-            searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.trim();
-                if (searchTerm.length >= 2) {
-                    performSearch(searchTerm);
-                    searchResults.style.display = 'block';
-                } else {
-                    searchResults.innerHTML = '';
-                    searchResults.style.display = 'none';
-                }
-            });
-        });
-    </script>
     <script>
-        // Debugging helper
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.trim();
-            
-            // Add these console.log statements
-            console.log('Search term:', searchTerm);
-            console.log('Searchable content:', document.getElementById('searchableContent'));
-            console.log('Search index:', createSearchIndex());
-            
-            if (searchTerm.length >= 2) {
-                performSearch(searchTerm);
-                searchResults.style.display = 'block';
-            } else {
-                searchResults.innerHTML = '';
-                searchResults.style.display = 'none';
+        // Toggle mobile navigation
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Simple search functionality (can be enhanced)
+        document.querySelector('.search-bar').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                alert('Search functionality would go here!');
+                // Implement actual search logic
             }
         });
+
+        // Filter functionality (placeholder)
+        document.getElementById('apply-filters').addEventListener('click', function() {
+            alert('Filter functionality would go here!');
+            // Implement actual filter logic
+        });
     </script>
+    // Create a books array to store all your book data
+    const booksData = [
+    {
+        title: "The MANIAC",
+        author: "Benjamin Labatut
+        link: "fiction/the-maniac.html",
+        date: "February 2025",
+        year: 2025,
+        pages: 386,
+        rating: 5,
+        tags: ["Science", "AI", "History", "Mathematics"],
+        categories: ["Fiction"],
+        status: "Complete"
+    },
+    {
+        title: "Sapiens: A Brief History of Humankind",
+        author: "Yuval Noah Harari",
+        link: "books/sapiens.html",
+        date: "January 2025",
+        year: 2025,
+        pages: 443,
+        rating: 4,
+        tags: ["History", "Anthropology", "Evolution"],
+        categories: ["History", "Science"],
+        status: "Complete"
+    },
+    // Add more books following the same structure
+];
+function renderBooks(books) {
+    const bookList = document.querySelector('.book-list');
+    bookList.innerHTML = ''; // Clear existing content
+    
+    // Sort books by year (newest first)
+    books.sort((a, b) => b.year - a.year);
+    
+    let currentYear = null;
+    
+    books.forEach(book => {
+        // Add year divider if this is a new year
+        if (book.year !== currentYear) {
+            currentYear = book.year;
+            const yearDivider = document.createElement('h2');
+            yearDivider.className = 'year-divider';
+            yearDivider.textContent = currentYear;
+            bookList.appendChild(yearDivider);
+        }
+        
+        // Create book card
+        const bookCard = document.createElement('div');
+        bookCard.className = 'book-card';
+        
+        // Generate star rating HTML
+        const stars = '★'.repeat(book.rating) + '☆'.repeat(5 - book.rating);
+        
+        // Generate tags HTML
+        const tagsHTML = book.tags.map(tag => 
+            `<span class="tag">${tag}</span>`
+        ).join('');
+        
+        bookCard.innerHTML = `
+            <div class="book-card-header">
+                <h3 class="book-card-title"><a href="${book.link}">${book.title}</a></h3>
+                <p class="book-card-author">${book.author}</p>
+            </div>
+            <div class="book-card-content">
+                <div class="book-card-metadata">
+                    <div class="book-card-date">${book.date}</div>
+                    <div class="book-card-pages">${book.pages} pages</div>
+                    <div class="rating">
+                        <div class="stars">${stars}</div>
+                        <span>${book.rating}/5</span>
+                    </div>
+                </div>
+                <div class="tags">
+                    ${tagsHTML}
+                </div>
+            </div>
+        `;
+        
+        bookList.appendChild(bookCard);
+    });
+    
+    // Show message if no books match filters
+    if (books.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.style.gridColumn = '1 / -1';
+        noResults.style.padding = '2rem';
+        noResults.style.textAlign = 'center';
+        noResults.textContent = 'No books match your search or filter criteria.';
+        bookList.appendChild(noResults);
+    }
+}
 </body>
 </html>

@@ -8,10 +8,12 @@
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #34495e;
+            --accent-color: #3498db;
             --text-color: #333;
             --link-color: #3498db;
             --background-color: #f5f6fa;
             --quote-background: #f8f9fa;
+            --card-background: white;
         }
 
         body {
@@ -23,39 +25,145 @@
             color: var(--text-color);
         }
 
-        nav {
+        /* Navigation Header */
+        .nav-header {
             background-color: var(--primary-color);
-            padding: 1rem;
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
+        .nav-container {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        nav a {
+        .site-title {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .site-title a {
             color: white;
             text-decoration: none;
-            padding: 0.5rem 1rem;
         }
 
-        nav a:hover {
-            background-color: var(--secondary-color);
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Navigation Toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin: 2rem auto;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar {
+            width: 70%;
+            padding: 0.8rem;
+            border: 2px solid var(--primary-color);
             border-radius: 4px;
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease;
         }
 
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
+        }
+
+        /* Table of Contents */
+        .toc {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 5rem;
+            max-height: calc(100vh - 7rem);
+            overflow-y: auto;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.5rem 0;
+        }
+
+        .toc a {
+            color: var(--link-color);
+            text-decoration: none;
+            display: block;
+            padding: 0.3rem 0;
+            transition: transform 0.2s ease;
+        }
+
+        .toc a:hover {
+            transform: translateX(5px);
+            color: var(--primary-color);
+        }
+
+        /* Main Container */
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+        }
+
+        .content {
+            grid-column: 2;
+        }
+
+        .sidebar {
+            grid-column: 1;
         }
 
         /* Book Header Section */
         .book-header {
-            background-color: white;
+            background-color: var(--card-background);
             padding: 2rem;
             border-radius: 8px;
             margin-bottom: 2rem;
@@ -74,13 +182,32 @@
             color: var(--secondary-color);
         }
 
-        /* Notes Section */
+        /* Rating System */
+        .rating {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .stars {
+            color: gold;
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Notes Sections */
         .notes-section {
-            background-color: white;
+            background-color: var(--card-background);
             padding: 2rem;
             border-radius: 8px;
             margin-bottom: 2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .notes-section h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
         }
 
         /* Quotes */
@@ -99,29 +226,7 @@
             font-style: normal;
         }
 
-        /* Lists */
-        ul, ol {
-            padding-left: 2rem;
-            margin: 1rem 0;
-        }
-
-        li {
-            margin: 0.5rem 0;
-        }
-
-        /* Chapter sections */
-        .chapter {
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .chapter-title {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        /* Tags and Links */
+        /* Tags */
         .tags {
             margin: 1rem 0;
         }
@@ -133,52 +238,159 @@
             border-radius: 4px;
             font-size: 0.9rem;
             margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
             display: inline-block;
+            transition: background-color 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: var(--primary-color);
         }
 
         /* Related Books */
         .related-books {
             margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
         }
 
-        /* Images */
-        .book-image {
-            max-width: 100%;
-            height: auto;
-            margin: 1rem 0;
+        .related-book {
+            padding: 1rem;
+            margin-bottom: 1rem;
             border-radius: 4px;
+            background-color: var(--quote-background);
+            transition: transform 0.2s ease;
         }
 
-        .image-caption {
-            text-align: center;
-            font-style: italic;
-            color: var(--secondary-color);
-            margin-top: 0.5rem;
+        .related-book:hover {
+            transform: translateX(5px);
+        }
+
+        .related-book a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Reading Progress */
+        .reading-progress {
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 100%; /* Set to percentage of completion */
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .content, .sidebar {
+                grid-column: 1;
+            }
+
+            .toc {
+                position: static;
+                margin-bottom: 2rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="../philosophy.html">Philosophy</a></li>
-            <li><a href="../fiction.html">Fiction</a></li>
-            <li><a href="../history.html">History</a></li>
-            <li><a href="../science.html">Science</a></li>
-            <li><a href="../siberia.html">Siberia</a></li>
-            <li><a href="../general.html">General Non-Fiction</a></li>
-        </ul>
-    </nav>
+     <!-- Navigation Header -->
+     <header class="nav-header">
+        <div class="nav-container">
+            <h1 class="site-title"><a href="../index.html">Reading Notes</a></h1>
+            <button class="nav-toggle">☰</button>
+            <nav class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../philosophy.html">Philosophy</a>
+                <a href="../fiction.html">Fiction</a>
+                <a href="../history.html">History</a>
+                <a href="../science.html">Science</a>
+                <a href="../siberia.html">Siberia</a>
+                <a href="../general.html">General Non-Fiction</a>
+                <a href="../reflections.html">Reflections</a>
+                <a href="../years.html">Book Years</a>
+            </nav>
+        </div>
+    </header>
+     <!-- Search Bar -->
+     <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search by title, author, tag, or content...">
+    </div>
+
     <div class="container">
-        <!-- Book Information -->
-        <div class="book-header">
-            <h1 class="book-title">The Great Soul of Siberia: In Search of the Elusive Siberian Tiger</h1>
-            <div class="book-metadata">
+        <!-- Sidebar with TOC -->
+        <aside class="sidebar">
+            <div class="toc">
+                <h3>On This Page</h3>
+                <ul>
+                    <li><a href="#book-info">Book Information</a></li>
+                    <li><a href="#quotes">Notable Quotes</a></li>
+                    <li><a href="#reflections">Personal Reflections</a></li>
+                    <li><a href="#related">Related Books</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    <main class="content">
+            <!-- Book Information -->
+            <div id="book-info" class="book-header">
+                <h1 class="book-title">The Great Soul of Siberia: In Search of the Elusive Siberian Tiger</h1>
+                <div class="book-metadata">
                 <p>Author: Sooyong Park</p>
                 <p>Date Read: January 2025</p>
-                <p>Category: Siberia</p>
+                <p>Pages: 253</p>
+
+                <!-- Rating -->
+                <div class="rating">
+                    <div class="stars">★★★★★</div>
+                    <span>5/5</span>
+                </div>
+
+                <!-- Reading Status -->
+                <div class="reading-progress">
+                    <p>Reading Status: Complete</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+
                 <div class="tags">
                     <span class="tag">Siberia</span>
                     <span class="tag">Nature</span>
@@ -187,44 +399,8 @@
             </div>
         </div>
 
-        <!-- Overall Summary -->
-        <div class="notes-section">
-            <h2>Book Summary</h2>
-            <p>Account of Sooyong Park's time spent in the Amur basin of Siberia tracking Siberian tigers and camping out in subterranean blinds over the winter to capture video footage of them in the wild. Follows particularly the tiger family of Bloody Mary (matriarch), Khajain (Great King), and their cubs White Sky, White Snow, and White Moon. (5/5)</p>
-        </div>
-
-        <!-- Key Ideas -->
-        <div class="notes-section">
-            <h2>Key Ideas</h2>
-            <ul>
-                <li>Siberian Tiger
-                    <ul>
-                        <li>Tiger physiology, hunting, and general behavior</li>
-                        <li>Detailed descriptions of the Siberian tiger ecosystem and the food chain</li>
-                    </ul>
-                </li>
-                <li>Nature</li>
-                    <ul>
-                        <li>Climactic descriptions of Siberia over the course of a normal year</li>
-                        <li>Man's relationship to nature</li>
-                        <li>Descriptions of other flora and fauna of the Amur Valley</li>
-                    </ul>
-                <li>Poaching</li>
-                    <ul>
-                        <li>As relating to the dwindling Siberian tiger population</li>
-                        <li>Desctiptions of various types of traps poachers set for tigers</li>
-                        <li>Demand for tigers in traditional medicine cultures</li>
-                    </ul>
-                <li>Solitude</li>
-                    <ul>
-                        <li>As relates to man on his own</li>
-                        <li>As relates to the natural proclivities of Siberian tigers</li>
-                    </ul>
-            </ul>
-        </div>
-
         <!-- Notable Quotes -->
-        <div class="notes-section">
+         <div id="quotes" class="notes-section">
             <h2>Notable Quotes</h2>
             <blockquote>
                 “Bones are the history of the forest and, in their own way, immortal. Just as you may be moved when you read a classic novel, I am inspired by the history of the forest I read in bones. Traces are physical things that sometimes have spiritual properties that reverberate in our souls.”
@@ -240,51 +416,67 @@
             </blockquote>
         </div>
 
-        <!-- Chapter Notes -->
-        <!-- <div class="notes-section">
-            <h2>Chapter Notes</h2>
-            
-            <div class="chapter">
-                <h3 class="chapter-title">Chapter 1: Chapter Title</h3>
-                <p>Your notes about this chapter go here.</p>
-                <ul>
-                    <li>Important point from the chapter</li>
-                    <li>Another key point</li>
-                </ul>
-            </div>
-
-            <div class="chapter">
-                <h3 class="chapter-title">Chapter 2: Chapter Title</h3>
-                <p>Your notes about this chapter go here.</p>
-            </div>
-        </div>
-
-        <!-- Personal Reflections -->
-        <div class="notes-section">
+         <!-- Personal Reflections -->
+         <div id="reflections" class="notes-section">
             <h2>Personal Reflections</h2>
             <p>I have to hand it to Sooyong Park. I don’t know if anyone has ever Thoreau’d as hard as he does in this book about the Siberian (Ussuri) tiger. Sooyong spends his summers tracking these wonderful beasts across the Sikhote-Aline forests in the Amur Valley region of Siberia, then spends 7-8 months of winter hiding out in a series of two meter by two meter by 1.8 meter bunkers he strategically locates along likely tiger hunting paths, just waiting for them to come along so he can capture them on video in the most unobtrusive way possible. It’s like the premise of Chuck Klosterman’s novel The Visible Man, where he partakes in an extended thought experiment that asks whether anyone can know what another person is really like when they think they are completely alone. Except this is with tigers. </p>
-                To back up, the Ussuri tiger is the only species of tiger inhabiting Arctic climes. Because of the climate, they are larger than their cousin species in the more temperate and tropical regions of Asia. However, due to poaching and changing environmental conditions, there were only about 500 left in the world at the writing of this book. Sooyong has an eye for natural detail (which I’ll get to later) that is frankly astounding. In the first part of the book he explains the habits of these creatures, their anatomy, personalities, habitats, hunting methods, and history in a way that grounds his love and respect for them. You see immediately what stalking them for years like he has gets you in terms of depth of knowledge and a general sense of unity with the creature and its environs. He’s like a car mechanic that has a preternatural ability to diagnose your vehicle just by hearing the subtle shift in vibration when you start your engine. </p>
-                Tigers are solitary creatures, with grown males only interacting with other tigers during the mating season and for the occasional check-in with their mates and the cubs he sired. Females raise cubs on their own, teaching them the ways of the forest until they’re about three years old, at which point they will go off to form their own families. Adult males view for territory with other males, which provides them not only ample hunting ground but a selection of females with whom to breed. With territories as large as hundreds of square miles for males, and somewhere under a hundred square miles for adult females, tigers spend much of their time patrolling their borders, so to speak, marking their kingdoms by  spraying, urinating, or scratching as high up on tree trunks as they can. From this group of apex predator one male reigns above all – the Great King of the forest. This is the largest male who claims the most territory for himself, and can only be displaced by being killed by another male or by natural death. Native villagers revere the Great King as a kind of incarnation of the god of the forest, or Amba. In this book, we follow the current Great Kin, Khajain, one of his mates, Bloody Mary, and their cubs, White Sky, White Moon, and White Snow, over the course of two years. </p>
-                As much a meditation on the tiger as it is on stillness and nature, Sooyong brings us intimate details of tiger behavior while also showing us how he “reads” the forest while he is setting up and implementing these stake outs. He understands the travels of various kinds of birds, why they flock where they do, some deliberately following tigers because they know carrion is coming soon. He explains the markings on trees and the disappearance of bark along the base of their trunks, a sign that the acorn harvest of that year was poor and deer and other animals have resorted to eating that to stay alive. He even sees human beings as part of this interconnected ecosystem, detailing how the native Udege have hunted and fished in the forests of the tigers for centuries before Ukrainians were moved into the area during Russian settlement of Siberia in the 1800s. </p>
-                Tigers are incredible creatures. There is an exquisite depiction of Bloody Mary fishing by sticking her forepaw in the water and allowing the hair fluttering in the water act as a lure for the fish before she expertly clawed it with her free paw. They are cunning enough to carefully track human, study their patterns, their demeanors, be able to detect what a poacher acts like versus what a native person who revers the tiger acts like. They pick out the scent of gun metal and stymie the traps of poachers, and their senses are so acute that they discover hidden microphones the size of a fingernail that Sooyong places around their hideouts. At one dramatic point in the book Bloody Mary and two of her cubs nearly discover one of his hideouts along the coast and spent the night trying to tear it to shreds. The only possible response he can give is to stay completely still, choosing possibly freezing in the dangerous cold of the Siberian night over being surely mauled by the tiger if discovered. Mother tigers like Bloody Mary teach their cubs what seems like a “tiger culture”, a big part of which is stealth, but also involves survival tactics like making sure one tiger in the family group is not eating and keeping watch while the others feast. That role is rotated so every tiger gets their share. Somehow tigers also have passed down a hard-won knowledge of the danger of railroads, which also proved a major threat to their population when the Trans-Siberian railway was first constructed. </p>
-                Sooyong’s internal story is similarly compelling. As he lies in his bunker one night, getting sick of listening to the crashing of the waves, he thinks to himself such a normal thought – what would he do when he finally emerges from this bunker? “I should be good to my parents while they’re still around. I should look up a friend I haven’t seen in years.” We all have these kinds of thoughts, and I wondered what the chances are that he actually followed through with those resolutions. This thought especially crossed my mind because I recently had a conversation with Marlee about what makes life meaningful, and we both agreed that it’s the relationships you have with people over the course of your time on earth. But reading this book, Sooyong gives you such an intimate portrait of nature, and this particular forest, that it made me consider whether it is possible that your relationship with a place can also make life worth living. You can only hear so many times that people want to be a part of something bigger than themselves, and the prescription for that is more often than not organized religion. Maybe it’s possible, too, though, for a person to find that fulfillment in nature, in being part of an ecosystem where they view themselves as so integral to the world that it’s impossible for them to separate their sense of self from their conception of the world at large. I don’t know if Sooyong would say he achieved that, but some of the natives that live in that region might think that. Well, maybe they wouldn’t think that, maybe they would just inhabit that sensibility without much self-reflection. Regardless, when talking about Ussuri tigers or Siberian native people, I think you must consider how each of these creatures isn’t necessarily choosing to live in this harsh climate, it’s more that their existence in this place feeds back on itself. I don’t know if that makes sense. Surely humans can’t be solitary creatures like tigers, but I think there is space for us to say that some kind of rootedness is also essential to a person’s self-image. </p>
-                And to draw this circle completely, maybe tigers can’t be as solitary as that simple statement implies. Another striking thing about this book is all the moments of tiger familial bonds you suddenly get access to via Sooyong’s coffin dugout – cubs playing together in the snow, White Sky and White Snow hunting on the beach under the moonlit sky taking turns feasting on their prey and nuzzling each other throughout, Khajain coming back from his journeys across the forest to bring food and visit his cubs and Bloody Mary. By the end of the book Bloody Mary has been tragically killed by a poacher trap, White Sky (her male cub) has died, and White Snow has two cubs by her father Khajain, who are killed – the female by the male because they were starving, and later the male when he is hit by a vehicle while he is trying to cross a road with his mangled leg that he suffered in the struggle in which he killed and ate his sister. The tigers are struggling to survive and conditions are deteriorating all around them. Sooyong makes us feel this as if they were human characters in a novel, and when he writes about White Snow lingering around the body of her dead son, nudging him fruitlessly to try to get him to keep going, and how she came back in the following nights even though he was gone, just to be near his scent, your heart breaks. White Moon fares better toward the end, and as far as we know her cubs – dubbed Hansel and Gretel - survive. Sooyong leaves us with a scene of tiger familial bliss, the tiger cubs playing and trying to engage their mother, who in the safety of their environment gives into her inner urge to have fun. “She was vigilant and prudent outside, but as innocent as a puppy inside. The cubs were at ease, and their mother was affectionate. They were a real family who shared mutual trust and dependence. People think of tigers as terrifying, fearless creatures, but they probably spend most of their lives in the peaceful, affectionate state I saw them in now.” </p>
-                Some quick hitting facts:
-                At the turn of the 20th century, big game hunting of Siberian tigers was legal, kind of like the safaris Hemingway and his contemporaries partook in. This led to a dramatic crash in the population, which has not yet recovered. That was accelerated by the collapse of the Soviet Union which allowed private poachers to run rampant to try and supply the demand for exotic animal byproducts coming out of Japan, China, and Korea. </p>
-                Did you know it takes ginseng nearly 100 years to fully mature? </p>
-                There’s an excellent anecdote about a Siberian lynx taking down a Manchurian red deer (half the size of a horse) all on its own. Apparently the lynx are the fiercest of the cat species extant in Siberia.</p>
-                
-                </p>
+            <p>To back up, the Ussuri tiger is the only species of tiger inhabiting Arctic climes. Because of the climate, they are larger than their cousin species in the more temperate and tropical regions of Asia. However, due to poaching and changing environmental conditions, there were only about 500 left in the world at the writing of this book. Sooyong has an eye for natural detail (which I’ll get to later) that is frankly astounding. In the first part of the book he explains the habits of these creatures, their anatomy, personalities, habitats, hunting methods, and history in a way that grounds his love and respect for them. You see immediately what stalking them for years like he has gets you in terms of depth of knowledge and a general sense of unity with the creature and its environs. He’s like a car mechanic that has a preternatural ability to diagnose your vehicle just by hearing the subtle shift in vibration when you start your engine. </p>
+            <p>Tigers are solitary creatures, with grown males only interacting with other tigers during the mating season and for the occasional check-in with their mates and the cubs he sired. Females raise cubs on their own, teaching them the ways of the forest until they’re about three years old, at which point they will go off to form their own families. Adult males view for territory with other males, which provides them not only ample hunting ground but a selection of females with whom to breed. With territories as large as hundreds of square miles for males, and somewhere under a hundred square miles for adult females, tigers spend much of their time patrolling their borders, so to speak, marking their kingdoms by  spraying, urinating, or scratching as high up on tree trunks as they can. From this group of apex predator one male reigns above all – the Great King of the forest. This is the largest male who claims the most territory for himself, and can only be displaced by being killed by another male or by natural death. Native villagers revere the Great King as a kind of incarnation of the god of the forest, or Amba. In this book, we follow the current Great Kin, Khajain, one of his mates, Bloody Mary, and their cubs, White Sky, White Moon, and White Snow, over the course of two years. </p>
+            <p>As much a meditation on the tiger as it is on stillness and nature, Sooyong brings us intimate details of tiger behavior while also showing us how he “reads” the forest while he is setting up and implementing these stake outs. He understands the travels of various kinds of birds, why they flock where they do, some deliberately following tigers because they know carrion is coming soon. He explains the markings on trees and the disappearance of bark along the base of their trunks, a sign that the acorn harvest of that year was poor and deer and other animals have resorted to eating that to stay alive. He even sees human beings as part of this interconnected ecosystem, detailing how the native Udege have hunted and fished in the forests of the tigers for centuries before Ukrainians were moved into the area during Russian settlement of Siberia in the 1800s. </p>
+            <p>Tigers are incredible creatures. There is an exquisite depiction of Bloody Mary fishing by sticking her forepaw in the water and allowing the hair fluttering in the water act as a lure for the fish before she expertly clawed it with her free paw. They are cunning enough to carefully track human, study their patterns, their demeanors, be able to detect what a poacher acts like versus what a native person who revers the tiger acts like. They pick out the scent of gun metal and stymie the traps of poachers, and their senses are so acute that they discover hidden microphones the size of a fingernail that Sooyong places around their hideouts. At one dramatic point in the book Bloody Mary and two of her cubs nearly discover one of his hideouts along the coast and spent the night trying to tear it to shreds. The only possible response he can give is to stay completely still, choosing possibly freezing in the dangerous cold of the Siberian night over being surely mauled by the tiger if discovered. Mother tigers like Bloody Mary teach their cubs what seems like a “tiger culture”, a big part of which is stealth, but also involves survival tactics like making sure one tiger in the family group is not eating and keeping watch while the others feast. That role is rotated so every tiger gets their share. Somehow tigers also have passed down a hard-won knowledge of the danger of railroads, which also proved a major threat to their population when the Trans-Siberian railway was first constructed. </p>
+            <p>Sooyong’s internal story is similarly compelling. As he lies in his bunker one night, getting sick of listening to the crashing of the waves, he thinks to himself such a normal thought – what would he do when he finally emerges from this bunker? “I should be good to my parents while they’re still around. I should look up a friend I haven’t seen in years.” We all have these kinds of thoughts, and I wondered what the chances are that he actually followed through with those resolutions. This thought especially crossed my mind because I recently had a conversation with Marlee about what makes life meaningful, and we both agreed that it’s the relationships you have with people over the course of your time on earth. But reading this book, Sooyong gives you such an intimate portrait of nature, and this particular forest, that it made me consider whether it is possible that your relationship with a place can also make life worth living. You can only hear so many times that people want to be a part of something bigger than themselves, and the prescription for that is more often than not organized religion. Maybe it’s possible, too, though, for a person to find that fulfillment in nature, in being part of an ecosystem where they view themselves as so integral to the world that it’s impossible for them to separate their sense of self from their conception of the world at large. I don’t know if Sooyong would say he achieved that, but some of the natives that live in that region might think that. Well, maybe they wouldn’t think that, maybe they would just inhabit that sensibility without much self-reflection. Regardless, when talking about Ussuri tigers or Siberian native people, I think you must consider how each of these creatures isn’t necessarily choosing to live in this harsh climate, it’s more that their existence in this place feeds back on itself. I don’t know if that makes sense. Surely humans can’t be solitary creatures like tigers, but I think there is space for us to say that some kind of rootedness is also essential to a person’s self-image. </p>
+            <p>And to draw this circle completely, maybe tigers can’t be as solitary as that simple statement implies. Another striking thing about this book is all the moments of tiger familial bonds you suddenly get access to via Sooyong’s coffin dugout – cubs playing together in the snow, White Sky and White Snow hunting on the beach under the moonlit sky taking turns feasting on their prey and nuzzling each other throughout, Khajain coming back from his journeys across the forest to bring food and visit his cubs and Bloody Mary. By the end of the book Bloody Mary has been tragically killed by a poacher trap, White Sky (her male cub) has died, and White Snow has two cubs by her father Khajain, who are killed – the female by the male because they were starving, and later the male when he is hit by a vehicle while he is trying to cross a road with his mangled leg that he suffered in the struggle in which he killed and ate his sister. The tigers are struggling to survive and conditions are deteriorating all around them. Sooyong makes us feel this as if they were human characters in a novel, and when he writes about White Snow lingering around the body of her dead son, nudging him fruitlessly to try to get him to keep going, and how she came back in the following nights even though he was gone, just to be near his scent, your heart breaks. White Moon fares better toward the end, and as far as we know her cubs – dubbed Hansel and Gretel - survive. Sooyong leaves us with a scene of tiger familial bliss, the tiger cubs playing and trying to engage their mother, who in the safety of their environment gives into her inner urge to have fun. “She was vigilant and prudent outside, but as innocent as a puppy inside. The cubs were at ease, and their mother was affectionate. They were a real family who shared mutual trust and dependence. People think of tigers as terrifying, fearless creatures, but they probably spend most of their lives in the peaceful, affectionate state I saw them in now.” </p>
+            <p>Some quick hitting facts:
+            <p>At the turn of the 20th century, big game hunting of Siberian tigers was legal, kind of like the safaris Hemingway and his contemporaries partook in. This led to a dramatic crash in the population, which has not yet recovered. That was accelerated by the collapse of the Soviet Union which allowed private poachers to run rampant to try and supply the demand for exotic animal byproducts coming out of Japan, China, and Korea. </p>
+            <p>Did you know it takes ginseng nearly 100 years to fully mature? </p>
+            <p>There’s an excellent anecdote about a Siberian lynx taking down a Manchurian red deer (half the size of a horse) all on its own. Apparently the lynx are the fiercest of the cat species extant in Siberia.</p>
+            
+            </p>
         </div>
 
         <!-- Related Books -->
-        <div class="notes-section">
+        <div id="related" class="notes-section">
             <h2>Related Books</h2>
-            <ul>
-                <li><a href="TravelsSiberiaShaman.html">Travels in Siberia, Siberia: A History of the People, The Shaman's Coat</a> - Siberian wilderness, life in Siberia</li>
-                <li><a href="thereindeerpeople.html">The Reindeer People</a> - Siberian wildlife and indigenous people</li>
-            </ul>
-        </div>
+            <!--<div class="related-book">
+                <a href="[link-to-book-page.html]">[Related Book Title]</a> - [Author Name]
+            </div>-->
+            <div class="related-book">
+                <a href="TravelsSiberiaShaman.html">Travels in Siberia, Siberia: A History of the People, The Shaman's Coat</a>
+            </div>
+            <div class="related-book">
+                <a href="thereindeerpeople.html">The Reindeer People</a> - Piers Vitebsky
+            </div>
+            <div class="related-book">
+                <a href="thereindeerpeople.html">Winter Pasture</a> - Li Juan
+            </div>
+        </main>
     </div>
+    <script>
+        // Toggle mobile navigation
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple search functionality (can be enhanced)
+        document.querySelector('.search-bar').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                alert('Search functionality would go here!');
+                // Implement actual search logic
+            }
+        });
+    </script>
 </body>
 </html>

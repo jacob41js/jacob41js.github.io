@@ -8,10 +8,12 @@
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #34495e;
+            --accent-color: #3498db;
             --text-color: #333;
             --link-color: #3498db;
             --background-color: #f5f6fa;
             --quote-background: #f8f9fa;
+            --card-background: white;
         }
 
         body {
@@ -23,91 +25,70 @@
             color: var(--text-color);
         }
 
-        /* Dropdown Menu Styles */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            margin: 1rem;
-        }
-
-        .dropbtn {
+        /* Navigation Header */
+        .nav-header {
             background-color: var(--primary-color);
             color: white;
-            padding: 1rem;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 4px;
-        }
-
-        .dropdown-content a {
-            color: var(--text-color);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: var(--background-color);
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown:hover .dropbtn {
-            background-color: var(--secondary-color);
-        }
-
-        /* Search Bar Styles */
-        .search-container {
-            margin: 1rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .search-bar {
-            width: 50%;
-            padding: 0.5rem;
-            border: 2px solid var(--primary-color);
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        #searchResults {
-            margin: 1rem auto;
-            max-width: 800px;
-            padding: 1rem;
-        }
-
-        .result-item {
-            background-color: white;
-            margin: 0.5rem 0;
-            padding: 1rem;
-            border-radius: 4px;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-/* Enhanced Search Styles */
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .site-title a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Navigation Toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Search Bar */
         .search-container {
-            margin: 1rem;
+            margin: 2rem auto;
+            max-width: 800px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 10px;
         }
 
         .search-bar {
-            width: 50%;
+            width: 70%;
             padding: 0.8rem;
             border: 2px solid var(--primary-color);
             border-radius: 4px;
@@ -120,85 +101,69 @@
             box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
         }
 
-        #searchResults {
-            margin: 1rem auto;
-            max-width: 800px;
-            padding: 1rem;
-        }
-
-        .result-item {
-            background-color: white;
-            margin: 0.5rem 0;
-            padding: 1rem;
-            border-radius: 4px;
+        /* Table of Contents */
+        .toc {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease;
+            position: sticky;
+            top: 5rem;
+            max-height: calc(100vh - 7rem);
+            overflow-y: auto;
         }
 
-        .result-item:hover {
-            transform: translateX(5px);
-        }
-
-        .highlight {
-            background-color: #fff3cd;
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-
-        .no-results {
-            text-align: center;
-            color: var(--secondary-color);
-            padding: 1rem;
-            font-style: italic;
-        }
-
-        /* [Rest of your previous styles remain the same] */
-        /* Keep your existing styles */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .reading-list {
-            margin: 2rem 0;
-        }
-
-        .reading-list h2 {
+        .toc h3 {
+            margin-top: 0;
             color: var(--primary-color);
             border-bottom: 2px solid var(--primary-color);
             padding-bottom: 0.5rem;
         }
 
-        .book-list {
+        .toc ul {
             list-style-type: none;
-            padding: 0;
+            padding-left: 0;
         }
 
-        .book-list li {
-            margin: 1rem 0;
-            padding: 0.5rem;
-            background-color: white;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .toc li {
+            margin: 0.5rem 0;
         }
 
-        .book-list a {
+        .toc a {
             color: var(--link-color);
             text-decoration: none;
+            display: block;
+            padding: 0.3rem 0;
+            transition: transform 0.2s ease;
         }
 
-        .book-list a:hover {
-            text-decoration: underline;
+        .toc a:hover {
+            transform: translateX(5px);
+            color: var(--primary-color);
         }
 
-        .book-metadata {
-            font-size: 0.9rem;
-            color: var(--secondary-color);
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
         }
+
+        .content {
+            grid-column: 2;
+        }
+
+        .sidebar {
+            grid-column: 1;
+        }
+
         /* Book Header Section */
         .book-header {
-            background-color: white;
+            background-color: var(--card-background);
             padding: 2rem;
             border-radius: 8px;
             margin-bottom: 2rem;
@@ -217,13 +182,32 @@
             color: var(--secondary-color);
         }
 
-        /* Notes Section */
+        /* Rating System */
+        .rating {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .stars {
+            color: gold;
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Notes Sections */
         .notes-section {
-            background-color: white;
+            background-color: var(--card-background);
             padding: 2rem;
             border-radius: 8px;
             margin-bottom: 2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .notes-section h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
         }
 
         /* Quotes */
@@ -242,29 +226,7 @@
             font-style: normal;
         }
 
-        /* Lists */
-        ul, ol {
-            padding-left: 2rem;
-            margin: 1rem 0;
-        }
-
-        li {
-            margin: 0.5rem 0;
-        }
-
-        /* Chapter sections */
-        .chapter {
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .chapter-title {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        /* Tags and Links */
+        /* Tags */
         .tags {
             margin: 1rem 0;
         }
@@ -276,36 +238,105 @@
             border-radius: 4px;
             font-size: 0.9rem;
             margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
             display: inline-block;
+            transition: background-color 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: var(--primary-color);
         }
 
         /* Related Books */
         .related-books {
             margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
         }
 
-        /* Images */
-        .book-image {
-            max-width: 100%;
-            height: auto;
-            margin: 1rem 0;
+        .related-book {
+            padding: 1rem;
+            margin-bottom: 1rem;
             border-radius: 4px;
+            background-color: var(--quote-background);
+            transition: transform 0.2s ease;
         }
 
-        .image-caption {
-            text-align: center;
-            font-style: italic;
-            color: var(--secondary-color);
-            margin-top: 0.5rem;
+        .related-book:hover {
+            transform: translateX(5px);
+        }
+
+        .related-book a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Reading Progress */
+        .reading-progress {
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 100%; /* Set to percentage of completion */
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .content, .sidebar {
+                grid-column: 1;
+            }
+
+            .toc {
+                position: static;
+                margin-bottom: 2rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="dropdown">
-        <button class="dropbtn">Categories ▼</button>
-            <div class="dropdown-content">
+     <!-- Navigation Header -->
+     <header class="nav-header">
+        <div class="nav-container">
+            <h1 class="site-title"><a href="../index.html">Reading Notes</a></h1>
+            <button class="nav-toggle">☰</button>
+            <nav class="nav-links">
                 <a href="../index.html">Home</a>
                 <a href="../philosophy.html">Philosophy</a>
                 <a href="../fiction.html">Fiction</a>
@@ -315,16 +346,51 @@
                 <a href="../general.html">General Non-Fiction</a>
                 <a href="../reflections.html">Reflections</a>
                 <a href="../years.html">Book Years</a>
-            </div>
+            </nav>
+        </div>
+    </header>
+     <!-- Search Bar -->
+     <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search by title, author, tag, or content...">
     </div>
+
     <div class="container">
-        <!-- Book Information -->
-        <div class="book-header">
-            <h1 class="book-title">The Reindeer People: Living with Animals and Spirits in Siberia</h1>
-            <div class="book-metadata">
+        <!-- Sidebar with TOC -->
+        <aside class="sidebar">
+            <div class="toc">
+                <h3>On This Page</h3>
+                <ul>
+                    <li><a href="#book-info">Book Information</a></li>
+                    <li><a href="#quotes">Notable Quotes</a></li>
+                    <li><a href="#reflections">Personal Reflections</a></li>
+                    <li><a href="#related">Related Books</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    <main class="content">
+            <!-- Book Information -->
+            <div id="book-info" class="book-header">
+                <h1 class="book-title">The Reindeer People: Living with Animals and Spirits in Siberia</h1>
+                <div class="book-metadata">
                 <p>Author: Piers Vitebsky</p>
                 <p>Date Read: February 2025</p>
-                <p>Category: Siberia</p>
+                <p>Pages: 395</p>
+
+                <!-- Rating -->
+                <div class="rating">
+                    <div class="stars">★★★★☆</div>
+                    <span>4.5/5</span>
+                </div>
+
+                <!-- Reading Status -->
+                <div class="reading-progress">
+                    <p>Reading Status: Complete</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+
                 <div class="tags">
                     <span class="tag">Siberia</span>
                     <span class="tag">Nature</span>
@@ -334,38 +400,8 @@
             </div>
         </div>
 
-        <!-- Overall Summary -->
-        <div class="notes-section">
-            <h2>Book Summary</h2>
-            <p>Vitebsky's investigation of the lives, practices, and beliefs of the Eveny reindeer herders of Siberia, over the course of twenty years traversing the late Soviet period to the early 2000s.(4.5/5)</p>
-        </div>
-
-        <!-- Key Ideas -->
-        <div class="notes-section">
-            <h2>Key Ideas</h2>
-            <ul>
-                <li>Reindeer</li>
-                    <ul>
-                        <li>Reindeer behavior in herds and connection with humans</li>
-                        <li>Connection to animistic belief systems of Siberia</li>
-                    </ul>
-               
-                <li>Communism</li>
-                    <ul>
-                        <li>Effects of the Soviet system on the reindeer herders way of life</li>
-                        <li>Contrast between Soviet materialist worldview and enchanted Eveny outlook</li>
-                    </ul>
-
-                <li>Nomadic Life</li>
-                    <ul>
-                        <li>The allures and drawbacks to living a life on the move</li>
-                        <li>Difficulties associated with assimilating to a sedentary life</li>
-                    </ul>
-            </ul>
-        </div>
-
         <!-- Notable Quotes -->
-        <div class="notes-section">
+         <div id="quotes" class="notes-section">
             <h2>Notable Quotes</h2>
             <blockquote>
                 “But for Lidia the taiga was not the empty space of white man’s adventure travel. It was the basic setting for one’s life, the place where one knew what to do, how to be…a herder’s soul was a delicate, innocent organ. Its openness was a virtue in the taiga, but in the village its open quality made the soul raw and vulnerable.”
@@ -401,97 +437,115 @@
             </blockquote>
         </div>
 
-        <!-- Chapter Notes -->
-        <!-- <div class="notes-section">
-            <h2>Chapter Notes</h2>
-            
-            <div class="chapter">
-                <h3 class="chapter-title">Chapter 1: Chapter Title</h3>
-                <p>Your notes about this chapter go here.</p>
-                <ul>
-                    <li>Important point from the chapter</li>
-                    <li>Another key point</li>
-                </ul>
-            </div>
-
-            <div class="chapter">
-                <h3 class="chapter-title">Chapter 2: Chapter Title</h3>
-                <p>Your notes about this chapter go here.</p>
-            </div>
-        </div>
-
-        <!-- Personal Reflections -->
-        <div class="notes-section">
+         <!-- Personal Reflections -->
+         <div id="reflections" class="notes-section">
             <h2>Personal Reflections</h2>
             <p>You’ll see in the notes below that this book contains a lot more than mere observations about reindeer, which is kind of what I was expecting. Instead it’s an extremely thorough anthropological study of reindeer herding people (hence the title of the book) from the Eveny tribe of northern Siberia, primarily focused on the village of Sebyan where the author Piers Vitebsky visits frequently over the course of twenty years. The timeline captures the Soviet era, perestroika¸ the fall of the Soviet Union, and the fallout from the disintegration of the empire. So we have a lot on our plates. This book has similarities to Frazier’s Travels in Siberia in terms of the scope of history that it covers, and it shares a common outlook as Reid’s The Shaman’s Coat, in that it focuses solely on native peoples and has quite a lot of insights into shamanism, as such. Verily there is plenty of information about reindeer, herding, migrations, the ecosystem that they inhabit, and the history of domestication. I would not put Vitebsky at the same level of observer of animal behavior as Sooyong Park, especially since he’s an anthropologist by trade, but he is very methodical about illustrating the lives of these reindeer and what they mean to the Eveny. Given the scope of this book, though, I think it’s probably best to attack it in smaller pieces.</p>
             <h3>Reindeer</h3>
-                The reindeer of Siberia have lived in this area since the retreat of the glaciers during the last ice age. In fact they are so ancient that their bones have been found in fact reindeer remains are often found in prehistoric sites mixed with those of auroch, mammoth, and wooly rhinoceros. Reindeer habitat extended far to the southern edge of Siberia, as well, and in ancient times herders would sometimes also have camels, goats, dogs, and elephants as part of their herd (pg. 30). The reindeer of Siberia are the same species as those present in Alaska (sometimes referred to as caribou), the northern portions of the North American continent, and those found in the farthest northern reaches of Scandinavia which are herded by the native Sami people. They migrate across the taiga throughout the spring and summer grazing in fields and meadows, and in the winter they survive on lichen. When things get really bad in the winter and there is a shortage of lichen, reindeer will resort to eating the bark off larch trees. Everything is about larch trees up there. </p>
-                Reindeer exist in a kind of circle of life with wolves and humans. The humans protect and herd the reindeer who are hunted by the wolf. This idea is foundational to some Eveny mythology. The human-reindeer connection in this triangle is bolstered by the fact that humans domesticated reindeer thousands of years ago. However, in a kind of great forgetting, similar to what happened to Polynesian explorers during the “long pause”, no one seems to know how to domesticate a wild one anymore. As Vitebsky says, “Their languages remained unwritten until the twentieth-century, and their shifting identities and movements were not recorded. Nothing of their earlier experience remains in their own words, and the story of their domestication of the reindeer must be pieced together from the painstaking study of vocabularies and rituals, the genetics and behavior of local varieties of reindeer…” (pg. 28). Because of that the domesticated reindeer that still exists, especially the uchakhs which herders ride, are solely the result of breeding – i.e. domesticated reindeer are bred from domesticated reindeer in a chain stretching back now millennia. It is possible to ride these reindeer for as far as the Eveny do (in some tales over a couple thousand miles) because they adopted the Mongol practice of placing the saddle higher up on the animals’ shoulders, thereby reducing the load and making it easier to tote people around. </p>
-                Siberian reindeer population plummeted from 2.2 to 1.4 million during the Soviet collectivization period. Only after 30 years, in the 1970s and 80s, did the population recover to previous levels. Still, at the time of writing this book numbers were falling again. This time there was governmental involvement, just not as directly. The collapse of the Soviet state threw off the balance that had been achieved under communism, with no reliable body to subsidize the reindeer stock or the herders who run them. But the details of that are for another place. In and of themselves, the reindeer have some fascinating qualities (although not quite as epic as the Siberian tiger). They can smell a species of edible plant or mushroom buried in the winter snow from up to 100 yards away. Before the yearly rut they go on a feeding frenzy on the protein rich Boletus mushroom. However, this sense of smell apparently does not extend to anthrax, a toxin that lies beneath the tundra and can come to the surface during warm years, causing epidemics among the reindeer. </p>
-                Reindeer have the most flexible joints of any hoofed animal – they can scratch their ear with their back hoof (pg. 20). Perhaps this feeds into their ability to migrate on average 700-800 miles in a season. And not only do they move around in absolute terms, but within their pastures they walk around so much that the trampled earth they leave behind is visible from space. When baby reindeer are born, generally in the winter since all reindeer breed at almost exactly the same time, they experience a temperature drop of over 100°F. However, because of the deposits of heat-generating brown adipose fat they develop around their kidneys and heart while in utero, they can survive this extreme cold plunge. It’s not just the cold that is difficult about their environment. Siberian summers are hot which causes the rivers to melt and flood the taiga, leaving plenty of standing water around for mosquitos to breed and swarm any living thing they can find. Reindeer may have it the worst, though because the mosquitos lay their eggs in reindeer fur. When the larvae hatch they burrow under the reindeer skin. When herders kill and skin a reindeer, these grubs can be seen clinging beneath the hides. As far as their own eating habits, they seem to prefer lichen most of all (perhaps the basis of moose moss in Dr. Seuss’s Thidwick the Big Hearted Moose) which can be a little problematic in its own right in Siberia. Since lichen take their nutrients from the air, and since the Soviet Union used Siberia as a testing ground for nuclear weapons, many areas in the reindeer grazing areas have become irradiated, which is taken up by the lichen, and thereby consumed by the reindeer and, later, people.</p>
+                <p>The reindeer of Siberia have lived in this area since the retreat of the glaciers during the last ice age. In fact they are so ancient that their bones have been found in fact reindeer remains are often found in prehistoric sites mixed with those of auroch, mammoth, and wooly rhinoceros. Reindeer habitat extended far to the southern edge of Siberia, as well, and in ancient times herders would sometimes also have camels, goats, dogs, and elephants as part of their herd (pg. 30). The reindeer of Siberia are the same species as those present in Alaska (sometimes referred to as caribou), the northern portions of the North American continent, and those found in the farthest northern reaches of Scandinavia which are herded by the native Sami people. They migrate across the taiga throughout the spring and summer grazing in fields and meadows, and in the winter they survive on lichen. When things get really bad in the winter and there is a shortage of lichen, reindeer will resort to eating the bark off larch trees. Everything is about larch trees up there. </p>
+                <p>Reindeer exist in a kind of circle of life with wolves and humans. The humans protect and herd the reindeer who are hunted by the wolf. This idea is foundational to some Eveny mythology. The human-reindeer connection in this triangle is bolstered by the fact that humans domesticated reindeer thousands of years ago. However, in a kind of great forgetting, similar to what happened to Polynesian explorers during the “long pause”, no one seems to know how to domesticate a wild one anymore. As Vitebsky says, “Their languages remained unwritten until the twentieth-century, and their shifting identities and movements were not recorded. Nothing of their earlier experience remains in their own words, and the story of their domestication of the reindeer must be pieced together from the painstaking study of vocabularies and rituals, the genetics and behavior of local varieties of reindeer…” (pg. 28). Because of that the domesticated reindeer that still exists, especially the uchakhs which herders ride, are solely the result of breeding – i.e. domesticated reindeer are bred from domesticated reindeer in a chain stretching back now millennia. It is possible to ride these reindeer for as far as the Eveny do (in some tales over a couple thousand miles) because they adopted the Mongol practice of placing the saddle higher up on the animals’ shoulders, thereby reducing the load and making it easier to tote people around. </p>
+                <p>Siberian reindeer population plummeted from 2.2 to 1.4 million during the Soviet collectivization period. Only after 30 years, in the 1970s and 80s, did the population recover to previous levels. Still, at the time of writing this book numbers were falling again. This time there was governmental involvement, just not as directly. The collapse of the Soviet state threw off the balance that had been achieved under communism, with no reliable body to subsidize the reindeer stock or the herders who run them. But the details of that are for another place. In and of themselves, the reindeer have some fascinating qualities (although not quite as epic as the Siberian tiger). They can smell a species of edible plant or mushroom buried in the winter snow from up to 100 yards away. Before the yearly rut they go on a feeding frenzy on the protein rich Boletus mushroom. However, this sense of smell apparently does not extend to anthrax, a toxin that lies beneath the tundra and can come to the surface during warm years, causing epidemics among the reindeer. </p>
+                <p>Reindeer have the most flexible joints of any hoofed animal – they can scratch their ear with their back hoof (pg. 20). Perhaps this feeds into their ability to migrate on average 700-800 miles in a season. And not only do they move around in absolute terms, but within their pastures they walk around so much that the trampled earth they leave behind is visible from space. When baby reindeer are born, generally in the winter since all reindeer breed at almost exactly the same time, they experience a temperature drop of over 100°F. However, because of the deposits of heat-generating brown adipose fat they develop around their kidneys and heart while in utero, they can survive this extreme cold plunge. It’s not just the cold that is difficult about their environment. Siberian summers are hot which causes the rivers to melt and flood the taiga, leaving plenty of standing water around for mosquitos to breed and swarm any living thing they can find. Reindeer may have it the worst, though because the mosquitos lay their eggs in reindeer fur. When the larvae hatch they burrow under the reindeer skin. When herders kill and skin a reindeer, these grubs can be seen clinging beneath the hides. As far as their own eating habits, they seem to prefer lichen most of all (perhaps the basis of moose moss in Dr. Seuss’s Thidwick the Big Hearted Moose) which can be a little problematic in its own right in Siberia. Since lichen take their nutrients from the air, and since the Soviet Union used Siberia as a testing ground for nuclear weapons, many areas in the reindeer grazing areas have become irradiated, which is taken up by the lichen, and thereby consumed by the reindeer and, later, people.</p>
             <h3>Reindeer Herding in Siberia</h3>
-                In ancient times up through the tsarist period, individual families would run reindeer herds in the northern reaches of Siberia, keeping the land in rotation so as not to overgraze and the population at a level that the individual family could manage. This seems pretty standard for native peoples reliant on the land, flora, and fauna – after thousands of years living in the same place, you either ruin it (as happened to some Polynesian islands) or you discover an equilibrium which is then bolstered by folklore, myths, and taboos. During the Soviet era, however, reindeer herding became an industry with a quantifiable commodity, just like everything else in the planned economy, and reindeer were harvested to support other workers, especially Ukrainians moving into the far east as miners. The Soviet Union strictly regulated the quotas and how the reindeer were to be managed, which strained the herders ability to successfully raise the reindeer, since much of this regulation did away with traditional Eveny practices and norms. Specifically, the family unit was purposefully destroyed, because the Soviet government could not trust that a family would work towards the interest of the state above its own interests. As part of this policy women were systematically driven out of the taiga and placed in administrative roles in the village where herders would return only sporadically throughout the year. Shamans were also effectively eliminated as they were seen as undermining the beliefs of the communists. At one point in the book Vitebsky wonders if the Soviet policy was a spectacular failure or if it was purposefully designed that way, and I suppose it’s an interesting question. Knowing what we know now about the Soviet Empire, and especially Stalin, it’s easy to believe that every decision they made was wrought in the force of evil. But even during the tsarist period colonists from European Russia tried unceasingly to Christianize the Eveny, brought them vodka, and tried to educate them in western ways, all of which contributed tinder to the eventual bonfire that would make reindeer herding seem like it was on its way to becoming a relic by the end of the book. As Tolya, one of the elder statesmen of the group Vitebsky followed around said, “The Eveny didn’t have drunkenness before the Russians introduced it. Or swearing.” Surely the Soviet’s tactics were more brutal, but perhaps both approaches and the harm done by them were mostly born out of ignorance, arrogance, pride, and closed-mindedness. In sum, maybe the simplest explanation was that the Russians – just like so many colonialist powers – did not want to take the time to understand what the native people knew, thought they were the pinnacle of human achievement to that point, and could not see beyond the promised riches that seemingly lay right in front of them. Indeed, the ironic part of the story is that due to the collapse of this livelihood, some Eveny were driven to make ends meet by hunting for animal furs during the winter, the very source of wealth that lured European Russians to Siberia in the first place. </p>
-                The Eveny experience with reindeer runs deep, and it reminded me of the connection with nature that Sooyong Park talks about in The Great Soul of Siberia. “But what Tolya registered were not coordinates in a homogenous space, nor even geophysical contours, but the threads of animal movement and purpose, and of human dependence upon these.” (pg. 79). There are at least 1,500 words in the Eveny language that refer to the colors and shapes of reindeer, their body parts, harnesses, diseases, diet, and mood. And their spiritual life is tied up in signs given by reindeer and by reindeer with whom each person is tied to in a kind of soul bond at their birth. By the 1990s and early 2000s, this knowledge still existed in the community, but it was clear that it was becoming a dying way of life. It was becoming too expensive to move reindeer around, the Farm system that somehow still existed despite the fall of communism continued to mismanage the land and herds, young people were leaving, and being encouraged to leave, for education and other opportunities in bigger cities, and the people who remained were falling victim to alcoholism, suicide, accidental deaths, and violence from other frustrated herders. Truly the decline in this way of living seemed to have a lot of parallels to the narratives around globalization, the loss of manufacturing jobs, and deaths of despair that have been constant in American politics for a decade. There’s no need to spell out the differences between capitalism and communism, but in this respect there is some kind of deep correspondence. Both systems of running an economy boil down to a desire to quantify everything, including the people, possibly because both systems are gargantuan at scale and require abstractions in order to make decisions on what is the next best thing for the state (or firm) to do. And I wonder if this attitude creates the potential for the alienation that these people who are left behind by the economy feel. If it does, this has major ramifications beyond GDP or party propaganda. What is happening is that these people are having their meaning hollowed out from within them, and their reasons for being are being stripped down and sold and replaced by something entirely foreign. It’s obviously false to say that the native Eveny way of life was Edenic – it wasn’t and it still is not. It’s dangerous, unforgiving, and hard. Yet maybe there is a piece of Eden in it, if you can imagine that Eden was a place in which Adam and Eve felt they were one with God’s creation, not separate and forced to hack it on their own. “But for Lidia the taiga was not the empty space of white man’s adventure travel. It was the basic setting for one’s life, the place where one knew what to do, how to be…a herder’s soul was a delicate, innocent organ. Its openness was a virtue in the taiga, but in the village its open quality made the soul raw and vulnerable.” Is that not, in a sense, living according to what God wills rather than what man wills? “The master-programme of collectivization was ruthless and the socialist ideal of benevolent sharing was tempered by the ‘repression’ of anyone who could not be made to fit the abstract ideal of the perfectibility of humanity.”</p>
+                <p>In ancient times up through the tsarist period, individual families would run reindeer herds in the northern reaches of Siberia, keeping the land in rotation so as not to overgraze and the population at a level that the individual family could manage. This seems pretty standard for native peoples reliant on the land, flora, and fauna – after thousands of years living in the same place, you either ruin it (as happened to some Polynesian islands) or you discover an equilibrium which is then bolstered by folklore, myths, and taboos. During the Soviet era, however, reindeer herding became an industry with a quantifiable commodity, just like everything else in the planned economy, and reindeer were harvested to support other workers, especially Ukrainians moving into the far east as miners. The Soviet Union strictly regulated the quotas and how the reindeer were to be managed, which strained the herders ability to successfully raise the reindeer, since much of this regulation did away with traditional Eveny practices and norms. Specifically, the family unit was purposefully destroyed, because the Soviet government could not trust that a family would work towards the interest of the state above its own interests. As part of this policy women were systematically driven out of the taiga and placed in administrative roles in the village where herders would return only sporadically throughout the year. Shamans were also effectively eliminated as they were seen as undermining the beliefs of the communists. At one point in the book Vitebsky wonders if the Soviet policy was a spectacular failure or if it was purposefully designed that way, and I suppose it’s an interesting question. Knowing what we know now about the Soviet Empire, and especially Stalin, it’s easy to believe that every decision they made was wrought in the force of evil. But even during the tsarist period colonists from European Russia tried unceasingly to Christianize the Eveny, brought them vodka, and tried to educate them in western ways, all of which contributed tinder to the eventual bonfire that would make reindeer herding seem like it was on its way to becoming a relic by the end of the book. As Tolya, one of the elder statesmen of the group Vitebsky followed around said, “The Eveny didn’t have drunkenness before the Russians introduced it. Or swearing.” Surely the Soviet’s tactics were more brutal, but perhaps both approaches and the harm done by them were mostly born out of ignorance, arrogance, pride, and closed-mindedness. In sum, maybe the simplest explanation was that the Russians – just like so many colonialist powers – did not want to take the time to understand what the native people knew, thought they were the pinnacle of human achievement to that point, and could not see beyond the promised riches that seemingly lay right in front of them. Indeed, the ironic part of the story is that due to the collapse of this livelihood, some Eveny were driven to make ends meet by hunting for animal furs during the winter, the very source of wealth that lured European Russians to Siberia in the first place. </p>
+                <p>The Eveny experience with reindeer runs deep, and it reminded me of the connection with nature that Sooyong Park talks about in The Great Soul of Siberia. “But what Tolya registered were not coordinates in a homogenous space, nor even geophysical contours, but the threads of animal movement and purpose, and of human dependence upon these.” (pg. 79). There are at least 1,500 words in the Eveny language that refer to the colors and shapes of reindeer, their body parts, harnesses, diseases, diet, and mood. And their spiritual life is tied up in signs given by reindeer and by reindeer with whom each person is tied to in a kind of soul bond at their birth. By the 1990s and early 2000s, this knowledge still existed in the community, but it was clear that it was becoming a dying way of life. It was becoming too expensive to move reindeer around, the Farm system that somehow still existed despite the fall of communism continued to mismanage the land and herds, young people were leaving, and being encouraged to leave, for education and other opportunities in bigger cities, and the people who remained were falling victim to alcoholism, suicide, accidental deaths, and violence from other frustrated herders. Truly the decline in this way of living seemed to have a lot of parallels to the narratives around globalization, the loss of manufacturing jobs, and deaths of despair that have been constant in American politics for a decade. There’s no need to spell out the differences between capitalism and communism, but in this respect there is some kind of deep correspondence. Both systems of running an economy boil down to a desire to quantify everything, including the people, possibly because both systems are gargantuan at scale and require abstractions in order to make decisions on what is the next best thing for the state (or firm) to do. And I wonder if this attitude creates the potential for the alienation that these people who are left behind by the economy feel. If it does, this has major ramifications beyond GDP or party propaganda. What is happening is that these people are having their meaning hollowed out from within them, and their reasons for being are being stripped down and sold and replaced by something entirely foreign. It’s obviously false to say that the native Eveny way of life was Edenic – it wasn’t and it still is not. It’s dangerous, unforgiving, and hard. Yet maybe there is a piece of Eden in it, if you can imagine that Eden was a place in which Adam and Eve felt they were one with God’s creation, not separate and forced to hack it on their own. “But for Lidia the taiga was not the empty space of white man’s adventure travel. It was the basic setting for one’s life, the place where one knew what to do, how to be…a herder’s soul was a delicate, innocent organ. Its openness was a virtue in the taiga, but in the village its open quality made the soul raw and vulnerable.” Is that not, in a sense, living according to what God wills rather than what man wills? “The master-programme of collectivization was ruthless and the socialist ideal of benevolent sharing was tempered by the ‘repression’ of anyone who could not be made to fit the abstract ideal of the perfectibility of humanity.”</p>
             <h3>The Tungus Eveny People and Their Beliefs</h3>
-                Though there is no systematic “religion” the Eveny seem to follow (even their creator god Hovny is noticeably absent from much of their mythology), the people are certainly bound by a mutual understanding of general piety, for lack of a better word, for the spirit of the land (Bayanay), the animals (especially reindeer, wolves, and bears), and each other. And despite their laconic personas, they have a rich culture beneath the surface that surely enables them to survive one of the world’s toughest environments. Even those who profess not to believe in the gods and shamanic rituals of their ancestors practice superstitions similar to lapsed Catholics. Something about the living on that land brings it out of them. I would say “as if” they were inextricably tied, but I think they may actually be intertwined. The land may not have been habitable without the beliefs carried by the peple. “The long silences of herders are not empty, but represent their blending into the cyclical processes of this land, a oneness for which words seem superfluous even in the Eveny language which was fine-tuned for use here.” It’s that cyclicality that comes back again and again, based on the movements of the herds and the annual returns to familiar places, but only for a short while. “An extreme attachment to one place is suitable only for the dead: a living nomad must keep moving.” (pg.322) Their mores are based on making sure the land is respected, taking care of others in the deadly environment, and looking out for the reindeer who in turn look out for you. Rituals like feeding the fire with vodka (or something else if you don’t have any handy) speak to the first two of these. It’s customary to pay respect to visitors with vodka and to also make sacrifice to the land to ensure good weather, a good hunt, etc. And the people are constantly working at something, constantly on the move, so these customs must ease their minds by projecting some kind of relief at the end of it all. </p>
-                To say a little more about Bayanay, I suppose it’s a little bit like the movie Avatar. This spirit of the land seems to be the substrate of existence for everything in the forest, not just the living, and as such the Eveny pay their respects and are constantly on the lookout for signs from him, for if one is not tuned into what Bayanay is trying to tell them, things could go very wrong. “For us everything is connected, really, truly. There is a God, who ordains our fate,” says Granny. It seems like their belief system is very fatalistic, maybe like the ancient Greek and Roman religions. People are assigned fates but yet there is still the possibility that they can be transgressed, for which people are punished. At one point there is a character who has spent his life on the move between different camps and villages because he consistently would trick Bayanay, having someone else fall victim to his justice, and could not stay in one place for fear of finally getting his comeuppance. How people can talk about animals is heavily ritualized. Wild animals can only be spoken of in whispers or obliquely, especially wolves and bears, for fear that they may hear and attack the reindeer. Domesticated creatures, however, each get a name, and as mentioned above, they can be part of a soul bond with a human. This connection sometimes allows the reindeer to be injured or killed in place of its human. When the reindeer is not sacrificing itself and lives out a natural life, its death can be seen as presaging the human partner’s death or some misfortune. </p>
-                Finally, their mysticism is grounded in the animistic work of the shaman – a word derived from the language of the Eveny and Evenki. Shaman’s develop the ordinary hunter’s skills and intuitions by flying over the landscape to monitor the movements of migratory animals. Although shamanism had all but been eradicated by the time of this book, there are many details about what they used to do, and the Eveny are constantly aware of the shamanic capabilities of people. In that way it’s kind of like a sixth sense where these abilities are more developed in some people than others. What everyone seems to be able to do, though, is dream and interpret those dreams. This becomes a focal point of the last few chapters as dreams are invoked constantly to provide context for why bad things have been happening to the tribe or, less commonly and often in the past, how they were beneficent omens. Similar to the discussion of wild and domesticated animals, dreams were not to be talked about too much, especially if they were bad or involved another person who may be harmed. No strict rubric is available for dream interpretation, but it’s striking that many of the templates involve more modern images such as Russians, guns, and iron, all of which do not bode well. Even the author and his family, when they lived with the Eveny at the end of the book, began to dream like the herders, which is hard to know what to make of except to say that maybe this provides some more evidence in favor of the hypothesis that this land and the spirituality practiced by the Eveny are inextricably linked. </p>
+            <p>Though there is no systematic “religion” the Eveny seem to follow (even their creator god Hovny is noticeably absent from much of their mythology), the people are certainly bound by a mutual understanding of general piety, for lack of a better word, for the spirit of the land (Bayanay), the animals (especially reindeer, wolves, and bears), and each other. And despite their laconic personas, they have a rich culture beneath the surface that surely enables them to survive one of the world’s toughest environments. Even those who profess not to believe in the gods and shamanic rituals of their ancestors practice superstitions similar to lapsed Catholics. Something about the living on that land brings it out of them. I would say “as if” they were inextricably tied, but I think they may actually be intertwined. The land may not have been habitable without the beliefs carried by the peple. “The long silences of herders are not empty, but represent their blending into the cyclical processes of this land, a oneness for which words seem superfluous even in the Eveny language which was fine-tuned for use here.” It’s that cyclicality that comes back again and again, based on the movements of the herds and the annual returns to familiar places, but only for a short while. “An extreme attachment to one place is suitable only for the dead: a living nomad must keep moving.” (pg.322) Their mores are based on making sure the land is respected, taking care of others in the deadly environment, and looking out for the reindeer who in turn look out for you. Rituals like feeding the fire with vodka (or something else if you don’t have any handy) speak to the first two of these. It’s customary to pay respect to visitors with vodka and to also make sacrifice to the land to ensure good weather, a good hunt, etc. And the people are constantly working at something, constantly on the move, so these customs must ease their minds by projecting some kind of relief at the end of it all. </p>
+            <p>To say a little more about Bayanay, I suppose it’s a little bit like the movie Avatar. This spirit of the land seems to be the substrate of existence for everything in the forest, not just the living, and as such the Eveny pay their respects and are constantly on the lookout for signs from him, for if one is not tuned into what Bayanay is trying to tell them, things could go very wrong. “For us everything is connected, really, truly. There is a God, who ordains our fate,” says Granny. It seems like their belief system is very fatalistic, maybe like the ancient Greek and Roman religions. People are assigned fates but yet there is still the possibility that they can be transgressed, for which people are punished. At one point there is a character who has spent his life on the move between different camps and villages because he consistently would trick Bayanay, having someone else fall victim to his justice, and could not stay in one place for fear of finally getting his comeuppance. How people can talk about animals is heavily ritualized. Wild animals can only be spoken of in whispers or obliquely, especially wolves and bears, for fear that they may hear and attack the reindeer. Domesticated creatures, however, each get a name, and as mentioned above, they can be part of a soul bond with a human. This connection sometimes allows the reindeer to be injured or killed in place of its human. When the reindeer is not sacrificing itself and lives out a natural life, its death can be seen as presaging the human partner’s death or some misfortune. </p>
+            <p>Finally, their mysticism is grounded in the animistic work of the shaman – a word derived from the language of the Eveny and Evenki. Shaman’s develop the ordinary hunter’s skills and intuitions by flying over the landscape to monitor the movements of migratory animals. Although shamanism had all but been eradicated by the time of this book, there are many details about what they used to do, and the Eveny are constantly aware of the shamanic capabilities of people. In that way it’s kind of like a sixth sense where these abilities are more developed in some people than others. What everyone seems to be able to do, though, is dream and interpret those dreams. This becomes a focal point of the last few chapters as dreams are invoked constantly to provide context for why bad things have been happening to the tribe or, less commonly and often in the past, how they were beneficent omens. Similar to the discussion of wild and domesticated animals, dreams were not to be talked about too much, especially if they were bad or involved another person who may be harmed. No strict rubric is available for dream interpretation, but it’s striking that many of the templates involve more modern images such as Russians, guns, and iron, all of which do not bode well. Even the author and his family, when they lived with the Eveny at the end of the book, began to dream like the herders, which is hard to know what to make of except to say that maybe this provides some more evidence in favor of the hypothesis that this land and the spirituality practiced by the Eveny are inextricably linked. </p>
             <h3>Conclusion</h3>
-                This book reminded me of Mircea Eliade’s foundational text on religious belief The Sacred and the Profane. The Reindeer People is a glowing example of what sacralized time and space look like, not to mention taboos and rituals around life and death. Who knows if what these people experience and talk about is real, but you can see why it is a reality for them given the context in which they live their lives. And this all feeds into the question of falling out of Eden, to put it quickly. I don’t know what has happened to these people in the twenty odd years since this book was published, but the tension present throughout the book seems like it was not going away, and it’s one that exists closer to home, too, with American Indian tribes across the United States. Frankly, look at how difficult it is to maintain a traditional religious life of any variety in the modern world. How does humanity at large live out a truly spiritual life when the pressures and incentives of staying alive primarily come down to the quantification of everything, the breaking down of existence into countable pieces of matter that can be manipulated and exchanged one-for-one, everything infinitely fungible? It’s reductive to say that ESG for modern corporations is no different than collectivization and quotas imposed by the Soviet Union, but there are undoubtedly similarities in the way the individual human experience suffers under both regimes. What links them is scale and the desire to make man the measure of things. To control so many people over such a vast swath of land as Siberia or the United States requires the abstraction of those people and what they do to numbers. It is simply impossible to consider every person or group or tribe on their own terms and allow them to make their way through life the way they think best. For sure this has benefited humanity immensely and lifted billions of people out of utter misery and destitution. But there is a price to pay for that, as evidenced by the despair that we see setting in in the young Eveny in the book and millions of Westerners today. Can that be mitigated by a further application of whatever system we happen to be living under? I can’t say for sure but my proclivities tend to point towards “No”. To paraphrase St. Augustine, I think our hearts will be forever restless until they rest in something infinitely greater than the capacities of our spreadsheets, but our modern contraptions that are there to improve our material well-being become so all-consuming that few of us ever have the time or inclination to ask, much less discover, what that greater thing might be. </p>
-                Another thing this reminded me of was the American west, the romance of a life lived on horseback running cattle or other livestock, and the way that living that life puts a person extremely in tune with the animals they take care of. The reindeer people seem to be a blend of cowboys and American Indians. The terse, matter-of-factness of the herders, and their bond with the land and the lifestyle seem very cowboy-ish, while their beliefs about the world and all the creatures that inhabit it, and the spirituality focused on the interconnectedness of nature and the cyclicality of time harken to my (admittedly shallow) knowledge of American Indian tribes in the great plains and mountain west regions of America.</p>
+                <p>This book reminded me of Mircea Eliade’s foundational text on religious belief The Sacred and the Profane. The Reindeer People is a glowing example of what sacralized time and space look like, not to mention taboos and rituals around life and death. Who knows if what these people experience and talk about is real, but you can see why it is a reality for them given the context in which they live their lives. And this all feeds into the question of falling out of Eden, to put it quickly. I don’t know what has happened to these people in the twenty odd years since this book was published, but the tension present throughout the book seems like it was not going away, and it’s one that exists closer to home, too, with American Indian tribes across the United States. Frankly, look at how difficult it is to maintain a traditional religious life of any variety in the modern world. How does humanity at large live out a truly spiritual life when the pressures and incentives of staying alive primarily come down to the quantification of everything, the breaking down of existence into countable pieces of matter that can be manipulated and exchanged one-for-one, everything infinitely fungible? It’s reductive to say that ESG for modern corporations is no different than collectivization and quotas imposed by the Soviet Union, but there are undoubtedly similarities in the way the individual human experience suffers under both regimes. What links them is scale and the desire to make man the measure of things. To control so many people over such a vast swath of land as Siberia or the United States requires the abstraction of those people and what they do to numbers. It is simply impossible to consider every person or group or tribe on their own terms and allow them to make their way through life the way they think best. For sure this has benefited humanity immensely and lifted billions of people out of utter misery and destitution. But there is a price to pay for that, as evidenced by the despair that we see setting in in the young Eveny in the book and millions of Westerners today. Can that be mitigated by a further application of whatever system we happen to be living under? I can’t say for sure but my proclivities tend to point towards “No”. To paraphrase St. Augustine, I think our hearts will be forever restless until they rest in something infinitely greater than the capacities of our spreadsheets, but our modern contraptions that are there to improve our material well-being become so all-consuming that few of us ever have the time or inclination to ask, much less discover, what that greater thing might be. </p>
+                <p>Another thing this reminded me of was the American west, the romance of a life lived on horseback running cattle or other livestock, and the way that living that life puts a person extremely in tune with the animals they take care of. The reindeer people seem to be a blend of cowboys and American Indians. The terse, matter-of-factness of the herders, and their bond with the land and the lifestyle seem very cowboy-ish, while their beliefs about the world and all the creatures that inhabit it, and the spirituality focused on the interconnectedness of nature and the cyclicality of time harken to my (admittedly shallow) knowledge of American Indian tribes in the great plains and mountain west regions of America.</p>
                 </p>
             <h2>Miscellany and Marginalia</h2>
             <p>Reindeer remains are often found in prehistoric sites mixed with those of auroch, mammoth, and wooly rhinocerous. </p>
-                Reindeer have the most flexible joints of any hoofed animal – they can scratch their ear with their back hoof (pg. 20)</p>
-                There is anthrax beneath the Siberian soil that can cause epidemics among the reindeer population (pg. 21)</p>
-                In a single autumn or spring migration a herd can travel 700-800 miles, greater than any other land animal (pg.23)</p>
-                Humans initially domesticated wild reindeer some 3000 years ago, but have somehow forgotten how to tame wild reindeer. It now comes down to breeding (pg. 25)</p>
-                During collectivization reindeer populations fell from 2.2 to 1.4 million, a drop that took 30 years to recover. (pg. 35)</p>
-                Women systematically funneled out of the taiga, off the reindeer herding lands as part of Soviet policy to civilize the Tungus (Eveny) people.</p>
-                It was illegal in the Soviet Union to live anywhere except where you were registered, and it was difficult for anyone born in the Farm to change their registration and move to another place except by entering an urban profession or going to jail. (pg. 52)</p>
-                A reindeer from upwind can smell a species of plant buried in the snow or the location of a mushroom from 100 yards away. (pg. 59)</p>
-                The early revolutionaries were concerned that a family who herded together would continue to plan their own long-term future, rather than surrendering to the Farm. (pg. 68)</p>
-                After an outbreak of brucellosis required the culling of 600 to 700 reindeer, thinking in the camps began to suspect that a “new” vet, and relative of a director of the Farm, infected them deliberately. Good example of conspiracy thinking arising against elites. (pg. 74)</p>
-                “But what Tolya registered were not coordinates in a homogenous space, nor even geophysical contours, but the threads of animal movement and purpose, and of human dependence upon these.” (pg. 79)</p>
-                When born newborn reindeer experience a temperature drop of over 100°F. They sustain their body temperature by deposits of heat-generating brown adipose fat, especially around the heart and kidneys. (pg. 80)</p>
-                “’The Eveny didn’t have drunkenness before the Russians introduced it. Or swearing.’” Tolya (pg.86)</p>
-                Eveny have a custom of “feeding the fire” any time they build a fire or move to a new location. By this they throw a shot of vodka into the flames before partaking themselves. It’s said that the fire knows if it’s being deceived (i.e. if you throw in water instead of vodka) and that you will be physically harmed until you give the proper offering. (pg. 87)</p>
-                 “The long silences of herders are not empty, but represent their blending into the cyclical processes of this land, a oneness for which words seem superfluous even in the Eveny language which was fine-tuned for use here.” (pg.129)</p>
-                One Eveny scholar compiled a list of 1,500 words in his language that refer to the colors and shapes of reindeer, their body parts, harnesses, diseases, diet, and mood. (pg. 93)</p>
-                The land around reindeer herding camps is so trampled by the reindeer that it is visible from space. (pg.98)</p>
-                “’I like work that gives results. In the village, everyone’s going hither and thither, but it’s not clear that they’re actually working.’” Kostya pg.130</p>
-                How to dress for the coldest part of the Siberian winter: Double-thickness thigh-length boots – the inner pair made from a reindeer slaughtered in July, when the hairs were shorter with the hair facing inwards towards the body. The outer boots come from a reindeer slaughtered in autumn, when the hairs were longer. Plus a collection of furs, layered on top of one another, and all the seals of your clothing sealed off by animal skins.</p>
-                “Mosquitos followed their own migratory cycle, spending ten months inside the animal’s body and emerging in the few weeks of summer to reproduce. Each time a reindeer heard one approaching, it shook its whole body in a vain attempt to prevent it from laying eggs in its fur. The larvae then burrowed under the skin, where they grew into large grubs which could be seen clinging beneath the hide when a reindeer was skinned.” (pg.104)</p>
-                Below -40°F, if you threw hot tea up into the air, it froze and tinkled downward in a patter of tiny crystals. (pg. 154)</p>
-                Kolyma was the cruelest region of the gulag system? </p>
-                The very oldest people recalled riding thousands of miles…But recent generations became cosmopolitan in a different way. Their attentiveness to the world was drawn away from the land and funneled through the village airstrip to a life that could not be reached on the back of a reindeer. (pg. 184)</p>
-                Families were separated as part of Sovietization and children sent to boarding schools where they often escaped only to die of exposure trying to get back to their families. This de-nomadized women, kept men isolated and away from their families and drove many of them to alcoholism.</p>
-                A herder named Boris died in -50°F weather when he went outside to get firewood and left his coat inside. While out his tent burned down leaving him stranded without enough clothing to protect him. Many deaths occur this way.</p>
-                Radiation afflicted Siberian natives as a result of Soviet testing that had echoes of the smallpox epidemics. “The disease was understood as the after-effect of a red-haired Russian woman who say on a sledge at the back of a visitor’s caravan. The only person who could actually see her was a shaman, who would then prepare for a life-or-death battle. If the shaman lost, or if the camp had no shaman, nearly everyone would die.” (pg. 221)</p>
-                Lichens take their nutrients from the air, and as a result of nuclear testing, absorbed many radioactive isotopes. (pg. 221) </p>
-                 ‘Bear-ridden corner’ is a Russian idiom for remote backwater. (pg. 227)</p>
-                Soviet government desks were decked with burgundy to represent culture (i.e. the theatre) and bright red in a nod to altar-cloth from Christianity. (pg. 243)</p>
-                During the 80s and 90s, vodka became such a desired commodity in the reindeer herding villages that a truckload of vodka could buy out the entire reindeer industry in Russia. (pg.239)</p>
-                Hovki is the Eveny god who created the world, but they are more apt to locate the divine inside the phenomena of the world, often in the form of Bayanay, the spirit of the forest. He holds the forest in balance and make sure there is a kind of natural justice in the ecosystem, weighing animals, plants, and humans.</p>
-                 “For us everything is connected, really, truly. There is a God, who ordains our fate.” (Granny, pg. 277)</p>
-                By becoming domesticated, reindeer can be talked about openly, unlike wild animals who present a kind of danger and must be talked about obliquely.</p>
-                There is a lot of belief in dreams and in what happens if you try to avoid the outcomes you see. Sometimes deflecting the consequences dooms another soul. (pg. 306)</p>
-                Momentous predictive dreams were so often said to be fulfilled exactly a year later because herders returned to the same place they had the dream almost always a year later because of the cyclic nature of the herds. (pg. 313)</p>
-                In the old days the dead would be suspended from a tree, halfway between the earth and the sky. (pg.327)</p>
-                Eveny are vivid dreamers, and some of their common dream patterns involve European Russians, a sign that the trauma of colonialism is ingrained deep within their psyche. (pg.344)</p>
-                “’Destruction, killing, eating, rebirth,’ she said. ‘It all feels very savage and cruel. Even the larches are killed and skinned to make fences.” (pg.354)</p>
+            <p>Reindeer have the most flexible joints of any hoofed animal – they can scratch their ear with their back hoof (pg. 20)</p>
+            <p>There is anthrax beneath the Siberian soil that can cause epidemics among the reindeer population (pg. 21)</p>
+            <p>In a single autumn or spring migration a herd can travel 700-800 miles, greater than any other land animal (pg.23)</p>
+            <p>Humans initially domesticated wild reindeer some 3000 years ago, but have somehow forgotten how to tame wild reindeer. It now comes down to breeding (pg. 25)</p>
+            <p>During collectivization reindeer populations fell from 2.2 to 1.4 million, a drop that took 30 years to recover. (pg. 35)</p>
+            <p>Women systematically funneled out of the taiga, off the reindeer herding lands as part of Soviet policy to civilize the Tungus (Eveny) people.</p>
+            <p>It was illegal in the Soviet Union to live anywhere except where you were registered, and it was difficult for anyone born in the Farm to change their registration and move to another place except by entering an urban profession or going to jail. (pg. 52)</p>
+            <p>A reindeer from upwind can smell a species of plant buried in the snow or the location of a mushroom from 100 yards away. (pg. 59)</p>
+            <p>The early revolutionaries were concerned that a family who herded together would continue to plan their own long-term future, rather than surrendering to the Farm. (pg. 68)</p>
+            <p>After an outbreak of brucellosis required the culling of 600 to 700 reindeer, thinking in the camps began to suspect that a “new” vet, and relative of a director of the Farm, infected them deliberately. Good example of conspiracy thinking arising against elites. (pg. 74)</p>
+            <p>“But what Tolya registered were not coordinates in a homogenous space, nor even geophysical contours, but the threads of animal movement and purpose, and of human dependence upon these.” (pg. 79)</p>
+            <p>When born newborn reindeer experience a temperature drop of over 100°F. They sustain their body temperature by deposits of heat-generating brown adipose fat, especially around the heart and kidneys. (pg. 80)</p>
+            <p>“’The Eveny didn’t have drunkenness before the Russians introduced it. Or swearing.’” Tolya (pg.86)</p>
+            <p>Eveny have a custom of “feeding the fire” any time they build a fire or move to a new location. By this they throw a shot of vodka into the flames before partaking themselves. It’s said that the fire knows if it’s being deceived (i.e. if you throw in water instead of vodka) and that you will be physically harmed until you give the proper offering. (pg. 87)</p>
+            <p>“The long silences of herders are not empty, but represent their blending into the cyclical processes of this land, a oneness for which words seem superfluous even in the Eveny language which was fine-tuned for use here.” (pg.129)</p>
+            <p>One Eveny scholar compiled a list of 1,500 words in his language that refer to the colors and shapes of reindeer, their body parts, harnesses, diseases, diet, and mood. (pg. 93)</p>
+            <p> The land around reindeer herding camps is so trampled by the reindeer that it is visible from space. (pg.98)</p>
+            <p> “’I like work that gives results. In the village, everyone’s going hither and thither, but it’s not clear that they’re actually working.’” Kostya pg.130</p>
+            <p> How to dress for the coldest part of the Siberian winter: Double-thickness thigh-length boots – the inner pair made from a reindeer slaughtered in July, when the hairs were shorter with the hair facing inwards towards the body. The outer boots come from a reindeer slaughtered in autumn, when the hairs were longer. Plus a collection of furs, layered on top of one another, and all the seals of your clothing sealed off by animal skins.</p>
+            <p> “Mosquitos followed their own migratory cycle, spending ten months inside the animal’s body and emerging in the few weeks of summer to reproduce. Each time a reindeer heard one approaching, it shook its whole body in a vain attempt to prevent it from laying eggs in its fur. The larvae then burrowed under the skin, where they grew into large grubs which could be seen clinging beneath the hide when a reindeer was skinned.” (pg.104)</p>
+            <p> Below -40°F, if you threw hot tea up into the air, it froze and tinkled downward in a patter of tiny crystals. (pg. 154)</p>
+            <p> Kolyma was the cruelest region of the gulag system? </p>
+            <p> The very oldest people recalled riding thousands of miles…But recent generations became cosmopolitan in a different way. Their attentiveness to the world was drawn away from the land and funneled through the village airstrip to a life that could not be reached on the back of a reindeer. (pg. 184)</p>
+            <p> Families were separated as part of Sovietization and children sent to boarding schools where they often escaped only to die of exposure trying to get back to their families. This de-nomadized women, kept men isolated and away from their families and drove many of them to alcoholism.</p>
+            <p> A herder named Boris died in -50°F weather when he went outside to get firewood and left his coat inside. While out his tent burned down leaving him stranded without enough clothing to protect him. Many deaths occur this way.</p>
+            <p> Radiation afflicted Siberian natives as a result of Soviet testing that had echoes of the smallpox epidemics. “The disease was understood as the after-effect of a red-haired Russian woman who say on a sledge at the back of a visitor’s caravan. The only person who could actually see her was a shaman, who would then prepare for a life-or-death battle. If the shaman lost, or if the camp had no shaman, nearly everyone would die.” (pg. 221)</p>
+            <p> Lichens take their nutrients from the air, and as a result of nuclear testing, absorbed many radioactive isotopes. (pg. 221) </p>
+            <p>  ‘Bear-ridden corner’ is a Russian idiom for remote backwater. (pg. 227)</p>
+            <p> Soviet government desks were decked with burgundy to represent culture (i.e. the theatre) and bright red in a nod to altar-cloth from Christianity. (pg. 243)</p>
+            <p> During the 80s and 90s, vodka became such a desired commodity in the reindeer herding villages that a truckload of vodka could buy out the entire reindeer industry in Russia. (pg.239)</p>
+            <p> Hovki is the Eveny god who created the world, but they are more apt to locate the divine inside the phenomena of the world, often in the form of Bayanay, the spirit of the forest. He holds the forest in balance and make sure there is a kind of natural justice in the ecosystem, weighing animals, plants, and humans.</p>
+            <p>  “For us everything is connected, really, truly. There is a God, who ordains our fate.” (Granny, pg. 277)</p>
+            <p> By becoming domesticated, reindeer can be talked about openly, unlike wild animals who present a kind of danger and must be talked about obliquely.</p>
+            <p> There is a lot of belief in dreams and in what happens if you try to avoid the outcomes you see. Sometimes deflecting the consequences dooms another soul. (pg. 306)</p>
+            <p> Momentous predictive dreams were so often said to be fulfilled exactly a year later because herders returned to the same place they had the dream almost always a year later because of the cyclic nature of the herds. (pg. 313)</p>
+            <p> In the old days the dead would be suspended from a tree, halfway between the earth and the sky. (pg.327)</p>
+            <p> Eveny are vivid dreamers, and some of their common dream patterns involve European Russians, a sign that the trauma of colonialism is ingrained deep within their psyche. (pg.344)</p>
+            <p> “’Destruction, killing, eating, rebirth,’ she said. ‘It all feels very savage and cruel. Even the larches are killed and skinned to make fences.” (pg.354)</p>
                 </p>
         </div>
 
         <!-- Related Books -->
-        <div class="notes-section">
+        <div id="related" class="notes-section">
             <h2>Related Books</h2>
-            <ul>
-                <li><a href="TravelsSiberiaShaman.html">Travels in Siberia, Siberia: A History of the People, The Shaman's Coat</a> - Siberian wilderness, life in Siberia</li>
-                <li><a href="thegreatsoulofsiberia.html">The Great Soul of Siberia</a> - Siberian wildlife and indigenous people</li>
-                <li>The Sacred and The Profane - Mircea Eliade</li>
-            </ul>
-        </div>
+            <!--<div class="related-book">
+                <a href="[link-to-book-page.html]">[Related Book Title]</a> - [Author Name]
+            </div>-->
+            <div class="related-book">
+                <a href="TravelsSiberiaShaman.html">Travels in Siberia, Siberia: A History of the People, The Shaman's Coat</a>
+            </div>
+            <div class="related-book">
+                <a href="thegreatsoulofsiberia.html">The Great Soul of Siberia</a> - Sooyong Park
+            </div>
+            <div class="related-book">
+                <a href="winterpasture.html">Winter Pasture</a> - Li Juan
+            </div>
+            <div class="related-book">
+                The Sacred and The Profane</a> - Mircea Eliade
+            </div>
+        </main>
     </div>
+    <script>
+        // Toggle mobile navigation
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple search functionality (can be enhanced)
+        document.querySelector('.search-bar').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                alert('Search functionality would go here!');
+                // Implement actual search logic
+            }
+        });
+    </script>
 </body>
 </html>
