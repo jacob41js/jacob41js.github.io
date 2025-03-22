@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Reading Notes</title>
+    <title>Would Aristotle consider The Good Place the good life?</title>
     <style>
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #34495e;
+            --accent-color: #3498db;
             --text-color: #333;
             --link-color: #3498db;
             --background-color: #f5f6fa;
+            --quote-background: #f8f9fa;
+            --card-background: white;
         }
 
         body {
@@ -22,103 +25,663 @@
             color: var(--text-color);
         }
 
-        nav {
+        /* Navigation Header */
+        .nav-header {
             background-color: var(--primary-color);
-            padding: 1rem;
-        }
-
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        nav a {
             color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        nav a:hover {
-            background-color: var(--secondary-color);
-            border-radius: 4px;
-        }
-
-        .container {
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
         }
 
-        .reading-list {
-            margin: 2rem 0;
+        .site-title {
+            font-size: 1.5rem;
+            margin: 0;
         }
 
-        .reading-list h2 {
+        .site-title a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Navigation Toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin: 2rem auto;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar {
+            width: 70%;
+            padding: 0.8rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            grid-column: 1;
+        }
+
+        /* Filter Section */
+        .filters {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 5rem;
+        }
+
+        .filters h3 {
+            margin-top: 0;
             color: var(--primary-color);
             border-bottom: 2px solid var(--primary-color);
             padding-bottom: 0.5rem;
         }
 
-        .book-list {
-            list-style-type: none;
-            padding: 0;
+        .filter-group {
+            margin-bottom: 1rem;
         }
 
-        .book-list li {
-            margin: 1rem 0;
-            padding: 0.5rem;
-            background-color: white;
-            border-radius: 4px;
+        .filter-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-option label {
+            margin-left: 0.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+        }
+
+        .content {
+            grid-column: 2;
+        }
+
+        /* Page Header */
+        .page-header {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .book-list a {
-            color: var(--link-color);
-            text-decoration: none;
+        .page-title {
+            color: var(--primary-color);
+            margin: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
         }
 
-        .book-list a:hover {
-            text-decoration: underline;
-        }
-
-        .book-metadata {
-            font-size: 0.9rem;
+        .page-description {
+            margin-top: 1rem;
             color: var(--secondary-color);
+        }
+
+        /* Book Cards */
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .book-card {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .book-card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .book-card-title {
+            margin: 0;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .book-card-title a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .book-card-title a:hover {
+            color: var(--accent-color);
+        }
+
+        .book-card-author {
+            color: var(--secondary-color);
+            margin: 0.5rem 0;
+            font-style: italic;
+        }
+
+        .book-card-content {
+            padding: 1.5rem;
+        }
+
+        .book-card-metadata {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .book-card-date {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        .book-card-pages {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        /* Rating System */
+        .rating {
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .stars {
+            color: gold;
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Tags */
+        .tags {
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: inline-block;
+            transition: background-color 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Year Dividers */
+        .year-divider {
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            grid-column: 1 / -1;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+
+        .page-link {
+            padding: 0.5rem 1rem;
+            background-color: var(--card-background);
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .page-link:hover, .page-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .content, .sidebar {
+                grid-column: 1;
+            }
+
+            .filters {
+                position: static;
+                margin-bottom: 2rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .book-list {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#top">Philosophy</a></li>
-            <li><a href="fiction.html">Fiction</a></li>
-            <li><a href="history.html">History</a></li>
-            <li><a href="science.html">Science</a></li>
-            <li><a href="siberia.html">Siberia</a></li>
-            <li><a href="general.html">General Non-Fiction</a></li>
-        </ul>
-    </nav>
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <div class="nav-container">
+            <h1 class="site-title"><a href="philosophy.html">A=A</a></h1>
+            <button class="nav-toggle">☰</button>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#top">Philosophy</a>
+                <a href="fiction.html">Fiction</a>
+                <a href="history.html">History</a>
+                <a href="science.html">Science</a>
+                <a href="siberia.html">Siberia</a>
+                <a href="general.html">General Non-Fiction</a>
+                <a href="reflections.html">Reflections</a>
+                <a href="years.html">Book Years</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search by title, author, tag, or content...">
+    </div>
 
     <div class="container">
-        <h1>My Reading Notes</h1>
-        
-        <div class="reading-list">
-            <h2>Philosophy</h2>
-            <ul class="book-list">
-                <li>
-                    <a href="philosophy/euthyprho.html">Euthyphro - Plato</a>
-                    <div class="book-metadata">Read: February 2025 (and several other times)</div>
-                </li>
-                <li>
-                    <a href="philosophy/apology.html">Apology - Plato</a>
-                    <div class="book-metadata">Read: February 2025 (and several other times)</div>
-                </li>
-            </ul>
-        </div>
+        <!-- Sidebar with Filters -->
+        <aside class="sidebar">
+            <div class="filters">
+                <h3>Filter Books</h3>
+                
+                <div class="filter-group">
+                    <div class="filter-title">Rating</div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="five-stars" name="rating" value="5">
+                            <label for="five-stars">★★★★★ (5 stars)</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="four-stars" name="rating" value="4">
+                            <label for="four-stars">★★★★☆ (4 stars)</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="three-stars" name="rating" value="3">
+                            <label for="three-stars">★★★☆☆ (3 stars)</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="two-stars" name="rating" value="2">
+                            <label for="two-stars">★★☆☆☆ (2 stars)</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="one-star" name="rating" value="1">
+                            <label for="one-star">★☆☆☆☆ (1 star)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--<div class="filter-group">
+                    <div class="filter-title">Categories</div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="philosophy" name="category" value="philosophy">
+                            <label for="philosophy">Philosophy</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="fiction" name="category" value="fiction">
+                            <label for="fiction">Fiction</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="history" name="category" value="history">
+                            <label for="history">History</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="science" name="category" value="science">
+                            <label for="science">Science</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="siberia" name="category" value="siberia">
+                            <label for="siberia">Siberia</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="general" name="category" value="general">
+                            <label for="general">General Non-Fiction</label>
+                        </div>
+                    </div>
+                </div> -->
+                
+                <div class="filter-group">
+                    <div class="filter-title">Reading Status</div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="complete" name="status" value="complete">
+                            <label for="complete">Complete</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="in-progress" name="status" value="in-progress">
+                            <label for="in-progress">In Progress</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="to-read" name="status" value="to-read">
+                            <label for="to-read">To Read</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-title">Years</div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="year-2025" name="year" value="2025">
+                            <label for="year-2025">2025</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="year-2024" name="year" value="2024">
+                            <label for="year-2024">2024</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="year-2023" name="year" value="2023">
+                            <label for="year-2023">2023</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="year-2022" name="year" value="2022">
+                            <label for="year-2022">2022</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="apply-filters" style="background-color: var(--primary-color); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; width: 100%;">Apply Filters</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Love of Wisdom</h1>
+                <div class="page-description">
+                    <p>In which I wonder if anyone will finally answer these questions</p>
+                </div>
+            </div>
+
+            <!-- Book List -->
+            <div class="book-list">
+                <!-- Year Divider -->
+                <h2 class="year-divider">2025</h2>
+                
+                <!-- Apology -->
+                <div class="book-card">
+                    <div class="book-card-header">
+                        <h3 class="book-card-title"><a href="philosophy/apology.html">Apology</a></h3>
+                        <p class="book-card-author">Plato</p>
+                    </div>
+                    <div class="book-card-content">
+                        <div class="book-card-metadata">
+                            <div class="book-card-date">February 2025</div>
+                            <div class="book-card-pages">20 pages</div>
+                            <div class="rating">
+                                <div class="stars">★★★★★</div>
+                                <span>5/5</span>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Ethics</span>
+                            <span class="tag">Truth</span>
+                            <span class="tag">Morality</span>
+                            <span class="tag">Stoicism</span>
+                            <span class="tag">Epistemology</span>
+                            <span class="tag">Classics</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Euthyphro -->        
+                <div class="book-card">
+                    <div class="book-card-header">
+                        <h3 class="book-card-title"><a href="philosophy/euthyphro.html">Euthyphro</a></h3>
+                        <p class="book-card-author">Plato</p>
+                    </div>
+                    <div class="book-card-content">
+                        <div class="book-card-metadata">
+                            <div class="book-card-date">February 2025</div>
+                            <div class="book-card-pages">10 pages</div>
+                            <div class="rating">
+                                <div class="stars">★★★★★</div>
+                                <span>5/5</span>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Ethics</span>
+                            <span class="tag">Divine Command Theory</span>
+                            <span class="tag">Morality</span>
+                            <span class="tag">Classics</span>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <!-- Year Divider -->
+                <h2 class="year-divider">2024</h2>
+            
+            <!-- Pagination 
+            <div class="pagination">
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link">Next →</a>
+            </div>-->
+        </main>
     </div>
+
+    <script>
+        // Toggle mobile navigation
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Simple search functionality (can be enhanced)
+        document.querySelector('.search-bar').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                alert('Search functionality would go here!');
+                // Implement actual search logic
+            }
+        });
+
+        // Filter functionality (placeholder)
+        document.getElementById('apply-filters').addEventListener('click', function() {
+            alert('Filter functionality would go here!');
+            // Implement actual filter logic
+        });
+    </script>
+    <!--// Create a books array to store all your book data
+    const booksData = [
+    {
+        title: "The MANIAC",
+        author: "Benjamin Labatut
+        link: "fiction/the-maniac.html",
+        date: "February 2025",
+        year: 2025,
+        pages: 386,
+        rating: 5,
+        tags: ["Science", "AI", "History", "Mathematics"],
+        categories: ["Fiction"],
+        status: "Complete"
+    },
+    {
+        title: "Sapiens: A Brief History of Humankind",
+        author: "Yuval Noah Harari",
+        link: "books/sapiens.html",
+        date: "January 2025",
+        year: 2025,
+        pages: 443,
+        rating: 4,
+        tags: ["History", "Anthropology", "Evolution"],
+        categories: ["History", "Science"],
+        status: "Complete"
+    },
+    // Add more books following the same structure
+];
+function renderBooks(books) {
+    const bookList = document.querySelector('.book-list');
+    bookList.innerHTML = ''; // Clear existing content
+    
+    // Sort books by year (newest first)
+    books.sort((a, b) => b.year - a.year);
+    
+    let currentYear = null;
+    
+    books.forEach(book => {
+        // Add year divider if this is a new year
+        if (book.year !== currentYear) {
+            currentYear = book.year;
+            const yearDivider = document.createElement('h2');
+            yearDivider.className = 'year-divider';
+            yearDivider.textContent = currentYear;
+            bookList.appendChild(yearDivider);
+        }
+        
+        // Create book card
+        const bookCard = document.createElement('div');
+        bookCard.className = 'book-card';
+        
+        // Generate star rating HTML
+        const stars = '★'.repeat(book.rating) + '☆'.repeat(5 - book.rating);
+        
+        // Generate tags HTML
+        const tagsHTML = book.tags.map(tag => 
+            `<span class="tag">${tag}</span>`
+        ).join('');
+        
+        bookCard.innerHTML = `
+            <div class="book-card-header">
+                <h3 class="book-card-title"><a href="${book.link}">${book.title}</a></h3>
+                <p class="book-card-author">${book.author}</p>
+            </div>
+            <div class="book-card-content">
+                <div class="book-card-metadata">
+                    <div class="book-card-date">${book.date}</div>
+                    <div class="book-card-pages">${book.pages} pages</div>
+                    <div class="rating">
+                        <div class="stars">${stars}</div>
+                        <span>${book.rating}/5</span>
+                    </div>
+                </div>
+                <div class="tags">
+                    ${tagsHTML}
+                </div>
+            </div>
+        `;
+        
+        bookList.appendChild(bookCard);
+    });
+    
+    // Show message if no books match filters
+    if (books.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.style.gridColumn = '1 / -1';
+        noResults.style.padding = '2rem';
+        noResults.style.textAlign = 'center';
+        noResults.textContent = 'No books match your search or filter criteria.';
+        bookList.appendChild(noResults);
+    }
+        }-->
 </body>
 </html>
