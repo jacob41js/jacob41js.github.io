@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crito - Reading Notes</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --link-color: #3498db;
+            --background-color: #f5f6fa;
+            --quote-background: #f8f9fa;
+            --card-background: white;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .site-title a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Navigation Toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin: 2rem auto;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar {
+            width: 70%;
+            padding: 0.8rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
+        }
+
+        /* Table of Contents */
+        .toc {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 5rem;
+            max-height: calc(100vh - 7rem);
+            overflow-y: auto;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.5rem 0;
+        }
+
+        .toc a {
+            color: var(--link-color);
+            text-decoration: none;
+            display: block;
+            padding: 0.3rem 0;
+            transition: transform 0.2s ease;
+        }
+
+        .toc a:hover {
+            transform: translateX(5px);
+            color: var(--primary-color);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+        }
+
+        .content {
+            grid-column: 2;
+        }
+
+        .sidebar {
+            grid-column: 1;
+        }
+
+        /* Book Header Section */
+        .book-header {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .book-title {
+            color: var(--primary-color);
+            margin: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .book-metadata {
+            margin-top: 1rem;
+            color: var(--secondary-color);
+        }
+
+        /* Rating System */
+        .rating {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .stars {
+            color: gold;
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Notes Sections */
+        .notes-section {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .notes-section h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Quotes */
+        blockquote {
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            background-color: var(--quote-background);
+            font-style: italic;
+        }
+
+        .quote-source {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+            margin-top: 0.5rem;
+            font-style: normal;
+        }
+
+        /* Tags */
+        .tags {
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            transition: background-color 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Related Books */
+        .related-books {
+            margin-top: 2rem;
+        }
+
+        .related-book {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            background-color: var(--quote-background);
+            transition: transform 0.2s ease;
+        }
+
+        .related-book:hover {
+            transform: translateX(5px);
+        }
+
+        .related-book a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Reading Progress */
+        .reading-progress {
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 100%; /* Set to percentage of completion */
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .content, .sidebar {
+                grid-column: 1;
+            }
+
+            .toc {
+                position: static;
+                margin-bottom: 2rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+     <!-- Navigation Header -->
+     <header class="nav-header">
+        <div class="nav-container">
+            <h1 class="site-title"><a href="../index.html">Reading Notes</a></h1>
+            <button class="nav-toggle">☰</button>
+            <nav class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../philosophy.html">Philosophy</a>
+                <a href="../fiction.html">Fiction</a>
+                <a href="../history.html">History</a>
+                <a href="../science.html">Science</a>
+                <a href="../siberia.html">Siberia</a>
+                <a href="../general.html">General Non-Fiction</a>
+                <a href="../reflections.html">Reflections</a>
+                <a href="../years.html">Book Years</a>
+            </nav>
+        </div>
+    </header>
+     <!-- Search Bar -->
+     <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search by title, author, tag, or content...">
+    </div>
+
+    <div class="container">
+        <!-- Sidebar with TOC -->
+        <aside class="sidebar">
+            <div class="toc">
+                <h3>On This Page</h3>
+                <ul>
+                    <!--<li><a href="#book-info">Book Information</a></li>-->
+                    <!--<li><a href="#quotes">Notable Quotes</a></li>-->
+                    <li><a href="#reflections">Personal Reflections</a></li>
+                    <li><a href="#related">Related Books</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    <main class="content">
+            <!-- Book Information -->
+            <div id="book-info" class="book-header">
+                <h1 class="book-title">Crito</h1>
+                <div class="book-metadata">
+                <p>Author: Plato</p>
+                <p>Date Read: March 2025 (and several other times)</p>
+                <p>Pages: 10?</p>
+
+                <!-- Rating -->
+                <div class="rating">
+                    <div class="stars">★★★★★</div>
+                    <span>5/5</span>
+                </div>
+
+                <!-- Reading Status -->
+                <div class="reading-progress">
+                    <p>Reading Status: Complete</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+
+                <div class="tags">
+                    <span class="tag">Ethics</span>
+                    <span class="tag">Justice</span>
+                    <span class="tag">Morality</span>
+                    <span class="tag">Classics</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notable Quotes
+         <div id="quotes" class="notes-section">
+            <h2>Notable Quotes</h2>
+            <blockquote>
+                “...[I]f one of us, or someone else, merely says that something is so, do we accept that it is so? Or should we examine what the speaker means?”
+                <div class="quote-source">— 9.e</div>
+            </blockquote>
+            <blockquote>
+                “Is the pious loved by the gods because it is pious, or is it pious because it is loved by the gods?”
+                <div class="quote-source">— 10.a</div>
+            </blockquote>
+            <blockquote>
+                “The lover of inquiry must follow his beloved wherever it may lead him.”
+                <div class="quote-source">— 14.c</div>
+            </blockquote>
+        </div> -->
+
+         <!-- Personal Reflections -->
+         <div id="reflections" class="notes-section">
+            <h2>Personal Reflections</h2>
+            <p>When I was an undergraduate at Pitt I took a course on ethics. Not the engineering ethics that you have to take and that is taught by a seasoned professional looking to bequeath some good on the new generation of engineers he surely is dubious about in his heart of hearts, but the actual, philosophical ethics taught by a professor who was congenitally late, wore hobo clothes including a tossel cap that seemed to have lost all elasticity and had been rolled in the alleyway bed of an abandoned mutt and a pair of boots that appeared to have been fished from the Monongahela River from the illustrious shores of the Homestead Waterfront. Because of him - and, to a perhaps equal extent, because the class took place in my favorite building on campus, the Cathedral of Learning - I remember quite a bit from this class, including the name of my TA (JoJo Koo - another easily memorable fact) and the recitations during which he tried to clarify the incomprehensible lectures of the actual professor (whose name I definitely don't remember). At the end of one of these recitations we were assigned an essay to defend or prosecute Socrates's argument in Plato's the dialogue Crito regarding his decision to accept the Athenian jury's decision to have him executed, despite his pal Crito's pleas to just flee the city and get on with his life. Looking back on my younger self I suppose I should look in disdain at my argument that he should flee because his decision to stay was premised on the idea that he had voluntarily entered into a sort of contract with the city of Athens, and that it therefore would not be just to break his promise to abide by the city's laws by escaping to Thebes or wherever, but that given that the city had taken a turn against democracy and towards tyranny, the city had broken this pact first and therefore left Socrates unbound to it. But truthfully I don't know if it was that immature of an argument, and to boot I argued that position partially because it seemed the more difficult to defend and therefore would make the assignment more enjoyable. </p>
+            <p>Reading the dialogue again I do still find that argument plausible, if not the most plausible. If you want to go down that road, I suppose, the question to ask is probably where can you clearly draw a line between when a government fails to hold up its end of the bargain and where do you accept that governments are still run by people who can make mistakes like anyone else, and as such a mistake of government does not invalidate a contract. I don't think there is a really obvious line between those two alternatives, and it will largely come down to the judgement of the individual on the wrong side of the bargain. It's even more difficult in a democracy where you're bound to have a lot of bad decisions because of groupthink, factionalism, trends, etc. Even though the Athenian version seemed to have asked more of its stakeholders, we shouldn't think they weren't just as liable to corruption and deception as a slave. So why did Socrates believe in this form of government so much that he ultimately became a martyr for it?</p>
+            <p>This may be my current state of mind at present (April 2025) but I think what struck me most re-reading this dialogue was how messianic Socrates seems to be. He's staking out a particular claim to holiness in the sense of being 'set apart'. Socrates's state of mind in this dialogue is serene, and we meet him in sleep, calm despite what awaits him. He has accepted his death as a twofold message that he believes in democracy as a system of government, and that he believes that there truly is nothing more noble and worthwhile than searching for the truth in this life. In this dialogue he is up against Crito who tries to appeal to him from the perspective of 'the many': "You see, Socrates, that one must also pay attention to the opinion of the majority," and "You seem to me to choose the easiest path, whereas one should choose the path a good and courageous man would choose..."</p>
+            <p>But maybe Crito has a point. What is democracy if not the opinion of the majority? Why should we only listen to one type of majority over another? Is this why Plato writes the Republic, as a kind of rebuke to democracy for what it did to his teacher? But then if you read that, you're left with the undeniable impression that such a society would be terrible, sterile, and not free in the slightest. So what are we to make of it? Socrates seems to head down the road that Jesus does a few centuries later. He seems to accept that the government that we have is not wholly our choice (neither are our parents, so perhaps there's an analogy), but that in this world the best we can do is to 'render unto Caesar what is Caesar's' without violating the dictates of our conscience ('Nor must one, when wronged, inflict wrong in return.'). Which is a bit of a Stoic point, if you think about it, for the teachings of that school tell us that the only things we can control are those within our power and how we react to situations. Here Socrates is managing to do both beautifully, continuing to advocate for justice until his death, and accepting that death with equanimity. It's a tough path to walk, as evidenced by his friends who aren't super keen on it, but it's truly admirable and obviously has resonated for millennia.</p>
+        </div>
+
+        <!-- Related Books -->
+        <div id="related" class="notes-section">
+            <h2>Related Books</h2>
+            <!--<div class="related-book">
+                <a href="[link-to-book-page.html]">[Related Book Title]</a> - [Author Name]
+            </div>-->
+            <div class="related-book">
+                <a href="apology.html">Apology</a>, <a href="euthyphro.html">Euthyphro</a>, Phaedo, Reupublic - Plato </a>
+            </div>
+            <div class="related-book">
+                The New Testament</a>
+            </div>
+        </main>
+    </div>
+    <script>
+        // Toggle mobile navigation
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple search functionality (can be enhanced)
+        document.querySelector('.search-bar').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                alert('Search functionality would go here!');
+                // Implement actual search logic
+            }
+        });
+    </script>
+</body>
+</html>
