@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summa Theologiae - Reading Notes</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --link-color: #3498db;
+            --background-color: #f5f6fa;
+            --quote-background: #f8f9fa;
+            --card-background: white;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .site-title a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Navigation Toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin: 2rem auto;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar {
+            width: 70%;
+            padding: 0.8rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
+        }
+
+        /* Table of Contents */
+        .toc {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 5rem;
+            max-height: calc(100vh - 7rem);
+            overflow-y: auto;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.5rem 0;
+        }
+
+        .toc a {
+            color: var(--link-color);
+            text-decoration: none;
+            display: block;
+            padding: 0.3rem 0;
+            transition: transform 0.2s ease;
+        }
+
+        .toc a:hover {
+            transform: translateX(5px);
+            color: var(--primary-color);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+        }
+
+        .content {
+            grid-column: 2;
+        }
+
+        .sidebar {
+            grid-column: 1;
+        }
+
+        /* Book Header Section */
+        .book-header {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .book-title {
+            color: var(--primary-color);
+            margin: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .book-metadata {
+            margin-top: 1rem;
+            color: var(--secondary-color);
+        }
+
+        /* Rating System */
+        .rating {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .stars {
+            color: gold;
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Notes Sections */
+        .notes-section {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .notes-section h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Quotes */
+        blockquote {
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            background-color: var(--quote-background);
+            font-style: italic;
+        }
+
+        .quote-source {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+            margin-top: 0.5rem;
+            font-style: normal;
+        }
+
+        /* Tags */
+        .tags {
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            transition: background-color 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Related Books */
+        .related-books {
+            margin-top: 2rem;
+        }
+
+        .related-book {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            background-color: var(--quote-background);
+            transition: transform 0.2s ease;
+        }
+
+        .related-book:hover {
+            transform: translateX(5px);
+        }
+
+        .related-book a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Reading Progress */
+        .reading-progress {
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .content, .sidebar {
+                grid-column: 1;
+            }
+
+            .toc {
+                position: static;
+                margin-bottom: 2rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+     <!-- Navigation Header -->
+     <header class="nav-header">
+        <div class="nav-container">
+            <h1 class="site-title"><a href="../index.html">Reading Notes</a></h1>
+            <button class="nav-toggle">☰</button>
+            <nav class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../philosophy.html">Philosophy</a>
+                <a href="../fiction.html">Fiction</a>
+                <a href="../history.html">History</a>
+                <a href="../science.html">Science</a>
+                <a href="../siberia.html">Siberia</a>
+                <a href="../general.html">General Non-Fiction</a>
+                <a href="../reflections.html">Reflections</a>
+                <a href="../years.html">Book Years</a>
+            </nav>
+        </div>
+    </header>
+     <!-- Search Bar -->
+     <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search by title, author, tag, or content...">
+    </div>
+
+    <div class="container">
+        <!-- Sidebar with TOC -->
+        <aside class="sidebar">
+            <div class="toc">
+                <h3>On This Page</h3>
+                <ul>
+                    <li><a href="#reflections">Personal Reflections</a></li>
+                    <li><a href="#related">Related Books</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    <main class="content">
+            <!-- Book Information -->
+            <div id="book-info" class="book-header">
+                <h1 class="book-title">Summa Theologiae</h1>
+                <div class="book-metadata">
+                <p>Author: St. Thomas Aquinas</p>
+                <p>Date Read: August - October 2025</p>
+                <p>Pages: 500</p>
+
+                <!-- Rating -->
+                <div class="rating">
+                    <div class="stars">★★★★☆</div>
+                    <span>4.5/5</span>
+                </div>
+
+                <!-- Reading Status -->
+                <div class="reading-progress">
+                    <p>Reading Status: Complete</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+
+                <div class="tags">
+                    <span class="tag">Philosophy</span>
+                    <span class="tag">Theology</span>
+                </div>
+            </div>
+        </div>
+
+         <!-- Personal Reflections -->
+         <div id="reflections" class="notes-section">
+            <h2>Back to the Summa – Aquinas, Predestination, and Marty McFly</h2>
+            <p>I have a confession. Until recently, I thought it was borderline crazy to believe in predestination if you were a Christian. I once spent a lunchtime walk in Charleston, West Virginia googling whether Presbyterians believed in predestination, because it seemed to me the world had moved on from that totally exclusionary doctrine, and my mind still held onto some relic of a memory linking John Calvin, who was all about predestination, with the Presbyterians. At least the Catholics, the ones I knew, anyway, believed in free will and obtaining paradise through our good works.</p>
+            <p>But I had doubts. In fact, I also have a distinct memory of driving in the car with my family – mom, dad, brother, and sister – one afternoon, probably headed to or from a soccer game, when someone raised the topic. Maybe it was me, but I know for sure that I asked how exactly we had free will if God knew everything? And for some unexplained reason, especially because he was only present at church for sacramental events like baptism, first communion, or weddings, my dad got really upset when my mom agreed with me that yes, actually, that seemed pretty weird when you thought about it.</p>
+            <p>We all want my dad to be right. I want him to be right (even though teenaged me wanted to win the argument). What exactly are we all doing here if our wills are not our own? What's the point? You can get yourself into a bleak headspace in a hurry. But then even if you do start buying the line that everything is determined, you can't exactly go around acting like nothing matters. Parents still care if you're behaving in school, coaches still care if you try hard on the field, partners still care if you're putting forth any effort whatsoever in a relationship, bosses still care if your spreadsheets are full of errors and ChatGPT hallucinated your PowerPoint. A dreary kind of existence, for sure, one Thoreau might call a life of quiet desperation.</p>
+            <p>I've been reading St. Thomas Aquinas recently, and while one of his objections may be that my life is nowhere near dreary, it does not resolve the fact that I've never let go of this question entirely, even if I've bounced between interpretations of it for twenty-ish years. But Aquinas thinks he has the answer. His contention is that, yes, God does know everything eternally, including the choices we will make, what their outcomes will be, and what our immortal fates will be. He's Wes Anderson in the sky, meticulously aware of the dialogue, cinematography, costumes, set design, casting, music, and random stop-motion set pieces that will together form this beautiful movie we call the universe, even if some people just don't get it. However, he's not quite Wes Anderson, because whereas our directorial analogy is causing all of these elements to act a certain way to achieve the end he has in mind, God simply knows all of his creation will unfold in a certain way without necessarily causing it. In short form, God's knowing something is not the cause of it.</p>
+            <p>If this sounds laughable…I don't know, I think that means you're tracking this correctly. God's knowledge is not the same as our knowledge. I can watch Game 7 of the NBA finals before you, watch Tyrese Halliburton rupture his Achillies, and then make you come over and watch it, tell you what's going to happen, and then see your reaction, but my knowing outcome has no bearing on why or whether the injury actually happened. We exist in time, so the only ways we can "know" the future are a.) by assuming causation is true or b.) taking a wild guess and happening to be correct. Conversely, God's knowledge, according to Aquinas, is inseparable from his essence, which is being itself, the cause and sustaining force for all the universe, and eternal, or outside of time. And so, in a very real way, his knowledge is the cause of everything that happens.</p>
+            <p>Not so fast though, says our scholastic friend, because God has another magic trick up his sleeve (wrong, he has no sleeves, God is incorporeal and simple). God does not simply will these things to happen so that they are part of his necessary will, they're willed so that their causes are contingent, meaning that they could have not happened, or at least could have happened differently. The catch is, of course, that God still knows that all the contingencies will play out the way they ultimately do, because he is the ultimate cause of everything. Once again, I feel like I'm Super Mario trapped in Bowser's Castle perpetually taking the incorrect route and ending up right back where I started.</p>
+            <p>Enter Back to The Future, the classic movie I only watched about a year ago for the first time, and which, upon watching, made me wonder most about the real guitar skills of Michael J. Fox. As kitschy as it is, apparently the movie planted some kind of a seed in my mind that God knew would bloom under the torrential downpour of Aquinas's logic, because now I fear I may always link these two venerable men in my mind. Because, you see, Marty was caught in just the same paradox we, apparently, all are. The only difference is that when Marty lived through a past that was determinative of its future and his present, he got to do so via a DeLorean concocted by the unforgettable Dr. Emmett Brown. We can hope, at best, to time travel mentally back to a cold, dank Medieval monastery via an oversized codex dense with syllogisms.</p>
+            <p>I won't rehash the entire plot of the movie, but the key point is that when Marty travels to the past he must employ the help of the Doc of 30 years ago to get the DeLorean running so he can escape the past and go Back to The Future. Although I'd imagine this is mostly an overlooked plot point put into the movie in the interest of getting more screen time for the comedic heart of the film and driving the narrative forward, this is actually crucial to the logic of time travel. Marty's employing 1955-Doc to repair the time machine built by 1985-Doc must have served as the impetus for 1955-Doc to pursue time travel as doggedly as he did in order to fulfill 1985-Doc's destiny. Put simply, 1985-Doc may never have had the eureka moment that spawned the DeLorean if it weren't for Marty traveling back in time. Trippy – yes. Standard time traveler paradox stuff – yes. Despite the appearance of free will and human creativity that Doc used to master time travel and become a reclusive savant, conceding that Marty's presence in 1955 played a causal role in all of that implies that in reality all of these events were somehow previously woven into space-time, and this overlapping of the timelines only makes it evident.</p>
+            <p>My entire analogy is about to fall apart, though, because the rest of the movie is built on a theory of time travel that posits that the actions of Marty and 1985-Doc in 1955 do end up affecting the future they come back too. Marty, who begins the movie part of a poor family whose father works for the unbearable Biff, ends the movie part of a rich family whose father is Biff's boss. Etc. To avoid this logical incoherence, and if I were more serious and erudite, I could have subbed in Christopher Nolan's Tenet. Well, maybe, but frankly I have no idea what that movie was about. Regardless, the question of how Doc made the crucial discovery about time travel is still valid, and this general trope is carried through any number of stories, movies, and TV shows – maybe Interstellar or Lost would work here as well. Outside Reddit threads and niche podcasts, though, I doubt it gets much play in peoples' minds. Obviously, we live in a world where time travel does not exist and our actions are free – what is there to think about? My contention is that, actually, if you believe in an omniscient God, your situation is not much different than the Back to the Future, you just haven't realized it yet.</p>
+            <p>Aquinas gives us a vision of the universe entirely created by God whose essence, being, and knowledge are one, and who, therefore, knows everything, even actions we perceive as future. Back to The Future instead offers us a universe in which time travel is possible, and through that we can discover that the present and future we experience can co-exist with a past that determines them, and in some instances, it is the future reaching back into the past that causes the future. In either scenario the result is our freedom is not what we thought it was. If we want to maintain our unbounded freedom, maybe what we really want is a universe like the Stephen King novella The Langoliers, immortalized in my mind as a USA Network movie where little black balls with piranha teeth devour a runway as an airplane takes off. (I guess the Langoliers don't eat the sky?) In that kind of universe where the past is literally erased by a monster clean up crew, time is a thing where the future does not unfold until the past is gone, never to be retrieved, thereby freeing our actions from these two threats.</p>
+            <p>Why care about this, though? For me the reason goes back to the top – because the thought of not having control over the fate of my immortal soul seems insane. Why would God create a world where we deliberately disobey his commands, one where people are destined to eternal separation from him, and worst of all in which he knows this will happen? And yet, if the alternative is a Godless world where we are all determined anyway by the laws of physics, just interesting lumps of matter, then what's more appealing – the blind chance of eternal bliss, or the certainty that all the world is an embodied mathematical function, blind and devoid of deeper content, at the end of which we will all be canceled out? I think of it as a more basic version of Pascal's Wager. Do you choose the deterministic universe that offers you infinite reward at vanishingly small odds, or the one that offers you certain annihilation when you breath your last?</p>
+            <p>When it comes down to it, just as we cannot know for certain whether we are wholly determined, neither can we act as if we are. Somehow the feeling of freedom is inseparable from our human experience, as difficult to shed as our ego or the pangs of hunger or our experience of space and time. The mystery of choice is like the lock of my daughter's hair tangled up in a Slinky – it can never see its way out of that mess unless it were outside of the system altogether. And whatever the answer is, that in itself can't determine whether I'll find peace in it. That's for another day, though. For now, I'll continue to operate as if none of my daily interactions is with a time traveler from the future, and that it's totally within my power whether I'll ever be able to shred like Marty McFly.</p>
+        </div>
+
+        <!-- Related Books -->
+        <div id="related" class="notes-section">
+            <h2>Related Books</h2>
+            <div class="related-book">
+                <a href="crito.html">Crito</a>, <a href="apology.html">Apology</a>, <a href="euthyphro.html">Euthyphro</a> - Plato
+            </div>
+        </div>
+        </main>
+    </div>
+    <script>
+        // Toggle mobile navigation
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple search functionality (can be enhanced)
+        document.querySelector('.search-bar').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                alert('Search functionality would go here!');
+            }
+        });
+    </script>
+</body>
+</html>
