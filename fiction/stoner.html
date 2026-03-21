@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stoner - Reading Notes</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --link-color: #3498db;
+            --background-color: #f5f6fa;
+            --quote-background: #f8f9fa;
+            --card-background: white;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .site-title a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Navigation Toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin: 2rem auto;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar {
+            width: 70%;
+            padding: 0.8rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
+        }
+
+        /* Table of Contents */
+        .toc {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 5rem;
+            max-height: calc(100vh - 7rem);
+            overflow-y: auto;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.5rem 0;
+        }
+
+        .toc a {
+            color: var(--link-color);
+            text-decoration: none;
+            display: block;
+            padding: 0.3rem 0;
+            transition: transform 0.2s ease;
+        }
+
+        .toc a:hover {
+            transform: translateX(5px);
+            color: var(--primary-color);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+        }
+
+        .content {
+            grid-column: 2;
+        }
+
+        .sidebar {
+            grid-column: 1;
+        }
+
+        /* Book Header Section */
+        .book-header {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .book-title {
+            color: var(--primary-color);
+            margin: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .book-metadata {
+            margin-top: 1rem;
+            color: var(--secondary-color);
+        }
+
+        /* Rating System */
+        .rating {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .stars {
+            color: gold;
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Notes Sections */
+        .notes-section {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .notes-section h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Quotes */
+        blockquote {
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            background-color: var(--quote-background);
+            font-style: italic;
+        }
+
+        .quote-source {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+            margin-top: 0.5rem;
+            font-style: normal;
+        }
+
+        /* Tags */
+        .tags {
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            transition: background-color 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Related Books */
+        .related-books {
+            margin-top: 2rem;
+        }
+
+        .related-book {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            background-color: var(--quote-background);
+            transition: transform 0.2s ease;
+        }
+
+        .related-book:hover {
+            transform: translateX(5px);
+        }
+
+        .related-book a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Reading Progress */
+        .reading-progress {
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .content, .sidebar {
+                grid-column: 1;
+            }
+
+            .toc {
+                position: static;
+                margin-bottom: 2rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+     <!-- Navigation Header -->
+     <header class="nav-header">
+        <div class="nav-container">
+            <h1 class="site-title"><a href="../index.html">Reading Notes</a></h1>
+            <button class="nav-toggle">☰</button>
+            <nav class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../philosophy.html">Philosophy</a>
+                <a href="../fiction.html">Fiction</a>
+                <a href="../history.html">History</a>
+                <a href="../science.html">Science</a>
+                <a href="../siberia.html">Siberia</a>
+                <a href="../general.html">General Non-Fiction</a>
+                <a href="../reflections.html">Reflections</a>
+                <a href="../years.html">Book Years</a>
+            </nav>
+        </div>
+    </header>
+     <!-- Search Bar -->
+     <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search by title, author, tag, or content...">
+    </div>
+
+    <div class="container">
+        <!-- Sidebar with TOC -->
+        <aside class="sidebar">
+            <div class="toc">
+                <h3>On This Page</h3>
+                <ul>
+                    <li><a href="#reflections">Personal Reflections</a></li>
+                    <li><a href="#related">Related Books</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    <main class="content">
+            <!-- Book Information -->
+            <div id="book-info" class="book-header">
+                <h1 class="book-title">Stoner</h1>
+                <div class="book-metadata">
+                <p>Author: John Williams</p>
+                <p>Date Read: August 2025</p>
+                <p>Pages: 278</p>
+
+                <!-- Rating -->
+                <div class="rating">
+                    <div class="stars">★★★★★</div>
+                    <span>5/5</span>
+                </div>
+
+                <!-- Reading Status -->
+                <div class="reading-progress">
+                    <p>Reading Status: Complete</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+
+                <div class="tags">
+                    <span class="tag">Coming of Age</span>
+                    <span class="tag">College</span>
+                </div>
+            </div>
+        </div>
+
+         <!-- Personal Reflections -->
+         <div id="reflections" class="notes-section">
+            <h2>Build Your House on a Foundation of Stoner</h2>
+            <p>On my worst days I remind myself, to paraphrase Linkin Park, in the end it doesn't even matter. That sounds extreme. Drastic measures are required, though, because in the midst of my darkest glooms the thought that I am trying to fight is that everything matters, and I'm doing a poor job holding up my end in this cosmic bargain. Taken together, the hybrid theory (see what I did there?) is one I try to keep in mind most of the other days that aren't so bleak, namely, that there is a meaning to our life, but perhaps mostly in the context of our collective lives. What I mean by this is that while every individual life is important and valuable, it is only on the foundation of our lives being defined in relationship with other equally valuable that meaning can be established. I feel emancipated by this notion because it allows me to go back to basics, stop worrying that my individual efforts to be transcendent are not enough, and focus on how I can be of use to others.</p>
+            <p>Whether you believe in God and a divine plan for history or think that human beings are somewhat inexplicable clumps of atoms that somehow have the capacity to feel the need for meaning, I think the payoff is the same, and we can build meaning up from that firm base. Small acts of kindness, trust, generosity, love, and all our interpersonal goods flow from this and in themselves can add up to a fully satisfying and meaningful life. But there are more complex structures that arise as well, the things we think of as the fruit of civilization, the broad and expanding library of human knowledge, that would not be possible without the small contributions of each individual, no matter how minor. That's a tricky line to walk. Lean too far too one side and you'll quickly find yourself filled with envy that you aren't one of the great minds who arise from the mist of uncertainty and lead the human race into the next remarkable epoch. On the other hand, you can easily find yourself slacking off and wasting your talents because you expect that if you don't fulfill whatever role you have in this life, someone else inevitably will.</p>
+            <p>I recently picked up Stoner by John Williams, a subdued but poignant novel traversing the life of the eponymous protagonist from the dusty farms of Missouri at the turn of the 20th century through the ranks of the University. It broke my heart. Stoner's personal life is tragic. One of his best friends dies in WWI; he marries a woman who comes to hate him; he has a daughter that becomes estranged from him via his wife; he isn't a celebrated author; he finds himself the victim of administrative politics; his affair with the love of his life turns into a scandal; and he dies uncelebrated, despite his long efforts and passion as a professor of English. The truth is everyone in the novel seems to be tragic. His wife is awful to him, but also grew up in a home without love, never able to see Europe like she hoped, and thought of as only a future accessory to a rich husband. His daughter was the object of her mother's frustrations with her own life, and she ultimately succumbed to drink. His only remaining friend was ostensibly successful but never really climbed the ranks in the University and seemed in the end to have been totally consumed by "the world". Even his tormentor in the department was physically disfigured, perhaps a real instantiation of his moral character, that can't be forgotten despite his actions.</p>
+            <p>Surely these are all reasons to rush out and purchase this slim volume at once. However, what makes this novel so heartbreaking isn't the personal tragedy. Instead, it's Williams's ability to weave a gorgeous tapestry in which these tragic set pieces reside amid a sea of stunning beauty, fragile moments perfectly described by him that Stoner observes perfectly but is never able to articulate or fully participate in despite his expertise in English language and literature. Stoner, though unable to translate this numinous wonder into words, apparently can still use it as fuel to propel him to continue teaching – the thing he identifies clearly as his role in this life. There are several mentions throughout the book of the late Medieval and Latin authors and their influence on Shakespeare. While his more fashionable colleagues disagree and think the Romantics and their efflorescence of emotion is the true mark of genius, I think Stoner would contend that both those poets and Shakespeare himself could not have existed without the foundation built by their ancestors. And so even if Stoner cannot be the next Shakespeare, he is endowed with the ability and responsibility to somehow propagate to the next generation of humans a piece of the foundation of knowledge that will allow the next genius to arise. He shares this almost sacred sense of responsibility with his farmer parents, who work the land to marginal returns year after year until they become dust themselves, not only to allow for their existence to be possible, but to create the possibility that something more, something better will come along after they're gone.</p>
+            <p>I've recently become fascinated, or perhaps just a little more respectful, of rock bands that seem to go on and on despite having exceeded their useful lifespan. What intrigues me about them isn't necessarily that they continue to be creative geniuses, but instead that it comes to seem like the music becomes a craft of repetition, just like so many of our jobs and lives become. As I get older, I see that it's not necessarily selling out or settling. There is so much in a human life and in the human heart that can't be perfectly expressed or relieved or solved in an act of genius. Our lives are buffeted constantly by the random vestiges of cruel fate like forgotten structures in the path of a hurricane. But to continue to work, to try, to fight, to struggle, despite all of that, is in some ways more admirable than a stroke of inspiration. Because it is only with the tinder of these millions of small heartbreaks that the unexpected spark of brilliance can hope to catch fire.</p>
+        </div>
+
+        <!-- Related Books -->
+        <div id="related" class="notes-section">
+            <h2>Related Books</h2>
+            <div class="related-book">
+                <a href="the-maniac.html">The MANIAC</a> - Benjamin Labatut
+            </div>
+            <div class="related-book">
+                <a href="galapagos.html">Galapagos</a> - Kurt Vonnegut
+            </div>
+        </div>
+        </main>
+    </div>
+    <script>
+        // Toggle mobile navigation
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple search functionality (can be enhanced)
+        document.querySelector('.search-bar').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                alert('Search functionality would go here!');
+            }
+        });
+    </script>
+</body>
+</html>
