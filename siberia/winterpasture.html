@@ -4,331 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Winter Pasture - Reading Notes</title>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #34495e;
-            --accent-color: #3498db;
-            --text-color: #333;
-            --link-color: #3498db;
-            --background-color: #f5f6fa;
-            --quote-background: #f8f9fa;
-            --card-background: white;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: var(--background-color);
-            color: var(--text-color);
-        }
-
-        /* Navigation Header */
-        .nav-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .site-title {
-            font-size: 1.5rem;
-            margin: 0;
-        }
-
-        .site-title a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Mobile Navigation Toggle */
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Search Bar */
-        .search-container {
-            margin: 2rem auto;
-            max-width: 800px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .search-bar {
-            width: 70%;
-            padding: 0.8rem;
-            border: 2px solid var(--primary-color);
-            border-radius: 4px;
-            font-size: 1rem;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .search-bar:focus {
-            outline: none;
-            box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
-        }
-
-        /* Table of Contents */
-        .toc {
-            background-color: var(--card-background);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 5rem;
-            max-height: calc(100vh - 7rem);
-            overflow-y: auto;
-        }
-
-        .toc h3 {
-            margin-top: 0;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-        }
-
-        .toc ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .toc li {
-            margin: 0.5rem 0;
-        }
-
-        .toc a {
-            color: var(--link-color);
-            text-decoration: none;
-            display: block;
-            padding: 0.3rem 0;
-            transition: transform 0.2s ease;
-        }
-
-        .toc a:hover {
-            transform: translateX(5px);
-            color: var(--primary-color);
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 2rem;
-        }
-
-        .content {
-            grid-column: 2;
-        }
-
-        .sidebar {
-            grid-column: 1;
-        }
-
-        /* Book Header Section */
-        .book-header {
-            background-color: var(--card-background);
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .book-title {
-            color: var(--primary-color);
-            margin: 0;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--primary-color);
-        }
-
-        .book-metadata {
-            margin-top: 1rem;
-            color: var(--secondary-color);
-        }
-
-        /* Rating System */
-        .rating {
-            margin: 1rem 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .stars {
-            color: gold;
-            font-size: 1.2rem;
-            margin-right: 0.5rem;
-        }
-
-        /* Notes Sections */
-        .notes-section {
-            background-color: var(--card-background);
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .notes-section h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-        }
-
-        /* Quotes */
-        blockquote {
-            margin: 1.5rem 0;
-            padding: 1rem 1.5rem;
-            border-left: 4px solid var(--primary-color);
-            background-color: var(--quote-background);
-            font-style: italic;
-        }
-
-        .quote-source {
-            font-size: 0.9em;
-            color: var(--secondary-color);
-            margin-top: 0.5rem;
-            font-style: normal;
-        }
-
-        /* Tags */
-        .tags {
-            margin: 1rem 0;
-        }
-
-        .tag {
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-            display: inline-block;
-            transition: background-color 0.2s ease;
-        }
-
-        .tag:hover {
-            background-color: var(--primary-color);
-        }
-
-        /* Related Books */
-        .related-books {
-            margin-top: 2rem;
-        }
-
-        .related-book {
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 4px;
-            background-color: var(--quote-background);
-            transition: transform 0.2s ease;
-        }
-
-        .related-book:hover {
-            transform: translateX(5px);
-        }
-
-        .related-book a {
-            color: var(--link-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        /* Reading Progress */
-        .reading-progress {
-            margin: 1rem 0;
-        }
-
-        .progress-bar {
-            width: 100%;
-            background-color: #e0e0e0;
-            height: 10px;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .progress {
-            height: 100%;
-            background-color: var(--accent-color);
-            width: 100%; /* Set to percentage of completion */
-            border-radius: 5px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-
-            .content, .sidebar {
-                grid-column: 1;
-            }
-
-            .toc {
-                position: static;
-                margin-bottom: 2rem;
-            }
-
-            .nav-toggle {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                background-color: var(--primary-color);
-                padding: 1rem;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-container {
-                flex-wrap: wrap;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
      <!-- Navigation Header -->
@@ -354,10 +31,10 @@
         <input type="text" class="search-bar" placeholder="Search by title, author, tag, or content...">
     </div>
 
-    <div class="container">
+    <div class="container-with-sidebar">
         <!-- Sidebar with TOC -->
         <aside class="sidebar">
-            <div class="toc">
+            <div class="sidebar-nav">
                 <h3>On This Page</h3>
                 <ul>
                     <li><a href="#book-info">Book Information</a></li>
@@ -371,7 +48,7 @@
 
     <main class="content">
             <!-- Book Information -->
-            <div id="book-info" class="book-header">
+            <div id="book-info" class="book-info">
                 <h1 class="book-title">Winter Pasture: One Woman's Journey with China's Kazakh Herders</h1>
                 <div class="book-metadata">
                 <p>Author: Li Juan</p>
@@ -401,7 +78,7 @@
         </div>
 
         <!-- Notable Quotes -->
-         <div id="quotes" class="notes-section">
+         <div id="quotes" class="section">
             <h2>Notable Quotes</h2>
             <blockquote>
                 “Human presence – even when you are still far away from someone’s home, you already begin to sense their presence. You notice the tracks of animals becoming cluttered, anxious. The hoofprints become denser and denser until they coalesce into paths. The paths gather from all direction, becoming more and more defined as they close in on their location. Everything leads to them; everything races relentlessly their way. Indeed, the whole world orients itself around them. They are the masters of the wilderness.”
@@ -434,7 +111,7 @@
         </div>
 
          <!-- Personal Reflections -->
-         <div id="reflections" class="notes-section">
+         <div id="reflections" class="section">
             <h2>Personal Reflections</h2>
             <p>I started this book three years ago and DNF’d. However, given my journey through Siberia this year, I picked this back up because, although it is not set in Siberia, it’s Siberia-adjacent, following the writer on her winter in the pastures south of the Altai mountains in China’s Kazakh region. Li Juan is a Chinese writer who decides to spend the winter in these pastures with a herding family. The key point there is that she is Chinese, and I think that contributed mightily to my original inability to finish the book. American, and Western, memoirs generally follow some well-worn beats that I had been expecting to see in Winter Pasture. Instead, Li never ceased pulling the rug out from under me (or pulling the sheep’s wool over my eyes?) in the most boring way possible. Western writers seem to follow Edgar Allen Poe’s (is this really his thing, because I just vaguely remember it from high school lit) single effect credo, which essentially postulates that everything in a literary narrative should lend itself to a single unifying point so that, in effect, no word is wasted. Li doesn’t seem to care about this, as in many places she leads the reader along a trail that ultimately falls off a cliff never to reunite with the trail the author decided to take at the last minute. It’s like when you die in a video game and you start back from your last save with no memory of what just lead to your untimely death. Western memoirists use this single effect strategy to use the details of their narrative as supporting points for some larger thesis or theses that will be fully understood once you get to the end of the book. Maybe that’s our penchant for happy endings or moralizing or what have you, but, at least in this book, Li doesn’t seem to care about that at all. In fact by the end of the book she seems as lacking in big picture takeaways as the reader, writing, “What felt like a long, interminable trial now felt ever so brief and cursory, much to my bewilderment.” Adding to this is what comes across as a complete lack of self-awareness on the author’s part that this work will end up as a single book. Many sections of the text seem like they’re verbatim transcriptions of her personal journal, with paragraphs punctuated by simple exclamations like, “How rude!” or “How vain!”</p> 
             <p>All that said, this is an interesting, if not great, book, both for its purported subject matter and as an entry that provides a startling contrast to the expected form of memoir. For starters, the Kazakh sheep herding life is not in the least bit romantic. Perhaps this should be used as an antidote to anyone (i.e. me) who thinks it would be nice to go back to a simpler way of life or to spend your days in utter remoteness tending to animals who don’t care about you. Li spends her winter with a family made up of the father, Cuma, his wife, referred to throughout as Sister-in-Law (a kind of Kazakh honorific cum term of affection for non-relative), and intermittently their adult daughter, Kama, and even more occasionally their teenaged son, Zhada. They live in a burrow underground whose structure is integrally supported by dried sheep manure, which, incidentally, is also what they use as fuel for the fire that warms their burrow and cooks their food. Much revolves around sheep manure, actually, and its uses are detailed here and there throughout the book. Their burrow is in a pasture shared with another herding family headed by the husband, Shinshybek, and his wife, Sayna, plus their children intermittently. We get varying assessments of these folks throughout the book ranging from disdain at their poor manners to admiration, love, and respect. It really just depends on which paragraph you’re reading. This family (mostly Cuma) spends the day driving the sheep out to pasture to search the frozen wastelands for grass. Sister-in-Law, Kama, and Li Juan go out searching for snow (which is often mixed up with various animals’ manure) which they put into sacks to be used as their water source (this is a desert after all). Then they help with some of the other cattle (cows, camels, and horses) and spend the rest of the day cooking or just sitting around trying not to be bored. Lots of embroidery talk. Also, lots of talk about trying to get technology as much as possible into their lives. The children all have phones (this is somewhere around 2010) that they use incessantly to play music or otherwise occupy their boring, isolated existence. At one point in the story the family rigs up an old TV to run on a solar powered battery that they spend a few hours watching every few days (after the battery fully recharges), even though they can only get a couple Chinese language channels on their satellite dish (the herders all speak Kazakh, primarily). It’s actually very dull sounding – not once during the entire book did I think, “Hey, that kind of sounds nice.” There are lots of passages where Li is flabbergasted by Kazakh customs, and she expresses her dismay at them or her inability to conform, and then just leaves it at that. Like I said, having entered the book originally thinking there would be some kind of overarching point was a blunder on my part. </p>
@@ -443,7 +120,7 @@
         </div>
 
         <!-- Miscellany and Marginalia -->
-        <div id="miscellany" class="notes-section">
+        <div id="miscellany" class="section">
             <h2>Miscellany and Marginalia</h2>
             <p> “Our home was buried six feet underground and measured less that two hundred square feet. There was a door facing southeast, and a window was cut out facing west covered with a plastic sheet – the lighting wasn’t bad. The four walls were stacked neatly with manure slabs. The stove was made using a large portion of an oil barrel, with enough capacity to heat up most of the room.” (pg. 37) </p>
             <p>Kazakh herders drink tea in massive amounts like Siberians (although not with quite as much sugar). (pg. 51) </p>
@@ -454,7 +131,7 @@
         </div>
 
         <!-- Related Books -->
-        <div id="related" class="notes-section">
+        <div id="related" class="section">
             <h2>Related Books</h2>
             <!--<div class="related-book">
                 <a href="[link-to-book-page.html]">[Related Book Title]</a> - [Author Name]
