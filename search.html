@@ -32,12 +32,12 @@
 
     <section class="page-hero">
         <h1>Search</h1>
-        <p id="search-hero-text">Search the catalog</p>
+        <p id="search-hero-text">Search the catalog and all entries</p>
     </section>
 
     <div class="container">
         <form class="search-form" action="search.html" method="get">
-            <input type="search" name="q" id="main-search" placeholder="Title or author&hellip;" autocomplete="off">
+            <input type="search" name="q" id="main-search" placeholder="Title, author, or any word&hellip;" autocomplete="off">
             <button type="submit">Search</button>
         </form>
         <div id="search-results"></div>
@@ -52,47 +52,57 @@
             document.querySelector('.nav-links').classList.toggle('active');
         });
 
+        // ── Helpers ────────────────────────────────────────────
+
         function esc(str) {
             const d = document.createElement('div');
             d.appendChild(document.createTextNode(str));
             return d.innerHTML;
         }
 
-        async function runSearch() {
-            const params = new URLSearchParams(window.location.search);
-            const query = (params.get('q') || '').trim();
+        // Returns a highlighted snippet around the first match, or null if no match.
+        function getSnippet(text, query) {
+            const idx = text.toLowerCase().indexOf(query.toLowerCase());
+            if (idx === -1) return null;
+            const start = Math.max(0, idx - 90);
+            const end   = Math.min(text.length, idx + query.length + 90);
+            let snippet = text.slice(start, end).replace(/\s+/g, ' ');
+            if (start > 0) snippet = '\u2026' + snippet;
+            if (end < text.length) snippet += '\u2026';
+            const re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+            return esc(snippet).replace(re, '<mark>$1</mark>');
+        }
 
-            const mainSearch = document.getElementById('main-search');
-            const resultsEl  = document.getElementById('search-results');
-            const heroText   = document.getElementById('search-hero-text');
+        // Extract readable text from a fetched entry page (strips nav/footer boilerplate).
+        function extractText(html) {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            doc.querySelectorAll('header, footer, nav, script, style').forEach(el => el.remove());
+            return (doc.body ? doc.body.textContent : '').replace(/\s+/g, ' ').trim();
+        }
 
-            mainSearch.value = query;
+        // ── Index builder ──────────────────────────────────────
+        // Builds (or loads from sessionStorage) an array of book objects:
+        //   { title, author, year, link, hasEntry, text }
+        // Entry pages are fetched in parallel so the first search does all
+        // the work; subsequent searches in the same session are instant.
 
-            if (!query) {
-                heroText.textContent = 'Search the catalog';
-                return;
+        const INDEX_KEY = 'search-index-v2';
+
+        async function buildIndex(statusCallback) {
+            const cached = sessionStorage.getItem(INDEX_KEY);
+            if (cached) {
+                try { return JSON.parse(cached); } catch (e) { /* stale */ }
             }
 
-            document.title = '\u201C' + query + '\u201D \u2014 Search \u2014 Thinking about Reading';
-            heroText.textContent = 'Searching\u2026';
-            resultsEl.innerHTML = '<p class="search-status">Loading catalog\u2026</p>';
+            statusCallback('Indexing catalog\u2026');
 
-            let doc;
-            try {
-                const resp = await fetch('catalog.html');
-                const html = await resp.text();
-                doc = new DOMParser().parseFromString(html, 'text/html');
-            } catch (e) {
-                resultsEl.innerHTML = '<p class="search-status">Could not load catalog.</p>';
-                return;
-            }
+            // 1. Parse catalog.html for the full book list.
+            const resp = await fetch('catalog.html');
+            const catalogHTML = await resp.text();
+            const doc = new DOMParser().parseFromString(catalogHTML, 'text/html');
 
-            // Parse entries from the year view only (avoids duplicates from author view)
             const yearView = doc.getElementById('view-year');
-            if (!yearView) {
-                resultsEl.innerHTML = '<p class="search-status">Could not parse catalog.</p>';
-                return;
-            }
+            if (!yearView) throw new Error('Could not parse catalog.');
 
             const books = [];
             let currentYear = '';
@@ -105,41 +115,101 @@
                         const titleEl  = li.querySelector('.catalog-title');
                         const authorEl = li.querySelector('.catalog-author');
                         const linkEl   = li.querySelector('.catalog-title a');
-
-                        const title  = titleEl  ? titleEl.textContent.trim()  : '';
-                        const author = authorEl ? authorEl.textContent.trim() : '';
+                        const title    = titleEl  ? titleEl.textContent.trim()  : '';
+                        const author   = authorEl ? authorEl.textContent.trim() : '';
                         const entryHref = linkEl ? linkEl.getAttribute('href') : null;
-
                         if (!title) continue;
-
                         books.push({
                             title,
                             author,
                             year: currentYear,
                             link: entryHref || ('catalog.html#' + encodeURIComponent(title)),
-                            hasEntry: !!entryHref
+                            hasEntry: !!entryHref,
+                            text: ''
                         });
                     }
                 }
             }
 
+            // 2. Fetch all entry pages in parallel and extract their text.
+            const entryBooks = books.filter(b => b.hasEntry);
+            const total = entryBooks.length;
+            let done = 0;
+
+            await Promise.allSettled(entryBooks.map(async (book) => {
+                try {
+                    const r = await fetch(book.link);
+                    book.text = extractText(await r.text());
+                } catch (e) { /* leave text empty */ }
+                done++;
+                statusCallback('Indexing entries\u2026 (' + done + '\u202F/\u202F' + total + ')');
+            }));
+
+            sessionStorage.setItem(INDEX_KEY, JSON.stringify(books));
+            return books;
+        }
+
+        // ── Search ─────────────────────────────────────────────
+
+        async function runSearch() {
+            const params   = new URLSearchParams(window.location.search);
+            const query    = (params.get('q') || '').trim();
+            const mainSearch = document.getElementById('main-search');
+            const resultsEl  = document.getElementById('search-results');
+            const heroText   = document.getElementById('search-hero-text');
+
+            mainSearch.value = query;
+
+            if (!query) {
+                heroText.textContent = 'Search the catalog and all entries';
+                return;
+            }
+
+            document.title = '\u201C' + query + '\u201D \u2014 Search \u2014 Thinking about Reading';
+            heroText.textContent = 'Searching\u2026';
+            resultsEl.innerHTML = '<p class="search-status">Building index\u2026</p>';
+
+            let books;
+            try {
+                books = await buildIndex(function (msg) {
+                    resultsEl.innerHTML = '<p class="search-status">' + esc(msg) + '</p>';
+                });
+            } catch (e) {
+                resultsEl.innerHTML = '<p class="search-status">Could not load catalog. Are you viewing this on the live site?</p>';
+                return;
+            }
+
             const q = query.toLowerCase();
-            const results = books.filter(b =>
-                b.title.toLowerCase().includes(q) ||
-                b.author.toLowerCase().includes(q)
-            );
+
+            const results = books
+                .map(function (b) {
+                    const inTitle  = b.title.toLowerCase().includes(q);
+                    const inAuthor = b.author.toLowerCase().includes(q);
+                    const inText   = b.hasEntry && b.text.toLowerCase().includes(q);
+                    if (!inTitle && !inAuthor && !inText) return null;
+                    return {
+                        book: b,
+                        // Title/author hits rank above full-text-only hits
+                        score: (inTitle ? 2 : 0) + (inAuthor ? 1 : 0) + (inText ? 0.5 : 0),
+                        snippet: (!inTitle && !inAuthor && inText) ? getSnippet(b.text, query) : null
+                    };
+                })
+                .filter(Boolean)
+                .sort((a, b) => b.score - a.score);
 
             if (results.length === 0) {
                 heroText.textContent = 'No results for \u201C' + query + '\u201D';
-                resultsEl.innerHTML = '<p class="search-status">No books found. Try a different search.</p>';
+                resultsEl.innerHTML = '<p class="search-status">No matches found. Try a different search.</p>';
                 return;
             }
 
             heroText.textContent = results.length + ' result' + (results.length !== 1 ? 's' : '') + ' for \u201C' + query + '\u201D';
 
-            resultsEl.innerHTML = results.map(function (b) {
-                const badge = b.hasEntry
-                    ? '<span class="search-badge">Entry</span>'
+            resultsEl.innerHTML = results.map(function (r) {
+                const b = r.book;
+                const badge = b.hasEntry ? '<span class="search-badge">Entry</span>' : '';
+                const snippetHTML = r.snippet
+                    ? '<div class="search-snippet">' + r.snippet + '</div>'
                     : '';
                 return '<div class="search-result">'
                     + '<div class="search-result-title"><a href="' + b.link + '">' + esc(b.title) + '</a>' + badge + '</div>'
@@ -147,6 +217,7 @@
                     + '<span class="search-result-author">' + esc(b.author) + '</span>'
                     + '<span class="search-result-year">' + esc(b.year) + '</span>'
                     + '</div>'
+                    + snippetHTML
                     + '</div>';
             }).join('');
         }
