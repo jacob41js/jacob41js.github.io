@@ -51,6 +51,7 @@
                 <a href="general.html">General</a>
                 <a href="reflections.html">Reflections</a>
                 <a href="catalog.html">Back Catalog</a>
+                <form class="nav-search" action="search.html" method="get"><input type="search" name="q" placeholder="Search" autocomplete="off"></form>
             </nav>
         </div>
     </header>
@@ -4976,6 +4977,27 @@
                 document.getElementById('view-' + this.dataset.view).classList.add('active');
             });
         });
+
+        // Hash navigation: scroll to and highlight a book by title (used by search results)
+        (function () {
+            if (!window.location.hash) return;
+            const target = decodeURIComponent(window.location.hash.slice(1)).toLowerCase().trim();
+            if (!target) return;
+            const yearView = document.getElementById('view-year');
+            if (!yearView) return;
+            for (const entry of yearView.querySelectorAll('.catalog-entry')) {
+                const titleEl = entry.querySelector('.catalog-title');
+                if (!titleEl) continue;
+                if (titleEl.textContent.trim().toLowerCase() === target) {
+                    setTimeout(function () {
+                        entry.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        entry.classList.add('catalog-highlight');
+                        setTimeout(function () { entry.classList.remove('catalog-highlight'); }, 3000);
+                    }, 150);
+                    break;
+                }
+            }
+        })();
     </script>
 </body>
 </html>

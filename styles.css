@@ -609,3 +609,160 @@ body {
 
     .hero::before, .hero::after { display: none; }
 }
+
+
+/* ── Nav Search Input ─────────────────────────────────────── */
+
+.nav-search {
+    display: flex;
+    align-items: center;
+}
+
+.nav-search input[type="search"] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(201, 169, 78, 0.35);
+    color: var(--cream);
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    padding: 0.15rem 0.4rem;
+    width: 110px;
+    outline: none;
+    transition: border-color 0.25s ease, width 0.25s ease;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.nav-search input[type="search"]::placeholder {
+    color: rgba(250, 246, 238, 0.35);
+}
+
+.nav-search input[type="search"]:focus {
+    border-bottom-color: var(--gold);
+    width: 170px;
+}
+
+.nav-search input[type="search"]::-webkit-search-cancel-button,
+.nav-search input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+@media (max-width: 768px) {
+    .nav-search { width: 100%; margin-top: 0.5rem; }
+    .nav-search input[type="search"] { width: 100%; }
+    .nav-search input[type="search"]:focus { width: 100%; }
+}
+
+
+/* ── Search Results Page ──────────────────────────────────── */
+
+.search-form {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--gold);
+}
+
+.search-form input[type="search"] {
+    flex: 1;
+    font-family: 'EB Garamond', serif;
+    font-size: 1.1rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid rgba(201, 169, 78, 0.4);
+    background: var(--cream-warm);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.search-form input[type="search"]:focus {
+    border-color: var(--gold);
+}
+
+.search-form button {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.4rem;
+    background: var(--dark-green);
+    color: var(--cream);
+    border: 1px solid var(--dark-green);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.search-form button:hover {
+    background: var(--purple);
+    border-color: var(--purple);
+}
+
+.search-result {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(201, 169, 78, 0.15);
+    transition: background 0.2s ease;
+}
+
+.search-result:first-child { border-top: 1px solid rgba(201, 169, 78, 0.15); }
+.search-result:hover { background: var(--cream-warm); }
+
+.search-result-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.search-result-title a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.search-result-title a:hover { color: var(--purple); }
+
+.search-badge {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid var(--teal-deep);
+    color: var(--teal-deep);
+    flex-shrink: 0;
+}
+
+.search-result-meta {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 0.2rem;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.92rem;
+    color: var(--ink-light);
+}
+
+.search-result-author { font-style: italic; }
+
+.search-status {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: var(--ink-light);
+    padding: 1rem 0;
+}
+
+
+/* ── Catalog Highlight (hash navigation from search) ─────── */
+
+.catalog-highlight {
+    background: rgba(201, 169, 78, 0.2) !important;
+    outline: 1px solid rgba(201, 169, 78, 0.5);
+    transition: background 2.5s ease-out, outline 2.5s ease-out !important;
+}

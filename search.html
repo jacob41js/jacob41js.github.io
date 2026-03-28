@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search — Thinking about Reading</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="nav-header">
+        <div class="nav-container">
+            <h1 class="site-title"><a href="index.html">Thinking about Reading</a></h1>
+            <button class="nav-toggle">&#9776;</button>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="philosophy.html">Philosophy</a>
+                <a href="fiction.html">Fiction</a>
+                <a href="history.html">History</a>
+                <a href="science.html">Science</a>
+                <a href="siberia.html">Siberia</a>
+                <a href="japan.html">Japan</a>
+                <a href="general.html">General</a>
+                <a href="reflections.html">Reflections</a>
+                <a href="catalog.html">Back Catalog</a>
+                <form class="nav-search" action="search.html" method="get">
+                    <input type="search" name="q" placeholder="Search" autocomplete="off">
+                </form>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <h1>Search</h1>
+        <p id="search-hero-text">Search the catalog</p>
+    </section>
+
+    <div class="container">
+        <form class="search-form" action="search.html" method="get">
+            <input type="search" name="q" id="main-search" placeholder="Title or author&hellip;" autocomplete="off">
+            <button type="submit">Search</button>
+        </form>
+        <div id="search-results"></div>
+    </div>
+
+    <footer class="site-footer">
+        <p>&ldquo;The real voyage of discovery consists not in seeking new landscapes, but in having new eyes.&rdquo;</p>
+    </footer>
+
+    <script>
+        document.querySelector('.nav-toggle').addEventListener('click', function () {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        function esc(str) {
+            const d = document.createElement('div');
+            d.appendChild(document.createTextNode(str));
+            return d.innerHTML;
+        }
+
+        async function runSearch() {
+            const params = new URLSearchParams(window.location.search);
+            const query = (params.get('q') || '').trim();
+
+            const mainSearch = document.getElementById('main-search');
+            const resultsEl  = document.getElementById('search-results');
+            const heroText   = document.getElementById('search-hero-text');
+
+            mainSearch.value = query;
+
+            if (!query) {
+                heroText.textContent = 'Search the catalog';
+                return;
+            }
+
+            document.title = '\u201C' + query + '\u201D \u2014 Search \u2014 Thinking about Reading';
+            heroText.textContent = 'Searching\u2026';
+            resultsEl.innerHTML = '<p class="search-status">Loading catalog\u2026</p>';
+
+            let doc;
+            try {
+                const resp = await fetch('catalog.html');
+                const html = await resp.text();
+                doc = new DOMParser().parseFromString(html, 'text/html');
+            } catch (e) {
+                resultsEl.innerHTML = '<p class="search-status">Could not load catalog.</p>';
+                return;
+            }
+
+            // Parse entries from the year view only (avoids duplicates from author view)
+            const yearView = doc.getElementById('view-year');
+            if (!yearView) {
+                resultsEl.innerHTML = '<p class="search-status">Could not parse catalog.</p>';
+                return;
+            }
+
+            const books = [];
+            let currentYear = '';
+
+            for (const el of yearView.children) {
+                if (el.tagName === 'H2') {
+                    currentYear = el.textContent.trim();
+                } else if (el.tagName === 'UL') {
+                    for (const li of el.querySelectorAll('.catalog-entry')) {
+                        const titleEl  = li.querySelector('.catalog-title');
+                        const authorEl = li.querySelector('.catalog-author');
+                        const linkEl   = li.querySelector('.catalog-title a');
+
+                        const title  = titleEl  ? titleEl.textContent.trim()  : '';
+                        const author = authorEl ? authorEl.textContent.trim() : '';
+                        const entryHref = linkEl ? linkEl.getAttribute('href') : null;
+
+                        if (!title) continue;
+
+                        books.push({
+                            title,
+                            author,
+                            year: currentYear,
+                            link: entryHref || ('catalog.html#' + encodeURIComponent(title)),
+                            hasEntry: !!entryHref
+                        });
+                    }
+                }
+            }
+
+            const q = query.toLowerCase();
+            const results = books.filter(b =>
+                b.title.toLowerCase().includes(q) ||
+                b.author.toLowerCase().includes(q)
+            );
+
+            if (results.length === 0) {
+                heroText.textContent = 'No results for \u201C' + query + '\u201D';
+                resultsEl.innerHTML = '<p class="search-status">No books found. Try a different search.</p>';
+                return;
+            }
+
+            heroText.textContent = results.length + ' result' + (results.length !== 1 ? 's' : '') + ' for \u201C' + query + '\u201D';
+
+            resultsEl.innerHTML = results.map(function (b) {
+                const badge = b.hasEntry
+                    ? '<span class="search-badge">Entry</span>'
+                    : '';
+                return '<div class="search-result">'
+                    + '<div class="search-result-title"><a href="' + b.link + '">' + esc(b.title) + '</a>' + badge + '</div>'
+                    + '<div class="search-result-meta">'
+                    + '<span class="search-result-author">' + esc(b.author) + '</span>'
+                    + '<span class="search-result-year">' + esc(b.year) + '</span>'
+                    + '</div>'
+                    + '</div>';
+            }).join('');
+        }
+
+        runSearch();
+    </script>
+</body>
+</html>
