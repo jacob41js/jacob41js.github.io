@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         .catalog-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(201, 169, 78, 0.3); }
+        .catalog-controls-right { display: flex; align-items: center; gap: 0.75rem; }
+        .jump-select { font-family: 'Cormorant Garamond', serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.4rem 2rem 0.4rem 0.8rem; border: 1px solid var(--gold); background-color: transparent; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a94e'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.55rem center; background-size: 0.55rem; color: var(--ink-light); cursor: pointer; -webkit-appearance: none; appearance: none; outline: none; transition: border-color 0.2s ease, color 0.2s ease; }
+        .jump-select:hover, .jump-select:focus { border-color: var(--dark-green); color: var(--ink); }
         .catalog-count { font-family: 'EB Garamond', serif; font-style: italic; color: var(--ink-light); font-size: 1rem; }
         .toggle-group { display: flex; border: 1px solid var(--gold); overflow: hidden; }
         .toggle-btn { font-family: 'Cormorant Garamond', serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.4rem 1.2rem; border: none; background: transparent; color: var(--ink-light); cursor: pointer; transition: all 0.25s ease; }
@@ -33,6 +36,7 @@
             .catalog-author { text-align: left; flex: 1; }
             .catalog-year-label { min-width: auto; }
             .catalog-controls { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+            .catalog-controls-right { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -61,9 +65,12 @@
     <div class="container">
         <div class="catalog-controls">
             <span class="catalog-count">518 books</span>
-            <div class="toggle-group">
-                <button class="toggle-btn active" data-view="year">By Year</button>
-                <button class="toggle-btn" data-view="alpha">By Author</button>
+            <div class="catalog-controls-right">
+                <select class="jump-select" id="jump-select" aria-label="Jump to section"></select>
+                <div class="toggle-group">
+                    <button class="toggle-btn active" data-view="year">By Year</button>
+                    <button class="toggle-btn" data-view="alpha">By Author</button>
+                </div>
             </div>
         </div>
         <div id="view-year" class="catalog-view active">
@@ -4886,14 +4893,49 @@
         document.querySelector('.nav-toggle').addEventListener('click', function() {
             document.querySelector('.nav-links').classList.toggle('active');
         });
+        // Build the jump dropdown from whichever view is active
+        function buildJumpSelect(view) {
+            const select = document.getElementById('jump-select');
+            select.innerHTML = '';
+            const placeholder = document.createElement('option');
+            placeholder.value = '';
+            placeholder.textContent = view === 'year' ? 'Jump to year\u2026' : 'Jump to letter\u2026';
+            select.appendChild(placeholder);
+
+            const dividerClass = view === 'year' ? '.year-divider' : '.alpha-divider';
+            document.querySelectorAll('#view-' + view + ' ' + dividerClass).forEach(function(h2) {
+                const text = h2.textContent.trim();
+                const id = 'jump-' + view + '-' + text.replace(/\s+/g, '-');
+                h2.id = id;
+                const opt = document.createElement('option');
+                opt.value = id;
+                opt.textContent = text;
+                select.appendChild(opt);
+            });
+        }
+
+        document.getElementById('jump-select').addEventListener('change', function() {
+            if (!this.value) return;
+            const target = document.getElementById(this.value);
+            if (target) {
+                const navHeight = document.querySelector('.nav-header').offsetHeight || 70;
+                const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+                window.scrollTo({ top: top, behavior: 'smooth' });
+            }
+            this.value = '';
+        });
+
         document.querySelectorAll('.toggle-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 document.querySelectorAll('.catalog-view').forEach(v => v.classList.remove('active'));
                 document.getElementById('view-' + this.dataset.view).classList.add('active');
+                buildJumpSelect(this.dataset.view);
             });
         });
+
+        buildJumpSelect('year');
     </script>
 </body>
 </html>
