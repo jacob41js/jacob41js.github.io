@@ -71,6 +71,10 @@
                     <button class="toggle-btn active" data-view="year">By Year</button>
                     <button class="toggle-btn" data-view="alpha">By Author</button>
                 </div>
+                <div class="control-separator"></div>
+                <button class="capsule-toggle active" id="capsuleToggle" onclick="toggleCapsules()">
+                    <span class="capsule-toggle-icon">❦</span> Notes
+                </button>
             </div>
         </div>
         <div id="view-year" class="catalog-view active">
@@ -79,6 +83,7 @@
                 <li class="catalog-entry">
                     <span class="catalog-title"><a href="philosophy/a-grief-observed.html">A Grief Observed</a></span>
                     <span class="catalog-author">C.S. Lewis</span>
+                    <div class="catalog-capsule">This book made me really wish nothing bad ever happens to me. But it also made me realize why it&#8217;s important to consider how I would react when it does, anyway.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title">All Things Are Full of Gods</span>
@@ -143,6 +148,7 @@
                 <li class="catalog-entry">
                     <span class="catalog-title"><a href="japan/the-book-of-tea.html">The Book of Tea</a></span>
                     <span class="catalog-author">Kakuzo Okakura</span>
+                    <div class="catalog-capsule">A more appealing minimalism than what you see at Ikea. It seems to me the ideal tea room and tea master are physical haikus. The world is full of beautiful things, why overcomplicate it.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title">The Box Man</span>
@@ -198,6 +204,7 @@
                 <li class="catalog-entry">
                     <span class="catalog-title"><a href="fiction/galapagos.html">Galápagos</a></span>
                     <span class="catalog-author">Kurt Vonnegut</span>
+                    <div class="catalog-capsule">In which Vonnegut tells us how he really feels about pleasure cruises.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title"><a href="philosophy/guide-for-the-perplexed.html">Guide for the Perplexed</a></span>
@@ -214,6 +221,7 @@
                 <li class="catalog-entry">
                     <span class="catalog-title"><a href="siberia/insiberia.html">In Siberia</a></span>
                     <span class="catalog-author">Colin Thubron</span>
+                    <div class="catalog-capsule">Hard-boiled travel writer ventures to the frozen ends of the earth and finds exactly what he was looking for &#8212; angst.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title">Jonathan Strange &amp; Mr Norrell</span>
@@ -230,10 +238,12 @@
                 <li class="catalog-entry">
                     <span class="catalog-title"><a href="siberia/notesfromadeadhouse.html">Notes from a Dead House</a></span>
                     <span class="catalog-author">Fyodor Dostoevsky</span>
+                    <div class="catalog-capsule">Perhaps the point was to illustrate the sheer boredom of Siberian exile.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title">Player Piano</span>
                     <span class="catalog-author">Kurt Vonnegut</span>
+                    <div class="catalog-capsule">Vonnegut cosplaying as an AI-doomer before it was fashionable.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title">Rediscover Jesus</span>
@@ -262,6 +272,7 @@
                 <li class="catalog-entry">
                     <span class="catalog-title"><a href="fiction/stoner.html">Stoner</a></span>
                     <span class="catalog-author">John Williams</span>
+                    <div class="catalog-capsule">It sucks admitting I won&#8217;t be remembered, but reading Stoner illustrated why a life of quiet dignity still matters.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title"><a href="philosophy/summa-theologiae.html">Summa Theologiae</a></span>
@@ -282,6 +293,7 @@
                 <li class="catalog-entry">
                     <span class="catalog-title"><a href="philosophy/the-burnout-society.html">The Burnout Society</a></span>
                     <span class="catalog-author">Byung-Chul Han</span>
+                    <div class="catalog-capsule">A poignant reminder to me that limitlessness is an illusion. Beware pretending otherwise.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title">The Discourses</span>
@@ -298,6 +310,7 @@
                 <li class="catalog-entry">
                     <span class="catalog-title"><a href="siberia/thegreatsoulofsiberia.html">The Great Soul of Siberia</a></span>
                     <span class="catalog-author">Sooyong Park</span>
+                    <div class="catalog-capsule">Think Walden but with tigers and no leaving when the weather gets bad.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title">The House of the Dead</span>
@@ -306,10 +319,12 @@
                 <li class="catalog-entry">
                     <span class="catalog-title"><a href="fiction/the-maniac.html">The MANIAC</a></span>
                     <span class="catalog-author">Benjamin Labatut</span>
+                    <div class="catalog-capsule">All along I had a feverish thrill of being on the cusp of either something divine or total madness, as if I were really sitting next to von Neumann.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title"><a href="siberia/thereindeerpeople.html">The Reindeer People</a></span>
                     <span class="catalog-author">Piers Vitebsky</span>
+                    <div class="catalog-capsule">The absurdity of the specifics of this land &#8212; 1,500 separate words to talk about reindeer, or seeing the trampled ground of a herding camp from space &#8212; are exactly why Siberia fascinates me. Modern creature comforts have never seemed so quaint yet oddly insidious.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title">The Return of the King</span>
@@ -1677,6 +1692,7 @@
                 <li class="catalog-entry">
                     <span class="catalog-title">Infinite Jest</span>
                     <span class="catalog-author">David Foster Wallace</span>
+                    <div class="catalog-capsule">For two months I looked forward to my lunch break as a grad student at UDel so I could escape ocean wave mechanics and read DFW&#8217;s footnotes. I may have internalized the wrong lesson, though, because I always think of this book while flossing.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title">Lolita</span>
@@ -1791,6 +1807,7 @@
                 <li class="catalog-entry">
                     <span class="catalog-title">Fear and Trembling</span>
                     <span class="catalog-author">Søren Kierkegaard</span>
+                    <div class="catalog-capsule">I remember walking to Benedum Hall in springtime at Pitt glued to this book as cars whipped by me. This was the first true definition of faith I ever read, and the only one I&#8217;ll ever need.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title">One Hundred Years of Solitude</span>
@@ -2012,6 +2029,7 @@
                 <li class="catalog-entry">
                     <span class="catalog-title">East of Eden</span>
                     <span class="catalog-author">John Steinbeck</span>
+                    <div class="catalog-capsule">My creative writing professor said writing should be like turning on the camera and letting the film roll. Steinbeck&#8217;s Salinas Valley showed me what that meant.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title">God, Reason, and Religion</span>
@@ -2123,6 +2141,7 @@
                 <li class="catalog-entry">
                     <span class="catalog-title">Sex, Drugs, and Cocoa Puffs: A Low Culture Manifesto</span>
                     <span class="catalog-author">Chuck Klosterman</span>
+                    <div class="catalog-capsule">Mrs. Wally&#8217;s AP English class got to witness me deliver a speech doubting the identity of Shakespeare because of this book. Thus began the long career of a wannabe Klosterman. (And really, why should we consider dating someone for their intelligence any less shallow than dating them for their looks?)</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title">Tao Te Ching</span>
@@ -2135,6 +2154,7 @@
                 <li class="catalog-entry">
                     <span class="catalog-title">The Brothers Karamazov</span>
                     <span class="catalog-author">Fyodor Dostoevsky</span>
+                    <div class="catalog-capsule">16-year old me wanted to be Ivan. 27-year old me wished, but knew he could never be, Alyosha.</div>
                 </li>
                 <li class="catalog-entry">
                     <span class="catalog-title">The Idiot</span>
@@ -5030,6 +5050,12 @@
         });
 
         buildJumpSelect('year');
+
+        function toggleCapsules() {
+            const btn = document.getElementById('capsuleToggle');
+            document.body.classList.toggle('capsules-hidden');
+            btn.classList.toggle('active');
+        }
     </script>
 </body>
 </html>

@@ -781,3 +781,73 @@ body {
     outline: 1px solid rgba(201, 169, 78, 0.5);
     transition: background 2.5s ease-out, outline 2.5s ease-out !important;
 }
+
+/* ── Catalog Controls Bar ─────────────────────────── */
+
+.control-separator {
+    width: 1px;
+    height: 24px;
+    background: rgba(201, 169, 78, 0.4);
+    margin: 0 0.8rem;
+}
+
+.capsule-toggle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--purple-soft);
+    background: transparent;
+    color: var(--purple-soft);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.capsule-toggle.active {
+    background: var(--purple);
+    color: var(--cream);
+    border-color: var(--purple);
+}
+
+.capsule-toggle:hover:not(.active) {
+    background: var(--purple-pale);
+}
+
+.capsule-toggle-icon {
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+/* ── Catalog Capsule Text ─────────────────────────── */
+
+.catalog-entry:has(.catalog-capsule) {
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.catalog-capsule {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--purple-soft);
+    margin-top: 0.25rem;
+    padding-left: 0.8rem;
+    border-left: 2px solid rgba(201, 169, 78, 0.4);
+    flex-basis: 100%;
+    max-height: 200px;
+    overflow: hidden;
+    transition: max-height 0.3s ease, margin-top 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
+}
+
+body.capsules-hidden .catalog-capsule {
+    max-height: 0;
+    margin-top: 0;
+    opacity: 0;
+}
