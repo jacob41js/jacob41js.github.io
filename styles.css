@@ -851,3 +851,55 @@ body.capsules-hidden .catalog-capsule {
     margin-top: 0;
     opacity: 0;
 }
+
+/* ── About Page ───────────────────────────────────── */
+
+.about-container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.about-content p {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--ink);
+    margin-bottom: 1.4rem;
+    text-align: justify;
+    hyphens: auto;
+}
+
+.about-content p:first-child::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.6rem;
+    font-weight: 600;
+    color: var(--purple);
+    float: left;
+    line-height: 0.9;
+    padding: 0.3rem 0.6rem 0 0;
+}
+
+.about-divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.4rem;
+    letter-spacing: 0.5em;
+    opacity: 0.6;
+}
+
+.about-signoff {
+    font-style: italic;
+    color: var(--ink-light);
+    text-align: center;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(201, 169, 78, 0.3);
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .about-container { padding: 2rem 1.5rem; }
+    .about-content p { text-align: left; }
+}
