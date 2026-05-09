@@ -900,6 +900,6 @@ body.capsules-hidden .catalog-capsule {
 }
 
 @media (max-width: 768px) {
-    .about-container { padding: 2rem 1.5rem; }
+    .about-container { padding: 2rem 2rem; }
     .about-content p { text-align: left; }
 }
